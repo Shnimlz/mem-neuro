@@ -1214,7 +1214,7 @@ async def reformulate_search_query(history_messages: list, current_message: str)
         prompt += f"Nueva pregunta: {current_message}\n"
         prompt += "Consulta de búsqueda reescrita:"
 
-        async with httpx.AsyncClient(timeout=4.0) as client:
+        async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.post(
                 f"{LLM_URL_BASE}/v1/chat/completions",
                 json={
@@ -1239,7 +1239,7 @@ async def reformulate_search_query(history_messages: list, current_message: str)
                 return rewritten
     except Exception as exc:
         logger.warning("[Query Reformulation] Fallo al reformular query: %s", exc)
-    return current_message
+    return None
 
 
 async def query_memory_and_enrich(message: str, session_id: str, history: list = None) -> tuple[str, str]:
@@ -1269,7 +1269,11 @@ async def query_memory_and_enrich(message: str, session_id: str, history: list =
             if history and len(history) > 0:
                 search_query = await reformulate_search_query(history, message)
             
-            web_task = asyncio.create_task(_background_web_search(search_query))
+            if search_query is not None:
+                web_task = asyncio.create_task(_background_web_search(search_query))
+            else:
+                logger.info("[Proxy Web Search] Ignorando búsqueda web de fondo por fallo en la reformulación")
+                web_task = None
 
     # 2. Obtener embedding de forma segura
     embedding = None
