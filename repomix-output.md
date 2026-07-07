@@ -1,45 +1,39 @@
 This file is a merged representation of the entire codebase, combined into a single document by Repomix.
 
-<file_summary>
-This section contains a summary of this file.
+# File Summary
 
-<purpose>
+## Purpose
 This file contains a packed representation of the entire repository's contents.
 It is designed to be easily consumable by AI systems for analysis, code review,
 or other automated processes.
-</purpose>
 
-<file_format>
+## File Format
 The content is organized as follows:
 1. This summary section
 2. Repository information
 3. Directory structure
 4. Repository files (if enabled)
 5. Multiple file entries, each consisting of:
-  - File path as an attribute
-  - Full contents of the file
-</file_format>
+  a. A header with the file path (## File: path/to/file)
+  b. The full contents of the file in a code block
 
-<usage_guidelines>
+## Usage Guidelines
 - This file should be treated as read-only. Any changes should be made to the
   original repository files, not this packed version.
 - When processing this file, use the file path to distinguish
   between different files in the repository.
 - Be aware that this file may contain sensitive information. Handle it with
   the same level of security as you would the original repository.
-</usage_guidelines>
 
-<notes>
+## Notes
 - Some files may have been excluded based on .gitignore rules and Repomix's configuration
 - Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
 - Files matching patterns in .gitignore are excluded
 - Files matching default ignore patterns are excluded
 - Files are sorted by Git change count (files with more changes are at the bottom)
-</notes>
 
-</file_summary>
-
-<directory_structure>
+# Directory Structure
+```
 cerebro_unificado/
   backend/
     __init__.py
@@ -805,16 +799,17 @@ storage/
 2026-07-07_20-35-53_conv_24c8a781_que_comparaciones_ha.jsonl
 cerebro-brain-core.service
 Proyecto.md
-</directory_structure>
+```
 
-<files>
-This section contains the contents of the repository's files.
+# Files
 
-<file path="cerebro_unificado/backend/__init__.py">
+## File: cerebro_unificado/backend/__init__.py
+````python
 # brain_core — Cerebro Autónomo Unificado: Motor cognitivo en Python
-</file>
+````
 
-<file path="cerebro_unificado/backend/requirements.txt">
+## File: cerebro_unificado/backend/requirements.txt
+````
 fastapi>=0.115
 uvicorn[standard]>=0.30
 aiosqlite>=0.20
@@ -823,9 +818,10 @@ pyyaml>=6.0
 websockets>=12.0
 sqlite-vec>=0.1.9
 beautifulsoup4>=4.12.0
-</file>
+````
 
-<file path="cerebro_unificado/backend/sources.json">
+## File: cerebro_unificado/backend/sources.json
+````json
 {
   "sources": [
     {
@@ -852,9 +848,10 @@ beautifulsoup4>=4.12.0
     }
   ]
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.storybook/decorators/ModeWatcherDecorator.svelte">
+## File: cerebro_unificado/frontend/.storybook/decorators/ModeWatcherDecorator.svelte
+````svelte
 <script lang="ts">
 	import { ModeWatcher } from 'mode-watcher';
 	import { onMount } from 'svelte';
@@ -891,9 +888,10 @@ beautifulsoup4>=4.12.0
 
 	<Component />
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.storybook/decorators/TooltipProviderDecorator.svelte">
+## File: cerebro_unificado/frontend/.storybook/decorators/TooltipProviderDecorator.svelte
+````svelte
 <script lang="ts">
 	import * as Tooltip from '../../src/lib/components/ui/tooltip';
 
@@ -907,9 +905,10 @@ beautifulsoup4>=4.12.0
 <Tooltip.Provider>
 	{@render children()}
 </Tooltip.Provider>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.storybook/main.ts">
+## File: cerebro_unificado/frontend/.storybook/main.ts
+````typescript
 import type { StorybookConfig } from '@storybook/sveltekit';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -934,9 +933,10 @@ const config: StorybookConfig = {
 	}
 };
 export default config;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.storybook/preview.ts">
+## File: cerebro_unificado/frontend/.storybook/preview.ts
+````typescript
 import type { Preview } from '@storybook/sveltekit';
 import '../src/app.css';
 import ModeWatcherDecorator from './decorators/ModeWatcherDecorator.svelte';
@@ -979,9 +979,10 @@ const preview: Preview = {
 };
 
 export default preview;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.storybook/vitest.setup.ts">
+## File: cerebro_unificado/frontend/.storybook/vitest.setup.ts
+````typescript
 import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview';
 import { setProjectAnnotations } from '@storybook/sveltekit';
 import * as previewAnnotations from './preview';
@@ -994,9 +995,10 @@ beforeAll(async () => {
 		await project.beforeAll();
 	}
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/architecture/high-level-architecture-simplified.md">
+## File: cerebro_unificado/frontend/docs/architecture/high-level-architecture-simplified.md
+````markdown
 ```mermaid
 flowchart TB
     subgraph Routes["📍 Routes"]
@@ -1142,9 +1144,10 @@ flowchart TB
     class API1,API2,API3,API4 apiStyle
     class EXT1,EXT2 externalStyle
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/architecture/high-level-architecture.md">
+## File: cerebro_unificado/frontend/docs/architecture/high-level-architecture.md
+````markdown
 ```mermaid
 flowchart TB
 subgraph Routes["📍 Routes"]
@@ -1518,9 +1521,10 @@ end
     class ST1,ST2,ST3,ST5,ST6,ST7,ST8 storageStyle
     class API1,API2,API3,API4 apiStyle
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/chat-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/chat-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant UI as 🧩 ChatForm / ChatMessage
@@ -1749,9 +1753,10 @@ sequenceDiagram
     agenticStore-->>chatStore: final content, timings, model
     deactivate agenticStore
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/conversations-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/conversations-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant UI as 🧩 ChatSidebar / ChatScreen
@@ -1935,9 +1940,10 @@ sequenceDiagram
     convStore->>convStore: loadConversations()
     deactivate convStore
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/data-flow-simplified-model-mode.md">
+## File: cerebro_unificado/frontend/docs/flows/data-flow-simplified-model-mode.md
+````markdown
 ```mermaid
 %% MODEL Mode Data Flow (single model)
 %% Detailed flows: ./flows/server-flow.mmd, ./flows/models-flow.mmd, ./flows/chat-flow.mmd
@@ -1983,9 +1989,10 @@ sequenceDiagram
     Stores->>Stores: abort stream
     Stores->>DB: save partial response
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/data-flow-simplified-router-mode.md">
+## File: cerebro_unificado/frontend/docs/flows/data-flow-simplified-router-mode.md
+````markdown
 ```mermaid
 %% ROUTER Mode Data Flow (multi-model)
 %% Detailed flows: ./flows/server-flow.mmd, ./flows/models-flow.mmd, ./flows/chat-flow.mmd
@@ -2063,9 +2070,10 @@ sequenceDiagram
     User->>UI: select unloaded model
     Note right of Stores: triggers load flow again
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/database-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/database-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant Store as 🗄️ Stores
@@ -2240,9 +2248,10 @@ sequenceDiagram
         Note over DbSvc: findDescendantMessages(msgId, messages)<br/>→ Find all children recursively<br/>→ Used for cascading deletes
     end
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/mcp-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/mcp-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant UI as 🧩 McpServersSettings / ChatForm
@@ -2469,9 +2478,10 @@ sequenceDiagram
     mcpStore->>mcpResStore: clear()
     deactivate mcpStore
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/models-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/models-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant UI as 🧩 ModelsSelector
@@ -2653,9 +2663,10 @@ sequenceDiagram
 
     Note over modelsStore: Modality helpers:<br/>- getModelModalities(modelId): {vision, audio}<br/>- modelSupportsVision(modelId): boolean<br/>- modelSupportsAudio(modelId): boolean
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/server-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/server-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant UI as 🧩 +layout.svelte
@@ -2732,9 +2743,10 @@ sequenceDiagram
 
     Note over serverStore: clear(): void<br/>Resets all state (props, error, loading, role)
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/docs/flows/settings-flow.md">
+## File: cerebro_unificado/frontend/docs/flows/settings-flow.md
+````markdown
 ```mermaid
 sequenceDiagram
     participant UI as 🧩 ChatSettings
@@ -2891,9 +2903,10 @@ sequenceDiagram
         Note over settingsStore: systemMessage, custom (JSON)<br/>showStatistics, enableContinueGeneration<br/>autoMicOnEmpty, disableAutoScroll<br/>apiKey, pdfAsImage, disableReasoningParsing, showRawOutputSwitch
     end
 ```
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/git-hooks/install.sh">
+## File: cerebro_unificado/frontend/scripts/git-hooks/install.sh
+````bash
 #!/usr/bin/env bash
 #
 # Install git hooks for llama-ui
@@ -2929,9 +2942,10 @@ echo "Pre-push:    lint + test"
 echo ""
 echo "Hooks stash unstaged changes temporarily and restore them after."
 echo "Skip with:  git commit --no-verify / git push --no-verify"
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/git-hooks/pre-commit.sh">
+## File: cerebro_unificado/frontend/scripts/git-hooks/pre-commit.sh
+````bash
 #!/usr/bin/env bash
 #
 # Pre-commit hook for llama-ui
@@ -2989,9 +3003,10 @@ fi
 
 echo "✅ Pre-commit checks passed"
 exit 0
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/git-hooks/pre-push.sh">
+## File: cerebro_unificado/frontend/scripts/git-hooks/pre-push.sh
+````bash
 #!/usr/bin/env bash
 #
 # Pre-push hook for llama-ui
@@ -3059,9 +3074,10 @@ fi
 
 echo "✅ Pre-push checks passed"
 exit 0
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/dev.sh">
+## File: cerebro_unificado/frontend/scripts/dev.sh
+````bash
 #!/bin/bash
 
 # Development script for llama-ui
@@ -3123,9 +3139,10 @@ storybook dev -p 6006 --ci & NODE_OPTIONS="--insecure-http-parser" vite dev --ho
 
 # Wait for all background processes
 wait
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/favicon-colorize.ts">
+## File: cerebro_unificado/frontend/scripts/favicon-colorize.ts
+````typescript
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -3233,9 +3250,10 @@ export function writeThemeFavicons(
 	writeFileSync(lightOutPath, padFaviconSvg(light, padding));
 	writeFileSync(darkOutPath, padFaviconSvg(dark, padding));
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/make-icons-circular.js">
+## File: cerebro_unificado/frontend/scripts/make-icons-circular.js
+````javascript
 #!/usr/bin/env node
 
 /**
@@ -3373,9 +3391,10 @@ async function main() {
 }
 
 main();
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/vite-plugin-build-info.ts">
+## File: cerebro_unificado/frontend/scripts/vite-plugin-build-info.ts
+````typescript
 import { writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'path';
 import type { Plugin } from 'vite';
@@ -3417,9 +3436,10 @@ export function buildInfoPlugin(): Plugin {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/vite-plugin-relativize-base.ts">
+## File: cerebro_unificado/frontend/scripts/vite-plugin-relativize-base.ts
+````typescript
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'path';
 import type { Plugin } from 'vite';
@@ -3481,9 +3501,10 @@ export function relativizeBasePlugin(): Plugin {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/scripts/vite-plugin-splash-screen.ts">
+## File: cerebro_unificado/frontend/scripts/vite-plugin-splash-screen.ts
+````typescript
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'path';
 import type { Plugin } from 'vite';
@@ -3599,9 +3620,10 @@ export function splashScreenPlugin(): Plugin {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/actions/fade-in-view.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/actions/fade-in-view.svelte.ts
+````typescript
 import { isElementInViewport } from '$lib/utils/viewport';
 
 /**
@@ -3651,9 +3673,10 @@ export function fadeInView(
 		};
 	});
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/assets/logo.svg">
+## File: cerebro_unificado/frontend/src/lib/assets/logo.svg
+````xml
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M244.95 8C215.233 8 187.774 23.8591 172.923 49.5999L95.6009 183.625C60.2162 244.959 104.481 321.6 175.29 321.6H208L316.977 132.708C348.959 77.2719 308.95 8 244.95 8ZM208 321.6H351.947C415.982 321.6 456.013 390.91 424.013 446.377C409.155 472.132 381.681 488 351.947 488H271.29C200.481 488 156.216 411.359 191.601 350.026L208 321.6Z" fill="currentColor"/>
     <path d="M208 321.6H16L106.462 164.8L208 321.6Z" fill="currentColor"/>
@@ -3661,9 +3684,10 @@ export function fadeInView(
     <path d="M304 488H112L202.462 331.2L304 488Z" fill="currentColor"/>
     <path d="M496 321.6H208L419.399 454.4L496 321.6Z" fill="currentColor"/>
 </svg>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/actions/ActionIcon.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/actions/ActionIcon.svelte
+````svelte
 <script lang="ts">
 	import { Button, type ButtonVariant, type ButtonSize } from '$lib/components/ui/button';
 	import * as Tooltip from '$lib/components/ui/tooltip';
@@ -3745,9 +3769,10 @@ export function fadeInView(
 {/if}
 
 <svelte:window bind:innerWidth />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/actions/ActionIconCopyToClipboard.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/actions/ActionIconCopyToClipboard.svelte
+````svelte
 <script lang="ts">
 	import { Copy } from '@lucide/svelte';
 	import { copyToClipboard } from '$lib/utils';
@@ -3765,9 +3790,10 @@ export function fadeInView(
 	disabled={!canCopy}
 	onclick={() => canCopy && copyToClipboard(text)}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/actions/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/actions/index.ts
+````typescript
 /**
  *
  * ACTIONS
@@ -3781,9 +3807,10 @@ export { default as ActionIcon } from './ActionIcon.svelte';
 
 /** Copy-to-clipboard icon button with clipboard logic. */
 export { default as ActionIconCopyToClipboard } from './ActionIconCopyToClipboard.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/badges/BadgeInfo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/badges/BadgeInfo.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
@@ -3810,9 +3837,10 @@ export { default as ActionIconCopyToClipboard } from './ActionIconCopyToClipboar
 
 	{@render children()}
 </button>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/badges/BadgesModality.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/badges/BadgesModality.svelte
+````svelte
 <script lang="ts">
 	import { Eye, Mic, Video } from '@lucide/svelte';
 	import { ModelModality } from '$lib/enums';
@@ -3849,9 +3877,10 @@ export { default as ActionIconCopyToClipboard } from './ActionIconCopyToClipboar
 		</span>
 	{/if}
 {/each}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/badges/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/badges/index.ts
+````typescript
 /**
  *
  * BADGES & INDICATORS
@@ -3865,9 +3894,10 @@ export { default as BadgeInfo } from './BadgeInfo.svelte';
 
 /** Badge indicating model modality (vision, audio, tools). */
 export { default as BadgesModality } from './BadgesModality.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItem.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItem.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatAttachmentsListItemMcpPrompt,
@@ -4000,9 +4030,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		onclick={() => onPreview?.(item)}
 	/>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemMcpPrompt.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemMcpPrompt.svelte
+````svelte
 <script lang="ts">
 	import { ChatMessageMcpPromptContent, ActionIcon } from '$lib/components/app';
 	import { X } from '@lucide/svelte';
@@ -4044,9 +4075,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemMcpResource.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemMcpResource.svelte
+````svelte
 <script lang="ts">
 	import { Loader2, AlertCircle } from '@lucide/svelte';
 	import { mcpStore } from '$lib/stores/mcp.svelte';
@@ -4136,9 +4168,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	</Tooltip.Content>
 </Tooltip.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemThumbnailFile.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemThumbnailFile.svelte
+````svelte
 <script lang="ts">
 	import { X, Music, Video } from '@lucide/svelte';
 	import {
@@ -4325,9 +4358,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	</button>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemThumbnailImage.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsListItem/ChatAttachmentsListItemThumbnailImage.svelte
+````svelte
 <script lang="ts">
 	import { ActionIcon } from '$lib/components/app';
 	import { X } from '@lucide/svelte';
@@ -4393,9 +4427,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsList.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsList/ChatAttachmentsList.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatAttachmentsListItem,
@@ -4515,9 +4550,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 {#if mcpResourcePreviewExtra}
 	<DialogMcpResourcePreview extra={mcpResourcePreviewExtra} bind:open={mcpResourcePreviewOpen} />
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItem.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItem.svelte
+````svelte
 <script lang="ts">
 	import type { ChatAttachmentDisplayItem } from '$lib/types';
 	import { Image, Music, Video, FileText, FileIcon } from '@lucide/svelte';
@@ -4592,9 +4628,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	{/key}
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemAudio.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemAudio.svelte
+````svelte
 <script lang="ts">
 	import { Music } from '@lucide/svelte';
 
@@ -4621,9 +4658,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<p class="text-sm text-white/50">{currentItem?.name || 'Audio'}</p>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemImage.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemImage.svelte
+````svelte
 <script lang="ts">
 	interface Props {
 		currentItem: { name?: string } | null;
@@ -4642,9 +4680,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		/>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemPdf.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemPdf.svelte
+````svelte
 <script lang="ts">
 	import type { ChatAttachmentDisplayItem } from '$lib/types';
 	import { FileText, Eye, Info } from '@lucide/svelte';
@@ -4819,9 +4858,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		/>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemText.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemText.svelte
+````svelte
 <script lang="ts">
 	import { SyntaxHighlightedCode } from '$lib/components/app';
 
@@ -4843,9 +4883,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		/>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemUnavailable.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemUnavailable.svelte
+````svelte
 <script lang="ts">
 	import type { Component } from 'svelte';
 
@@ -4863,9 +4904,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<p class="text-white/70">Preview not available for this file type</p>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemVideo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewCurrentItem/ChatAttachmentsPreviewCurrentItemVideo.svelte
+````svelte
 <script lang="ts">
 	import { Video } from '@lucide/svelte';
 
@@ -4893,9 +4935,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<p class="text-sm text-white/50">{currentItem?.name || 'Video'}</p>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewFileInfo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewFileInfo.svelte
+````svelte
 <script lang="ts">
 	interface Props {
 		displayName: string;
@@ -4912,9 +4955,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<p class="text-xs text-white/60">{fileSize}</p>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewNavButtons.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewNavButtons.svelte
+````svelte
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -4949,9 +4993,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<ChevronRight class="size-4" />
 	</Button>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewThumbnailStrip.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview/ChatAttachmentsPreviewThumbnailStrip.svelte
+````svelte
 <script lang="ts">
 	import { Music, Video, FileText } from '@lucide/svelte';
 	import { HorizontalScrollCarousel } from '$lib/components/app/misc';
@@ -5018,9 +5063,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</HorizontalScrollCarousel>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatAttachments/ChatAttachmentsPreview.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatAttachmentsPreviewCurrentItem,
@@ -5233,9 +5279,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddButton.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddButton.svelte
+````svelte
 <script lang="ts">
 	import { Plus } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -5269,9 +5316,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<p>{ATTACHMENT_TOOLTIP_TEXT}</p>
 	</Tooltip.Content>
 </Tooltip.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddDropdown.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddDropdown.svelte
+````svelte
 <script lang="ts">
 	import { Plus, File, MessageSquare, Zap, FolderOpen } from '@lucide/svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -5451,9 +5499,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddMcpServersSubmenu.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddMcpServersSubmenu.svelte
+````svelte
 <script lang="ts">
 	import { Settings, Plus } from '@lucide/svelte';
 	import { Switch } from '$lib/components/ui/switch';
@@ -5604,9 +5653,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</DropdownMenu.SubContent>
 	</DropdownMenu.Sub>
 </DropdownMenu.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddSheet.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddSheet.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import * as Tooltip from '$lib/components/ui/tooltip';
@@ -5915,9 +5965,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</Sheet.Content>
 	</Sheet.Root>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddToolsSubmenu.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionAddToolsSubmenu.svelte
+````svelte
 <script lang="ts">
 	import { PencilRuler, ChevronDown, ChevronRight, Loader2, Info, Check } from '@lucide/svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox';
@@ -6075,9 +6126,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	</DropdownMenu.SubContent>
 </DropdownMenu.Sub>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionsAdd.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionAdd/ChatFormActionsAdd.svelte
+````svelte
 <script lang="ts">
 	import { isMobile } from '$lib/stores/viewport.svelte';
 	import ChatFormActionAddDropdown from './ChatFormActionAddDropdown.svelte';
@@ -6145,9 +6197,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{onSystemPromptClick}
 	/>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionModels.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionModels.svelte
+````svelte
 <script lang="ts">
 	import { chatStore } from '$lib/stores/chat.svelte';
 	import {
@@ -6341,9 +6394,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{useGlobalSelection}
 	/>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionRecord.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionRecord.svelte
+````svelte
 <script lang="ts">
 	import { Mic, Square } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -6396,9 +6450,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	</Tooltip.Root>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActions.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActions.svelte
+````svelte
 <script lang="ts">
 	import { Square, SkipForward } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -6576,9 +6631,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		/>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionSubmit.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormActionSubmit.svelte
+````svelte
 <script lang="ts">
 	import { ArrowUp } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -6625,9 +6681,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 {:else}
 	{@render submitButton()}
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormReasoningEffortSubmenu.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormReasoningEffortSubmenu.svelte
+````svelte
 <script lang="ts">
 	import { Check, Info, Lightbulb, LightbulbOff } from '@lucide/svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -6760,9 +6817,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</DropdownMenu.SubContent>
 	</DropdownMenu.Sub>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormReasoningToggle.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormActions/ChatFormReasoningToggle.svelte
+````svelte
 <script lang="ts">
 	import { Lightbulb, LightbulbOff, Check, Info } from '@lucide/svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -6908,9 +6966,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerItemHeader.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerItemHeader.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { MCPServerSettingsEntry } from '$lib/types';
@@ -6966,9 +7025,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{@render subtitle()}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerList.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerList.svelte
+````svelte
 <script lang="ts" generics="T">
 	import type { Snippet } from 'svelte';
 	import { SearchInput } from '$lib/components/app';
@@ -7050,9 +7110,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{@render footer()}
 	{/if}
 </ScrollArea>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerListItem.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerListItem.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
@@ -7076,9 +7137,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 >
 	{@render children()}
 </button>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerListItemSkeleton.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerListItemSkeleton.svelte
+````svelte
 <script lang="ts">
 	interface Props {
 		titleWidth?: string;
@@ -7109,9 +7171,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<div class="h-3 w-full animate-pulse rounded bg-muted"></div>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerPopover.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPicker/ChatFormPickerPopover.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import * as Popover from '$lib/components/ui/popover';
@@ -7162,9 +7225,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{@render children()}
 	</Popover.Content>
 </Popover.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpPrompts/ChatFormPickerMcpPrompts.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpPrompts/ChatFormPickerMcpPrompts.svelte
+````svelte
 <script lang="ts">
 	import { conversationsStore } from '$lib/stores/conversations.svelte';
 	import { mcpStore } from '$lib/stores/mcp.svelte';
@@ -7600,9 +7664,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</ChatFormPickerList>
 	{/if}
 </ChatFormPickerPopover>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpPrompts/ChatFormPromptPickerArgumentForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpPrompts/ChatFormPromptPickerArgumentForm.svelte
+````svelte
 <script lang="ts">
 	import type { MCPPromptInfo } from '$lib/types';
 	import ChatFormPromptPickerArgumentInput from './ChatFormPromptPickerArgumentInput.svelte';
@@ -7677,9 +7742,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<Button size="sm" type="submit">Use Prompt</Button>
 	</div>
 </form>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpPrompts/ChatFormPromptPickerArgumentInput.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpPrompts/ChatFormPromptPickerArgumentInput.svelte
+````svelte
 <script lang="ts">
 	import type { MCPPromptInfo } from '$lib/types';
 	import { fly } from 'svelte/transition';
@@ -7764,9 +7830,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpResources.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickerMcpResources.svelte
+````svelte
 <script lang="ts">
 	import { conversationsStore } from '$lib/stores/conversations.svelte';
 	import { mcpStore } from '$lib/stores/mcp.svelte';
@@ -8004,9 +8071,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/snippet}
 	</ChatFormPickerList>
 </ChatFormPickerPopover>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickers.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormPickers/ChatFormPickers.svelte
+````svelte
 <script lang="ts">
 	import ChatFormPickerMcpPrompts from './ChatFormPickerMcpPrompts/ChatFormPickerMcpPrompts.svelte';
 	import ChatFormPickerMcpResources from './ChatFormPickerMcpResources.svelte';
@@ -8082,9 +8150,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 	onResourceSelect={onInlineResourceSelect}
 	onBrowse={onInlineResourceBrowse}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatForm.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatAttachmentsList,
@@ -8657,9 +8726,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		}
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormFileInputInvisible.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormFileInputInvisible.svelte
+````svelte
 <script lang="ts">
 	interface Props {
 		class?: string;
@@ -8691,9 +8761,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 	onchange={handleFileSelect}
 	class="hidden {className}"
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormMcpResourcesList.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormMcpResourcesList.svelte
+````svelte
 <script lang="ts">
 	import { mcpStore } from '$lib/stores/mcp.svelte';
 	import {
@@ -8738,9 +8809,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</HorizontalScrollCarousel>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormTextarea.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatForm/ChatFormTextarea.svelte
+````svelte
 <script lang="ts">
 	import { isMobile } from '$lib/stores/viewport.svelte';
 	import { autoResizeTextarea } from '$lib/utils';
@@ -8812,9 +8884,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{placeholder}
 	></textarea>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageAssistant/ChatMessageAssistant.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageAssistant/ChatMessageAssistant.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatMessageAgenticContent,
@@ -9278,9 +9351,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		word-break: break-word;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageMcpPrompt/ChatMessageMcpPrompt.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageMcpPrompt/ChatMessageMcpPrompt.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatMessageActionIcons,
@@ -9364,9 +9438,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageMcpPrompt/ChatMessageMcpPromptContent.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageMcpPrompt/ChatMessageMcpPromptContent.svelte
+````svelte
 <script lang="ts">
 	import { Card } from '$lib/components/ui/card';
 	import type { DatabaseMessageExtraMcpPrompt } from '$lib/types';
@@ -9564,9 +9639,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</Card>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageUser/ChatMessageUser.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageUser/ChatMessageUser.svelte
+````svelte
 <script lang="ts">
 	import {
 		ChatMessageActionIcons,
@@ -9650,9 +9726,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageUser/ChatMessageUserPending.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageUser/ChatMessageUserPending.svelte
+````svelte
 <script lang="ts">
 	import { ActionIcon, ChatMessageEditForm, ChatMessageUserBubble } from '$lib/components/app';
 	import { fadeInView } from '$lib/actions/fade-in-view.svelte';
@@ -9722,9 +9799,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessage.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessage.svelte
+````svelte
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { getChatActionsContext, setMessageEditContext } from '$lib/contexts';
@@ -10120,9 +10198,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		/>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionCard/ChatMessageActionCard.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionCard/ChatMessageActionCard.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet, Component } from 'svelte';
 
@@ -10146,9 +10225,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{@render actions()}
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionCard/ChatMessageActionCardContinueRequest.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionCard/ChatMessageActionCardContinueRequest.svelte
+````svelte
 <script lang="ts">
 	import { RotateCw } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -10179,9 +10259,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</Button>
 	{/snippet}
 </ChatMessageActionCard>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionCard/ChatMessageActionCardPermissionRequest.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionCard/ChatMessageActionCardPermissionRequest.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, ShieldQuestion } from '@lucide/svelte';
 	import { ChatMessageActionCard } from '$lib/components/app';
@@ -10262,9 +10343,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</Button>
 	{/snippet}
 </ChatMessageActionCard>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionIcons/ChatMessageActionIcons.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionIcons/ChatMessageActionIcons.svelte
+````svelte
 <script lang="ts">
 	import { Edit, Copy, RefreshCw, Trash2, ArrowRight, GitBranch } from '@lucide/svelte';
 	import {
@@ -10449,9 +10531,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</div>
 	</div>
 </DialogConfirmation>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionIcons/ChatMessageActionIconsBranchingControls.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageActions/ChatMessageActionIcons/ChatMessageActionIconsBranchingControls.svelte
+````svelte
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 	import { ActionIcon } from '$lib/components/app';
@@ -10501,9 +10584,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		/>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageStatistics/ChatMessageStatistics.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageStatistics/ChatMessageStatistics.svelte
+````svelte
 <script lang="ts">
 	import { Clock, Gauge, WholeWord, BookOpenText, Sparkles, Wrench, Layers } from '@lucide/svelte';
 	import { ChatMessageStatisticsBadge } from '$lib/components/app';
@@ -10786,9 +10870,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageStatistics/ChatMessageStatisticsBadge.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageStatistics/ChatMessageStatisticsBadge.svelte
+````svelte
 <script lang="ts">
 	import { BadgeInfo } from '$lib/components/app';
 	import * as Tooltip from '$lib/components/ui/tooltip';
@@ -10836,9 +10921,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{value}
 	</BadgeInfo>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageEditForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageEditForm.svelte
+````svelte
 <script lang="ts">
 	import { X, AlertTriangle } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -10993,9 +11079,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 	onConfirm={editCtx.cancel}
 	onCancel={() => (showDiscardDialog = false)}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessages.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessages.svelte
+````svelte
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
@@ -11295,9 +11382,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		{/if}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreen.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreen.svelte
+````svelte
 <script lang="ts">
 	import { page } from '$app/state';
 	import {
@@ -11629,9 +11717,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 	{handleErrorDialogOpenChange}
 	{fileUpload}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenActionScrollDown.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenActionScrollDown.svelte
+````svelte
 <script lang="ts">
 	import { ArrowDown } from '@lucide/svelte';
 	import ActionIcon from '$lib/components/app/actions/ActionIcon.svelte';
@@ -11650,9 +11739,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		class="h-9 w-9 rounded-full bg-accent text-accent-foreground absolute bottom-4 shadow-md"
 	/>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenDragOverlay.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenDragOverlay.svelte
+````svelte
 <script>
 	import { Upload } from '@lucide/svelte';
 </script>
@@ -11670,9 +11760,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<p class="text-sm text-muted-foreground">Drop your files here to upload</p>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenForm.svelte
+````svelte
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
@@ -11825,9 +11916,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		onUploadedFileRemove={handleUploadedFileRemove}
 	/>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenGreeting.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenGreeting.svelte
+````svelte
 <script lang="ts">
 	import { serverStore } from '$lib/stores/server.svelte';
 
@@ -11851,9 +11943,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		files to get started
 	</p>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenProcessingInfo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenProcessingInfo.svelte
+````svelte
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { PROCESSING_INFO_TIMEOUT } from '$lib/constants';
@@ -11981,9 +12074,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		}
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenServerError.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenServerError.svelte
+````svelte
 <script lang="ts">
 	import { AlertTriangle, RefreshCw } from '@lucide/svelte';
 	import { fadeInView } from '$lib/actions/fade-in-view.svelte';
@@ -12018,9 +12112,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		</Alert.Root>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenStreamResumeStatus.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenStreamResumeStatus.svelte
+````svelte
 <script lang="ts">
 	import { chatStore } from '$lib/stores/chat.svelte';
 	import { StreamConnectionState } from '$lib/enums';
@@ -12039,9 +12134,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		<span>Reconnecting to the stream...</span>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatArtifactDrawer.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatArtifactDrawer.svelte
+````svelte
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 	import { chatStore } from '$lib/stores/chat.svelte';
@@ -12346,9 +12442,10 @@ export { default as BadgesModality } from './BadgesModality.svelte';
 		height: 100dvh;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/code-block-utils.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/code-block-utils.ts
+````typescript
 /**
  * Shared utilities for enhanced code blocks and mermaid diagram blocks.
  * Contains common HAST element creation functions to avoid code duplication.
@@ -12621,9 +12718,10 @@ export function generateBlockId(prefix: string, windowKey: keyof Window): string
 	// Fallback for SSR - use timestamp + random
 	return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-code-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-code-blocks.ts
+````typescript
 /**
  * Rehype plugin to enhance code blocks with wrapper, header, and action buttons.
  *
@@ -12723,9 +12821,10 @@ export const rehypeEnhanceCodeBlocks: Plugin<[], Root> = () => {
 		});
 	};
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-links.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-links.ts
+````typescript
 /**
  * Rehype plugin to enhance links with security attributes.
  *
@@ -12759,9 +12858,10 @@ export const rehypeEnhanceLinks: Plugin<[], Root> = () => {
 		});
 	};
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-mermaid-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-mermaid-blocks.ts
+````typescript
 /**
  * Rehype plugin to enhance mermaid diagram blocks with wrapper, header, and action buttons.
  *
@@ -12868,9 +12968,10 @@ export const rehypeEnhanceMermaidBlocks: Plugin<[], Root> = () => {
 		});
 	};
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-svg-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/enhance-svg-blocks.ts
+````typescript
 /**
  * Rehype plugin to enhance svg blocks with wrapper, header, and action buttons.
  *
@@ -12967,9 +13068,10 @@ export const rehypeEnhanceSvgBlocks: Plugin<[], Root> = () => {
 		});
 	};
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/mermaid-pre.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/mermaid-pre.ts
+````typescript
 import { createPreTransform } from './pre-transform';
 import { MERMAID_BLOCK_CLASS, MERMAID_LANGUAGE } from '$lib/constants';
 
@@ -12977,9 +13079,10 @@ import { MERMAID_BLOCK_CLASS, MERMAID_LANGUAGE } from '$lib/constants';
  * Converts mermaid code blocks to <pre class="mermaid"> for client-side rendering.
  */
 export const rehypeMermaidPre = createPreTransform(MERMAID_LANGUAGE, MERMAID_BLOCK_CLASS);
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/pre-transform.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/pre-transform.ts
+````typescript
 import type { Plugin } from 'unified';
 import type { Root, Element, ElementContent, Text } from 'hast';
 import { visit } from 'unist-util-visit';
@@ -13071,9 +13174,10 @@ export function createPreTransform(
 		};
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/rehype-rtl-support.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/rehype-rtl-support.ts
+````typescript
 /**
  * Rehype plugin to provide comprehensive RTL support by adding dir="auto"
  * to all text-containing elements.
@@ -13102,9 +13206,10 @@ export const rehypeRtlSupport: Plugin<[], Root> = () => {
 		});
 	};
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/resolve-attachment-images.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/resolve-attachment-images.ts
+````typescript
 import type { Root as HastRoot } from 'hast';
 import { visit } from 'unist-util-visit';
 import type { DatabaseMessageExtra, DatabaseMessageExtraImageFile } from '$lib/types/database';
@@ -13139,9 +13244,10 @@ export function rehypeResolveAttachmentImages(options: { attachments?: DatabaseM
 		});
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/svg-pre.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/svg-pre.ts
+````typescript
 import { createPreTransform } from './pre-transform';
 import { SVG_BLOCK_CLASS, SVG_LANGUAGE, XML_LANGUAGE, SVG_TAG_PREFIX } from '$lib/constants';
 
@@ -13155,9 +13261,10 @@ export const rehypeSvgPre = createPreTransform(
 	SVG_BLOCK_CLASS,
 	(text) => text.startsWith(SVG_TAG_PREFIX)
 );
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/table-html-restorer.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/rehype/table-html-restorer.ts
+````typescript
 /**
  * Rehype plugin to restore limited HTML elements inside Markdown table cells.
  *
@@ -13339,9 +13446,10 @@ export const rehypeRestoreTableHtml: Plugin<[], Root> = () => (tree) => {
 		}
 	});
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/remark/literal-html.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/plugins/remark/literal-html.ts
+````typescript
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
 import type { Break, Content, Paragraph, PhrasingContent, Root, Text } from 'mdast';
@@ -13463,9 +13571,10 @@ export const remarkLiteralHtml: Plugin<[], Root> = () => {
 		});
 	};
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/markdown-content.css">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/markdown-content.css
+````css
 .markdown-block--unstable {
 	display: contents;
 }
@@ -14210,9 +14319,10 @@ div.markdown-user-content :global(.table-wrapper) {
 	font-size: 0.875rem;
 	font-style: italic;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/markdown-handlers.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/markdown-handlers.ts
+````typescript
 /**
  * Event handler factories for markdown content components.
  * Uses dependency injection pattern to avoid direct component state access.
@@ -14480,9 +14590,10 @@ export function createSetupImageErrorHandlers(
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/markdown-utils.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/markdown-utils.ts
+````typescript
 /**
  * Utility functions for markdown processing in MarkdownContent component.
  */
@@ -14567,9 +14678,10 @@ export function getCodeInfoFromTarget(target: HTMLElement): CodeInfo | null {
 
 	return { rawCode, language };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/CollapsibleContentBlock.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/CollapsibleContentBlock.svelte
+````svelte
 <script lang="ts">
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
@@ -14704,9 +14816,10 @@ export function getCodeInfoFromTarget(target: HTMLElement): CodeInfo | null {
 		</Collapsible.Content>
 	</Card>
 </Collapsible.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/index.ts
+````typescript
 /**
  *
  * CONTENT RENDERING
@@ -14805,9 +14918,10 @@ export { default as CollapsibleContentBlock } from './CollapsibleContentBlock.sv
  * ```
  */
 export { default as MermaidPreview } from './MermaidPreview.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MermaidPreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MermaidPreview.svelte
+````svelte
 <script lang="ts">
 	import MermaidPreviewControls from './MermaidPreviewControls.svelte';
 	import { mountSvgShadow } from '$lib/utils/svg-shadow';
@@ -14929,9 +15043,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		onResetView={resetView}
 	/>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MermaidPreviewControls.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MermaidPreviewControls.svelte
+````svelte
 <script lang="ts">
 	import { Download } from '@lucide/svelte';
 	import ZoomInIcon from '@lucide/svelte/icons/zoom-in';
@@ -15006,9 +15121,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</button>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogChatAttachmentsPreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogChatAttachmentsPreview.svelte
+````svelte
 <script lang="ts">
 	import { Dialog } from 'bits-ui';
 	import { X } from '@lucide/svelte';
@@ -15097,9 +15213,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</Dialog.Content>
 	</Dialog.Portal>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogChatError.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogChatError.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { AlertTriangle, TimerOff } from '@lucide/svelte';
@@ -15180,9 +15297,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogConfirmation.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogConfirmation.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import type { Component, Snippet } from 'svelte';
@@ -15264,9 +15382,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogConversationSelection.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogConversationSelection.svelte
+````svelte
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { ConversationSelection } from '$lib/components/app';
@@ -15336,9 +15455,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</Dialog.Content>
 	</Dialog.Portal>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogConversationTitleUpdate.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogConversationTitleUpdate.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { Button } from '$lib/components/ui/button';
@@ -15385,9 +15505,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogEmptyFileAlert.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogEmptyFileAlert.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { FileX } from '@lucide/svelte';
@@ -15449,9 +15570,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogExportSettings.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogExportSettings.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { Checkbox } from '$lib/components/ui/checkbox';
@@ -15535,9 +15657,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogFileUploadError.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogFileUploadError.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 
@@ -15626,9 +15749,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Content>
 	</AlertDialog.Portal>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpResourcePreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpResourcePreview.svelte
+````svelte
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Download } from '@lucide/svelte';
@@ -15751,9 +15875,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</div>
 	</Dialog.Content>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpResourcesBrowser.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpResourcesBrowser.svelte
+````svelte
 <script lang="ts">
 	import { FolderOpen, Plus, Loader2, Braces } from '@lucide/svelte';
 	import { toast } from 'svelte-sonner';
@@ -16148,9 +16273,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpServerAddNew.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpServerAddNew.svelte
+````svelte
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
@@ -16246,9 +16372,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</form>
 	</Dialog.Content>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpServerRecommendations.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMcpServerRecommendations.svelte
+````svelte
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
@@ -16429,9 +16556,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMermaidPreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogMermaidPreview.svelte
+````svelte
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { MermaidPreview } from '$lib/components/app/content';
@@ -16452,9 +16580,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		<MermaidPreview {svgHtml} />
 	</Dialog.Content>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogModelInformation.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogModelInformation.svelte
+````svelte
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Table from '$lib/components/ui/table';
@@ -16725,9 +16854,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</div>
 	</Dialog.Content>
 </Dialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogModelNotAvailable.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogModelNotAvailable.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { AlertTriangle, ArrowRight } from '@lucide/svelte';
@@ -16804,9 +16934,10 @@ export { default as MermaidPreview } from './MermaidPreview.svelte';
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/index.ts
+````typescript
 /**
  *
  * DIALOGS
@@ -17324,9 +17455,10 @@ export { default as DialogMcpResourcePreview } from './DialogMcpResourcePreview.
  * ```
  */
 export { default as DialogMermaidPreview } from './DialogMermaidPreview.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/forms/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/forms/index.ts
+````typescript
 /**
  *
  * FORMS & INPUTS
@@ -17371,9 +17503,10 @@ export { default as KeyValuePairs } from './KeyValuePairs.svelte';
  * Supports placeholder, autofocus, and change callbacks.
  */
 export { default as SearchInput } from './SearchInput.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/forms/InputWithSuggestions.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/forms/InputWithSuggestions.svelte
+````svelte
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { Input } from '$lib/components/ui/input';
@@ -17452,9 +17585,10 @@ export { default as SearchInput } from './SearchInput.svelte';
 		</div>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/forms/KeyValuePairs.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/forms/KeyValuePairs.svelte
+````svelte
 <script lang="ts">
 	import { tick } from 'svelte';
 	import { Plus, Trash2 } from '@lucide/svelte';
@@ -17619,9 +17753,10 @@ export { default as SearchInput } from './SearchInput.svelte';
 		<p class="text-xs text-muted-foreground">{emptyMessage}</p>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/forms/SearchInput.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/forms/SearchInput.svelte
+````svelte
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
 	import { Search, X } from '@lucide/svelte';
@@ -17700,9 +17835,10 @@ export { default as SearchInput } from './SearchInput.svelte';
 		</button>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/mcp-resources-browser.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/mcp-resources-browser.ts
+````typescript
 import type { MCPResource, MCPResourceInfo } from '$lib/types';
 import { parseResourcePath } from '$lib/utils';
 
@@ -17821,9 +17957,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		return a.name.localeCompare(b.name);
 	});
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowser.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowser.svelte
+````svelte
 <script lang="ts">
 	import { mcpStore } from '$lib/stores/mcp.svelte';
 	import { mcpResources, mcpResourcesLoading } from '$lib/stores/mcp-resources.svelte';
@@ -17977,9 +18114,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		{/if}
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowserEmptyState.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowserEmptyState.svelte
+````svelte
 <script lang="ts">
 	interface Props {
 		isLoading: boolean;
@@ -17995,9 +18133,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		No resources available
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowserHeader.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowserHeader.svelte
+````svelte
 <script lang="ts">
 	import { RefreshCw, Loader2 } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -18039,9 +18178,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 
 	<h3 class="text-sm font-medium">Available resources</h3>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowserServerItem.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcesBrowser/McpResourcesBrowserServerItem.svelte
+````svelte
 <script lang="ts">
 	import { FolderOpen, ChevronDown, ChevronRight, Loader2, Braces } from '@lucide/svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox';
@@ -18272,9 +18412,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		</div>
 	</Collapsible.Content>
 </Collapsible.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCard.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCard.svelte
+````svelte
 <script lang="ts">
 	import { tick } from 'svelte';
 	import * as Card from '$lib/components/ui/card';
@@ -18467,9 +18608,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 	onOpenChange={(open) => (showDeleteDialog = open)}
 	onConfirm={onDelete}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardActions.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardActions.svelte
+````svelte
 <script lang="ts">
 	import { Trash2, RefreshCw, Pencil } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -18510,9 +18652,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		<Trash2 class="h-3.5 w-3.5" />
 	</Button>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardCompact.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardCompact.svelte
+````svelte
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
@@ -18669,9 +18812,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		{/if}
 	{/if}
 </Card.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardDeleteDialog.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardDeleteDialog.svelte
+````svelte
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 
@@ -18708,9 +18852,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardEditForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardEditForm.svelte
+````svelte
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { McpServerForm } from '$lib/components/app/mcp';
@@ -18786,9 +18931,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		</div>
 	</div>
 </form>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardHeader.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardHeader.svelte
+````svelte
 <script lang="ts">
 	import { Switch } from '$lib/components/ui/switch';
 	import { Badge } from '$lib/components/ui/badge';
@@ -18859,9 +19005,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		</div>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardToolsList.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCard/McpServerCardToolsList.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible';
@@ -18909,9 +19056,10 @@ export function sortTreeChildren(children: ResourceTreeNode[]): ResourceTreeNode
 		</div>
 	</Collapsible.Content>
 </Collapsible.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/index.ts
+````typescript
 /**
  *
  * MCP (Model Context Protocol)
@@ -19176,9 +19324,10 @@ export { default as McpResourcePreview } from './McpResourcePreview.svelte';
  * - Read resolved resource action
  */
 export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpActiveServersAvatars.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpActiveServersAvatars.svelte
+````svelte
 <script lang="ts">
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { conversationsStore } from '$lib/stores/conversations.svelte';
@@ -19268,9 +19417,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		{/if}
 	</button>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpCapabilitiesBadges.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpCapabilitiesBadges.svelte
+````svelte
 <script lang="ts">
 	import { Wrench, Database, MessageSquare, FileText, Sparkles, ListChecks } from '@lucide/svelte';
 	import type { MCPCapabilitiesInfo } from '$lib/types';
@@ -19332,9 +19482,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		</Badge>
 	{/if}
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpConnectionLogs.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpConnectionLogs.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible';
@@ -19416,9 +19567,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		</Collapsible.Content>
 	</Collapsible.Root>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpLogo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpLogo.svelte
+````svelte
 <script>
 	let { class: className = '', style = '' } = $props();
 </script>
@@ -19530,9 +19682,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		></g
 	></svg
 >
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcePreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourcePreview.svelte
+````svelte
 <script lang="ts">
 	import { FileText, Loader2, AlertCircle, Download } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -19707,9 +19860,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		{/if}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourceTemplateForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpResourceTemplateForm.svelte
+````svelte
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { InputWithSuggestions } from '$lib/components/app';
@@ -19881,9 +20035,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		<Button size="sm" type="submit" disabled={!isComplete}>Read Resource</Button>
 	</div>
 </form>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCardSkeleton.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerCardSkeleton.svelte
+````svelte
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Skeleton } from '$lib/components/ui/skeleton';
@@ -19918,9 +20073,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		<Skeleton class="h-8 w-8 rounded" />
 	</div>
 </Card.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerForm.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerForm.svelte
+````svelte
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
 	import { Switch } from '$lib/components/ui/switch';
@@ -20140,9 +20296,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		</label>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerIdentity.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerIdentity.svelte
+````svelte
 <script lang="ts">
 	import { ExternalLink } from '@lucide/svelte';
 	import { Badge } from '$lib/components/ui/badge';
@@ -20206,9 +20363,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		</a>
 	{/if}
 </span>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerInfo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/mcp/McpServerInfo.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible';
@@ -20244,9 +20402,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		</Collapsible.Content>
 	</Collapsible.Root>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/CodeBlockActions.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/CodeBlockActions.svelte
+````svelte
 <script lang="ts">
 	import { Eye } from '@lucide/svelte';
 	import { ActionIcon, ActionIconCopyToClipboard } from '$lib/components/app';
@@ -20280,9 +20439,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		/>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/ConversationSelection.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/ConversationSelection.svelte
+````svelte
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Checkbox } from '$lib/components/ui/checkbox';
@@ -20477,9 +20637,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		</Button>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/HorizontalScrollCarousel.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/HorizontalScrollCarousel.svelte
+````svelte
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
@@ -20573,9 +20734,10 @@ export { default as McpResourceTemplateForm } from './McpResourceTemplateForm.sv
 		<ChevronRight class="h-4 w-4" />
 	</button>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/index.ts
+````typescript
 /**
  *
  * MISC
@@ -20637,9 +20799,10 @@ export { default as CodeBlockActions } from './CodeBlockActions.svelte';
  * `class` and `style` props and inherits color via `currentColor`.
  */
 export { default as Logo } from './Logo.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/KeyboardShortcutInfo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/KeyboardShortcutInfo.svelte
+````svelte
 <script lang="ts">
 	import { ArrowBigUp } from '@lucide/svelte';
 
@@ -20673,9 +20836,10 @@ export { default as Logo } from './Logo.svelte';
 		{/if}
 	{/each}
 </kbd>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/Logo.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/Logo.svelte
+````svelte
 <script>
 	import logoMark from '$lib/assets/logo.svg?raw';
 	let { class: className = '', style = '' } = $props();
@@ -20691,9 +20855,10 @@ export { default as Logo } from './Logo.svelte';
 		height: var(--size, 1rem);
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/misc/TruncatedText.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/misc/TruncatedText.svelte
+````svelte
 <script lang="ts">
 	import * as Tooltip from '$lib/components/ui/tooltip';
 
@@ -20743,9 +20908,10 @@ export { default as Logo } from './Logo.svelte';
 		{text}
 	</span>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/index.ts
+````typescript
 /**
  *
  * MODELS
@@ -20857,9 +21023,10 @@ export { default as ModelBadge } from './ModelBadge.svelte';
  * Respects the user's `showRawModelNames` setting.
  */
 export { default as ModelId } from './ModelId.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelBadge.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelBadge.svelte
+````svelte
 <script lang="ts">
 	import { Package } from '@lucide/svelte';
 	import { BadgeInfo, ActionIconCopyToClipboard } from '$lib/components/app';
@@ -20923,9 +21090,10 @@ export { default as ModelId } from './ModelId.svelte';
 		{@render badgeContent()}
 	{/if}
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelId.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelId.svelte
+````svelte
 <script lang="ts">
 	import { ModelsService } from '$lib/services/models.service';
 	import { config } from '$lib/stores/settings.svelte';
@@ -21008,9 +21176,10 @@ export { default as ModelId } from './ModelId.svelte';
 		{/if}
 	</span>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelLoadHighlight.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelLoadHighlight.svelte
+````svelte
 <script lang="ts">
 	let { percent }: { percent: number } = $props();
 </script>
@@ -21022,9 +21191,10 @@ export { default as ModelId } from './ModelId.svelte';
 		style="width: {percent}%"
 	></div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorDropdown.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorDropdown.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, Loader2, Package } from '@lucide/svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -21337,9 +21507,10 @@ export { default as ModelId } from './ModelId.svelte';
 		modelId={ms.infoModelId}
 	/>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorList.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorList.svelte
+````svelte
 <script lang="ts">
 	import { modelsStore } from '$lib/stores/models.svelte';
 	import { ModelsSelectorOption } from '$lib/components/app';
@@ -21412,9 +21583,10 @@ export { default as ModelId } from './ModelId.svelte';
 		{/each}
 	{/each}
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorOption.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorOption.svelte
+````svelte
 <script lang="ts">
 	import {
 		CircleAlert,
@@ -21617,9 +21789,10 @@ export { default as ModelId } from './ModelId.svelte';
 		<ModelLoadHighlight percent={loadPercent} />
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorSheet.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/ModelsSelectorSheet.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, Loader2, Package } from '@lucide/svelte';
 	import * as Sheet from '$lib/components/ui/sheet';
@@ -21828,9 +22001,10 @@ export { default as ModelId } from './ModelId.svelte';
 		modelId={ms.infoModelId}
 	/>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/models/utils.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/models/utils.ts
+````typescript
 import { SvelteMap } from 'svelte/reactivity';
 import type { ModelOption } from '$lib/types/models';
 
@@ -21906,9 +22080,10 @@ export function groupModelOptions(
 
 	return { loaded, favorites, available };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigation.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigation.svelte
+````svelte
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -22200,9 +22375,10 @@ export function groupModelOptions(
 		}
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationActions.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationActions.svelte
+````svelte
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -22399,9 +22575,10 @@ export function groupModelOptions(
 		{/each}
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationConversationItem.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationConversationItem.svelte
+````svelte
 <script lang="ts">
 	import {
 		Trash2,
@@ -22654,9 +22831,10 @@ export function groupModelOptions(
 		}
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationConversationList.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationConversationList.svelte
+````svelte
 <script lang="ts">
 	import { Pin } from '@lucide/svelte';
 	import { buildConversationTree } from '$lib/stores/conversations.svelte';
@@ -22792,9 +22970,10 @@ export function groupModelOptions(
 		</div>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationSearch.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationSearch.svelte
+````svelte
 <script lang="ts">
 	import { SearchInput } from '$lib/components/app';
 
@@ -22816,9 +22995,10 @@ export function groupModelOptions(
 <div class="mb-4 px-2 {className}">
 	<SearchInput bind:value {placeholder} {onInput} />
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationSearchResults.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/SidebarNavigation/SidebarNavigationSearchResults.svelte
+````svelte
 <script lang="ts">
 	import { buildConversationTree } from '$lib/stores/conversations.svelte';
 	import SidebarNavigationConversationItem from './SidebarNavigationConversationItem.svelte';
@@ -22895,9 +23075,10 @@ export function groupModelOptions(
 		</ul>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/DropdownMenuActions.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/DropdownMenuActions.svelte
+````svelte
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Tooltip from '$lib/components/ui/tooltip';
@@ -22988,9 +23169,10 @@ export function groupModelOptions(
 {#snippet iconComponent(IconComponent: Component, className: string)}
 	<IconComponent class={className} />
 {/snippet}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/DropdownMenuSearchable.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/DropdownMenuSearchable.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -23041,9 +23223,10 @@ export function groupModelOptions(
 
 	{@render footer()}
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/navigation/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/navigation/index.ts
+````typescript
 /**
  *
  * NAVIGATION & MENUS
@@ -23218,9 +23401,10 @@ export { default as SidebarNavigationSearchResults } from './SidebarNavigation/S
  * Integrated into sidebar header with proper styling.
  */
 export { default as SidebarNavigationSearch } from './SidebarNavigation/SidebarNavigationSearch.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/server/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/server/index.ts
+````typescript
 /**
  *
  * SERVER
@@ -23301,9 +23485,10 @@ export { default as ServerErrorSplash } from './ServerErrorSplash.svelte';
  * ```
  */
 export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/server/ServerErrorSplash.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/server/ServerErrorSplash.svelte
+````svelte
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { AlertTriangle, RefreshCw, Key, CheckCircle, XCircle } from '@lucide/svelte';
@@ -23589,9 +23774,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		{/if}
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/server/ServerLoadingSplash.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/server/ServerLoadingSplash.svelte
+````svelte
 <script lang="ts">
 	import { Server } from '@lucide/svelte';
 	import { ServerStatus } from '$lib/components/app';
@@ -23624,9 +23810,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		</div>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/server/ServerStatus.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/server/ServerStatus.svelte
+````svelte
 <script lang="ts">
 	import { AlertTriangle, Server } from '@lucide/svelte';
 	import { Badge } from '$lib/components/ui/badge';
@@ -23692,9 +23879,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		</Button>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChat.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChat.svelte
+````svelte
 <script lang="ts">
 	import {
 		SettingsChatDesktopSidebar,
@@ -23885,9 +24073,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		</div>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatFields.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatFields.svelte
+````svelte
 <script lang="ts">
 	import { RotateCcw, FlaskConical } from '@lucide/svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox';
@@ -24155,9 +24344,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		{/if}
 	</div>
 {/each}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatImportExportSection.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatImportExportSection.svelte
+````svelte
 <script lang="ts">
 	import type { Component } from 'svelte';
 	import { Button, type ButtonVariant } from '$lib/components/ui/button';
@@ -24220,9 +24410,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		</div>
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatParameterSourceIndicator.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatParameterSourceIndicator.svelte
+````svelte
 <script lang="ts">
 	import { Wrench } from '@lucide/svelte';
 	import { Badge } from '$lib/components/ui/badge';
@@ -24242,9 +24433,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 
 	Custom
 </Badge>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatToolsTab.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatToolsTab.svelte
+````svelte
 <script lang="ts">
 	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 	import { Checkbox } from '$lib/components/ui/checkbox';
@@ -24347,9 +24539,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		{/each}
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatWebSearchTab.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatWebSearchTab.svelte
+````svelte
 <script lang="ts">
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
@@ -24587,9 +24780,10 @@ export { default as ServerLoadingSplash } from './ServerLoadingSplash.svelte';
 		{/if}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/index.ts
+````typescript
 /**
  * Full chat settings page layout with sidebar, mobile header, and content area.
  * Manages local configuration state, section navigation, and context setup.
@@ -24671,9 +24865,10 @@ export { default as SettingsChatToolsTab } from './SettingsChat/SettingsChatTool
  * **SettingsChatWebSearchTab** - Web search configuration tab for settings
  */
 export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChatWebSearchTab.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChatDesktopSidebar.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChatDesktopSidebar.svelte
+````svelte
 <script lang="ts">
 	import { Settings } from '@lucide/svelte';
 	import type { SettingsSection, SettingsSectionTitle } from '$lib/constants';
@@ -24725,9 +24920,10 @@ export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChat
 		{/each}
 	</nav>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChatMobileHeader.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChatMobileHeader.svelte
+````svelte
 <script lang="ts">
 	import { Settings, ChevronLeft, ChevronRight } from '@lucide/svelte';
 	import { onMount, tick } from 'svelte';
@@ -24835,9 +25031,10 @@ export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChat
 		</div>
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsFooter.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsFooter.svelte
+````svelte
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
@@ -24897,9 +25094,10 @@ export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChat
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsGroup.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsGroup.svelte
+````svelte
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
@@ -24918,9 +25116,10 @@ export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChat
 		{@render children()}
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsMcpServers.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsMcpServers.svelte
+````svelte
 <script lang="ts">
 	import { X, Plus } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -25060,9 +25259,10 @@ export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChat
 		{/if}
 	</div>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/index.ts
+````typescript
 export * from './actions';
 export * from './badges';
 export * from './chat';
@@ -25075,9 +25275,10 @@ export * from './settings';
 export * from './models';
 export * from './navigation';
 export * from './server';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/SKILL.md">
+## File: cerebro_unificado/frontend/src/lib/components/app/SKILL.md
+````markdown
 ---
 name: app
 description: Opinionated app components building on top of ./ui primitives
@@ -25089,14 +25290,16 @@ description: Opinionated app components building on top of ./ui primitives
 - Props and markup attributes should be listed alphabetically
 - Use JS Objects and Arrays for CSS classes and styles when they are dynamic
 - Whenever there can be repetition in the component's markup, if it's too small to be decoupled as a separate component — use Svelte 5's `{#snippet}` + `{@render}`
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/pwa/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/pwa/index.ts
+````typescript
 export { default as PwaMetaTags } from './PwaMetaTags.svelte';
 export { default as PwaRefreshAlert } from './PwaRefreshAlert.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/pwa/PwaMetaTags.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/pwa/PwaMetaTags.svelte
+````svelte
 <script lang="ts">
 	import { APPLE_META_TAGS, MEDIA_QUERIES, THEME_COLORS } from '$lib/constants/pwa';
 	import { APP_NAME } from '$lib/constants';
@@ -25120,9 +25323,10 @@ export { default as PwaRefreshAlert } from './PwaRefreshAlert.svelte';
 	/>
 	<meta name={APPLE_META_TAGS.MOBILE_WEB_APP_TITLE.name} content={appName} />
 </svelte:head>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/pwa/PwaRefreshAlert.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/pwa/PwaRefreshAlert.svelte
+````svelte
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
@@ -25158,9 +25362,10 @@ export { default as PwaRefreshAlert } from './PwaRefreshAlert.svelte';
 		</Card.Content>
 	</Card.Root>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert/alert-description.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert/alert-description.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
@@ -25184,9 +25389,10 @@ export { default as PwaRefreshAlert } from './PwaRefreshAlert.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert/alert-title.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert/alert-title.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
@@ -25207,9 +25413,10 @@ export { default as PwaRefreshAlert } from './PwaRefreshAlert.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert/alert.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert/alert.svelte
+````svelte
 <script lang="ts" module>
 	import { type VariantProps, tv } from 'tailwind-variants';
 
@@ -25254,9 +25461,10 @@ export { default as PwaRefreshAlert } from './PwaRefreshAlert.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert/index.ts
+````typescript
 import Root from './alert.svelte';
 import Description from './alert-description.svelte';
 import Title from './alert-title.svelte';
@@ -25271,9 +25479,10 @@ export {
 	Description as AlertDescription,
 	Title as AlertTitle
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-action.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-action.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
@@ -25292,9 +25501,10 @@ export {
 	class={cn(buttonVariants(), className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-cancel.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-cancel.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
@@ -25313,9 +25523,10 @@ export {
 	class={cn(buttonVariants({ variant: 'outline' }), className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-content.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 	import AlertDialogOverlay from './alert-dialog-overlay.svelte';
@@ -25351,9 +25562,10 @@ export {
 		{...restProps}
 	/>
 </AlertDialogPrimitive.Portal>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-description.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-description.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -25371,9 +25583,10 @@ export {
 	class={cn('text-sm text-muted-foreground', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-footer.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-footer.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -25397,9 +25610,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-header.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-header.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
@@ -25420,9 +25634,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-overlay.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-overlay.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -25443,9 +25658,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-title.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-title.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -25463,9 +25679,10 @@ export {
 	class={cn('text-lg font-semibold', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/alert-dialog-trigger.svelte
+````svelte
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 
@@ -25473,9 +25690,10 @@ export {
 </script>
 
 <AlertDialogPrimitive.Trigger bind:ref data-slot="alert-dialog-trigger" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/alert-dialog/index.ts
+````typescript
 import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
 import Trigger from './alert-dialog-trigger.svelte';
 import Title from './alert-dialog-title.svelte';
@@ -25515,9 +25733,10 @@ export {
 	Content as AlertDialogContent,
 	Description as AlertDialogDescription
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/badge/badge.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/badge/badge.svelte
+````svelte
 <script lang="ts" module>
 	import { type VariantProps, tv } from 'tailwind-variants';
 
@@ -25569,14 +25788,16 @@ export {
 >
 	{@render children?.()}
 </svelte:element>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/badge/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/badge/index.ts
+````typescript
 export { default as Badge } from './badge.svelte';
 export { badgeVariants, type BadgeVariant } from './badge.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/button/button.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/button/button.svelte
+````svelte
 <script lang="ts" module>
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
@@ -25667,9 +25888,10 @@ export { badgeVariants, type BadgeVariant } from './badge.svelte';
 		cursor: pointer;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/button/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/button/index.ts
+````typescript
 import Root, {
 	type ButtonProps,
 	type ButtonSize,
@@ -25687,9 +25909,10 @@ export {
 	type ButtonSize,
 	type ButtonVariant
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/button-group/button-group-root.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/button-group/button-group-root.svelte
+````svelte
 <script lang="ts">
 	import { cn } from '$lib/components/ui/utils';
 	import type { Snippet } from 'svelte';
@@ -25711,9 +25934,10 @@ export {
 >
 	{@render children()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/button-group/button-group-separator.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/button-group/button-group-separator.svelte
+````svelte
 <script lang="ts">
 	import { cn } from '$lib/components/ui/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -25722,14 +25946,16 @@ export {
 </script>
 
 <div class={cn('shrink-0 self-stretch bg-border', 'w-px')} {...restProps}></div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/button-group/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/button-group/index.ts
+````typescript
 export { default as Root } from './button-group-root.svelte';
 export { default as Separator } from './button-group-separator.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card-action.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card-action.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -25750,9 +25976,10 @@ export { default as Separator } from './button-group-separator.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card-content.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
@@ -25768,9 +25995,10 @@ export { default as Separator } from './button-group-separator.svelte';
 <div bind:this={ref} data-slot="card-content" class={cn('px-6', className)} {...restProps}>
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card-description.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card-description.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
@@ -25791,9 +26019,10 @@ export { default as Separator } from './button-group-separator.svelte';
 >
 	{@render children?.()}
 </p>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card-footer.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card-footer.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -25814,9 +26043,10 @@ export { default as Separator } from './button-group-separator.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card-header.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card-header.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -25840,9 +26070,10 @@ export { default as Separator } from './button-group-separator.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card-title.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card-title.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
@@ -25863,9 +26094,10 @@ export { default as Separator } from './button-group-separator.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/card.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/card.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
@@ -25891,9 +26123,10 @@ export { default as Separator } from './button-group-separator.svelte';
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/card/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/card/index.ts
+````typescript
 import Root from './card.svelte';
 import Content from './card-content.svelte';
 import Description from './card-description.svelte';
@@ -25919,9 +26152,10 @@ export {
 	Title as CardTitle,
 	Action as CardAction
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/checkbox/checkbox.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/checkbox/checkbox.svelte
+````svelte
 <script lang="ts">
 	import { Checkbox as CheckboxPrimitive } from 'bits-ui';
 	import CheckIcon from '@lucide/svelte/icons/check';
@@ -25958,18 +26192,20 @@ export {
 		</div>
 	{/snippet}
 </CheckboxPrimitive.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/checkbox/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/checkbox/index.ts
+````typescript
 import Root from './checkbox.svelte';
 export {
 	Root,
 	//
 	Root as Checkbox
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/collapsible/collapsible-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/collapsible/collapsible-content.svelte
+````svelte
 <script lang="ts">
 	import { Collapsible as CollapsiblePrimitive } from 'bits-ui';
 
@@ -25977,9 +26213,10 @@ export {
 </script>
 
 <CollapsiblePrimitive.Content bind:ref data-slot="collapsible-content" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/collapsible/collapsible-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/collapsible/collapsible-trigger.svelte
+````svelte
 <script lang="ts">
 	import { Collapsible as CollapsiblePrimitive } from 'bits-ui';
 
@@ -25987,9 +26224,10 @@ export {
 </script>
 
 <CollapsiblePrimitive.Trigger bind:ref data-slot="collapsible-trigger" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/collapsible/collapsible.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/collapsible/collapsible.svelte
+````svelte
 <script lang="ts">
 	import { Collapsible as CollapsiblePrimitive } from 'bits-ui';
 
@@ -26001,9 +26239,10 @@ export {
 </script>
 
 <CollapsiblePrimitive.Root bind:ref bind:open data-slot="collapsible" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/collapsible/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/collapsible/index.ts
+````typescript
 import Root from './collapsible.svelte';
 import Trigger from './collapsible-trigger.svelte';
 import Content from './collapsible-content.svelte';
@@ -26017,9 +26256,10 @@ export {
 	Content as CollapsibleContent,
 	Trigger as CollapsibleTrigger
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-close.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-close.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 
@@ -26027,9 +26267,10 @@ export {
 </script>
 
 <DialogPrimitive.Close bind:ref data-slot="dialog-close" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-content.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 	import XIcon from '@lucide/svelte/icons/x';
@@ -26073,9 +26314,10 @@ export {
 		{/if}
 	</DialogPrimitive.Content>
 </Dialog.Portal>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-description.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-description.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils';
@@ -26093,9 +26335,10 @@ export {
 	class={cn('text-sm text-muted-foreground', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-footer.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-footer.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -26116,9 +26359,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-header.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-header.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
@@ -26139,9 +26383,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-overlay.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-overlay.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils';
@@ -26162,9 +26407,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-title.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-title.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils';
@@ -26182,9 +26428,10 @@ export {
 	class={cn('text-lg leading-none font-semibold', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/dialog-trigger.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 
@@ -26192,9 +26439,10 @@ export {
 </script>
 
 <DialogPrimitive.Trigger bind:ref data-slot="dialog-trigger" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dialog/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dialog/index.ts
+````typescript
 import { Dialog as DialogPrimitive } from 'bits-ui';
 
 import Title from './dialog-title.svelte';
@@ -26232,9 +26480,10 @@ export {
 	Description as DialogDescription,
 	Close as DialogClose
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-checkbox-item.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-checkbox-item.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 	import CheckIcon from '@lucide/svelte/icons/check';
@@ -26276,9 +26525,10 @@ export {
 		{@render childrenProp?.()}
 	{/snippet}
 </DropdownMenuPrimitive.CheckboxItem>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-content.svelte
+````svelte
 <script lang="ts">
 	import { cn } from '$lib/components/ui/utils.js';
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
@@ -26306,9 +26556,10 @@ export {
 		{...restProps}
 	/>
 </DropdownMenuPrimitive.Portal>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-group-heading.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-group-heading.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -26331,9 +26582,10 @@ export {
 	class={cn('px-2 py-1.5 text-sm font-semibold data-[inset]:pl-8', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-group.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-group.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 
@@ -26341,9 +26593,10 @@ export {
 </script>
 
 <DropdownMenuPrimitive.Group bind:ref data-slot="dropdown-menu-group" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-item.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-item.svelte
+````svelte
 <script lang="ts">
 	import { cn } from '$lib/components/ui/utils.js';
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
@@ -26371,9 +26624,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-label.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-label.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -26398,9 +26652,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-radio-group.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-radio-group.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 
@@ -26417,9 +26672,10 @@ export {
 	data-slot="dropdown-menu-radio-group"
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-radio-item.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-radio-item.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 	import CircleIcon from '@lucide/svelte/icons/circle';
@@ -26451,9 +26707,10 @@ export {
 		{@render childrenProp?.({ checked })}
 	{/snippet}
 </DropdownMenuPrimitive.RadioItem>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-separator.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-separator.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -26471,9 +26728,10 @@ export {
 	class={cn('-mx-1 my-1 h-px bg-border/20', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-shortcut.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-shortcut.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
@@ -26494,9 +26752,10 @@ export {
 >
 	{@render children?.()}
 </span>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-sub-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-sub-content.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -26517,9 +26776,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-sub-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-sub-trigger.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
@@ -26549,9 +26809,10 @@ export {
 	{@render children?.()}
 	<ChevronRightIcon class="ml-auto size-4" />
 </DropdownMenuPrimitive.SubTrigger>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/dropdown-menu-trigger.svelte
+````svelte
 <script lang="ts">
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 
@@ -26559,9 +26820,10 @@ export {
 </script>
 
 <DropdownMenuPrimitive.Trigger bind:ref data-slot="dropdown-menu-trigger" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/dropdown-menu/index.ts
+````typescript
 import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
 import CheckboxItem from './dropdown-menu-checkbox-item.svelte';
 import Content from './dropdown-menu-content.svelte';
@@ -26611,9 +26873,10 @@ export {
 	SubTrigger,
 	Trigger
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/input/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/input/index.ts
+````typescript
 import Root from './input.svelte';
 
 export {
@@ -26621,9 +26884,10 @@ export {
 	//
 	Root as Input
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/input/input.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/input/input.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLInputAttributes, HTMLInputTypeAttribute } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils';
@@ -26676,9 +26940,10 @@ export {
 		{...restProps}
 	/>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/label/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/label/index.ts
+````typescript
 import Root from './label.svelte';
 
 export {
@@ -26686,9 +26951,10 @@ export {
 	//
 	Root as Label
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/label/label.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/label/label.svelte
+````svelte
 <script lang="ts">
 	import { Label as LabelPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -26709,9 +26975,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/popover/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/popover/index.ts
+````typescript
 import Root from './popover.svelte';
 import Close from './popover-close.svelte';
 import Content from './popover-content.svelte';
@@ -26731,9 +26998,10 @@ export {
 	Close as PopoverClose,
 	Portal as PopoverPortal
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/popover/popover-close.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/popover/popover-close.svelte
+````svelte
 <script lang="ts">
 	import { Popover as PopoverPrimitive } from 'bits-ui';
 
@@ -26741,9 +27009,10 @@ export {
 </script>
 
 <PopoverPrimitive.Close bind:ref data-slot="popover-close" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/popover/popover-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/popover/popover-content.svelte
+````svelte
 <script lang="ts">
 	import { Popover as PopoverPrimitive } from 'bits-ui';
 	import PopoverPortal from './popover-portal.svelte';
@@ -26781,9 +27050,10 @@ export {
 		{...restProps}
 	/>
 </PopoverPortal>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/popover/popover-portal.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/popover/popover-portal.svelte
+````svelte
 <script lang="ts">
 	import { Popover as PopoverPrimitive } from 'bits-ui';
 
@@ -26791,9 +27061,10 @@ export {
 </script>
 
 <PopoverPrimitive.Portal {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/popover/popover-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/popover/popover-trigger.svelte
+````svelte
 <script lang="ts">
 	import { cn } from '$lib/components/ui/utils.js';
 	import { Popover as PopoverPrimitive } from 'bits-ui';
@@ -26811,9 +27082,10 @@ export {
 	class={cn('', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/popover/popover.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/popover/popover.svelte
+````svelte
 <script lang="ts">
 	import { Popover as PopoverPrimitive } from 'bits-ui';
 
@@ -26821,9 +27093,10 @@ export {
 </script>
 
 <PopoverPrimitive.Root bind:open {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/scroll-area/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/scroll-area/index.ts
+````typescript
 import Scrollbar from './scroll-area-scrollbar.svelte';
 import Root from './scroll-area.svelte';
 
@@ -26834,9 +27107,10 @@ export {
 	Root as ScrollArea,
 	Scrollbar as ScrollAreaScrollbar
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/scroll-area/scroll-area-scrollbar.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/scroll-area/scroll-area-scrollbar.svelte
+````svelte
 <script lang="ts">
 	import { ScrollArea as ScrollAreaPrimitive } from 'bits-ui';
 	import { cn, type WithoutChild } from '$lib/components/ui/utils';
@@ -26868,9 +27142,10 @@ export {
 		class="relative flex-1 rounded-full bg-border"
 	/>
 </ScrollAreaPrimitive.Scrollbar>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/scroll-area/scroll-area.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/scroll-area/scroll-area.svelte
+````svelte
 <script lang="ts">
 	import { ScrollArea as ScrollAreaPrimitive } from 'bits-ui';
 	import { Scrollbar } from './index.js';
@@ -26911,9 +27186,10 @@ export {
 	{/if}
 	<ScrollAreaPrimitive.Corner />
 </ScrollAreaPrimitive.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/index.ts
+````typescript
 import { Select as SelectPrimitive } from 'bits-ui';
 
 import Group from './select-group.svelte';
@@ -26951,9 +27227,10 @@ export {
 	ScrollUpButton as SelectScrollUpButton,
 	GroupHeading as SelectGroupHeading
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-content.svelte
+````svelte
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { Select as SelectPrimitive } from 'bits-ui';
@@ -27065,9 +27342,10 @@ export {
 		<SelectScrollDownButton />
 	</SelectPrimitive.Content>
 </SelectPrimitive.Portal>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-group-heading.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-group-heading.svelte
+````svelte
 <script lang="ts">
 	import { Select as SelectPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -27089,9 +27367,10 @@ export {
 >
 	{@render children?.()}
 </SelectPrimitive.GroupHeading>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-group.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-group.svelte
+````svelte
 <script lang="ts">
 	import { Select as SelectPrimitive } from 'bits-ui';
 
@@ -27099,9 +27378,10 @@ export {
 </script>
 
 <SelectPrimitive.Group data-slot="select-group" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-item.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-item.svelte
+````svelte
 <script lang="ts">
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import { Select as SelectPrimitive } from 'bits-ui';
@@ -27140,9 +27420,10 @@ export {
 		{/if}
 	{/snippet}
 </SelectPrimitive.Item>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-label.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-label.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27163,9 +27444,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-scroll-down-button.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-scroll-down-button.svelte
+````svelte
 <script lang="ts">
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import { Select as SelectPrimitive } from 'bits-ui';
@@ -27186,9 +27468,10 @@ export {
 >
 	<ChevronDownIcon class="size-4" />
 </SelectPrimitive.ScrollDownButton>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-scroll-up-button.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-scroll-up-button.svelte
+````svelte
 <script lang="ts">
 	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up';
 	import { Select as SelectPrimitive } from 'bits-ui';
@@ -27209,9 +27492,10 @@ export {
 >
 	<ChevronUpIcon class="size-4" />
 </SelectPrimitive.ScrollUpButton>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-separator.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-separator.svelte
+````svelte
 <script lang="ts">
 	import type { Separator as SeparatorPrimitive } from 'bits-ui';
 	import { Separator } from '$lib/components/ui/separator/index.js';
@@ -27230,9 +27514,10 @@ export {
 	class={cn('pointer-events-none -mx-1 my-1 h-px bg-border', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/select/select-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/select/select-trigger.svelte
+````svelte
 <script lang="ts">
 	import { Select as SelectPrimitive } from 'bits-ui';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
@@ -27273,9 +27558,10 @@ export {
 	{@render children?.()}
 	<ChevronDownIcon class={chevronClasses} />
 </SelectPrimitive.Trigger>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/separator/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/separator/index.ts
+````typescript
 import Root from './separator.svelte';
 
 export {
@@ -27283,9 +27569,10 @@ export {
 	//
 	Root as Separator
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/separator/separator.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/separator/separator.svelte
+````svelte
 <script lang="ts">
 	import { Separator as SeparatorPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -27306,9 +27593,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/index.ts
+````typescript
 import { Dialog as SheetPrimitive } from 'bits-ui';
 import Trigger from './sheet-trigger.svelte';
 import Close from './sheet-close.svelte';
@@ -27345,9 +27633,10 @@ export {
 	Title as SheetTitle,
 	Description as SheetDescription
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-close.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-close.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as SheetPrimitive } from 'bits-ui';
 
@@ -27355,9 +27644,10 @@ export {
 </script>
 
 <SheetPrimitive.Close bind:ref data-slot="sheet-close" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-content.svelte
+````svelte
 <script lang="ts" module>
 	import { tv, type VariantProps } from 'tailwind-variants';
 	export const sheetVariants = tv({
@@ -27419,9 +27709,10 @@ export {
 		</SheetPrimitive.Close>
 	</SheetPrimitive.Content>
 </SheetPrimitive.Portal>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-description.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-description.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as SheetPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -27439,9 +27730,10 @@ export {
 	class={cn('text-sm text-muted-foreground', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-footer.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-footer.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27462,9 +27754,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-header.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-header.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
@@ -27485,9 +27778,10 @@ export {
 >
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-overlay.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-overlay.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as SheetPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -27508,9 +27802,10 @@ export {
 	)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-title.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-title.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as SheetPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -27528,9 +27823,10 @@ export {
 	class={cn('font-semibold text-foreground', className)}
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/sheet/sheet-trigger.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as SheetPrimitive } from 'bits-ui';
 
@@ -27538,9 +27834,10 @@ export {
 </script>
 
 <SheetPrimitive.Trigger bind:ref data-slot="sheet-trigger" {...restProps} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/skeleton/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/skeleton/index.ts
+````typescript
 import Root from './skeleton.svelte';
 
 export {
@@ -27548,9 +27845,10 @@ export {
 	//
 	Root as Skeleton
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/skeleton/skeleton.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/skeleton/skeleton.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef, type WithoutChildren } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27568,9 +27866,10 @@ export {
 	class={cn('animate-pulse rounded-md bg-accent', className)}
 	{...restProps}
 ></div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/switch/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/switch/index.ts
+````typescript
 import Root from './switch.svelte';
 
 export {
@@ -27578,9 +27877,10 @@ export {
 	//
 	Root as Switch
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/switch/switch.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/switch/switch.svelte
+````svelte
 <script lang="ts">
 	import { Switch as SwitchPrimitive } from 'bits-ui';
 	import { cn, type WithoutChildrenOrChild } from '$lib/components/ui/utils.js';
@@ -27610,9 +27910,10 @@ export {
 		)}
 	/>
 </SwitchPrimitive.Root>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/index.ts
+````typescript
 import Root from './table.svelte';
 import Body from './table-body.svelte';
 import Caption from './table-caption.svelte';
@@ -27641,9 +27942,10 @@ export {
 	Header as TableHeader,
 	Row as TableRow
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-body.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-body.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27664,9 +27966,10 @@ export {
 >
 	{@render children?.()}
 </tbody>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-caption.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-caption.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27687,9 +27990,10 @@ export {
 >
 	{@render children?.()}
 </caption>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-cell.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-cell.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLTdAttributes } from 'svelte/elements';
@@ -27713,9 +28017,10 @@ export {
 >
 	{@render children?.()}
 </td>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-footer.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-footer.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27736,9 +28041,10 @@ export {
 >
 	{@render children?.()}
 </tfoot>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-head.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-head.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLThAttributes } from 'svelte/elements';
@@ -27762,9 +28068,10 @@ export {
 >
 	{@render children?.()}
 </th>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-header.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-header.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27785,9 +28092,10 @@ export {
 >
 	{@render children?.()}
 </thead>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table-row.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table-row.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -27811,9 +28119,10 @@ export {
 >
 	{@render children?.()}
 </tr>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/table/table.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/table/table.svelte
+````svelte
 <script lang="ts">
 	import type { HTMLTableAttributes } from 'svelte/elements';
 	import { cn, type WithElementRef } from '$lib/components/ui/utils.js';
@@ -27836,9 +28145,10 @@ export {
 		{@render children?.()}
 	</table>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/textarea/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/textarea/index.ts
+````typescript
 import Root from './textarea.svelte';
 
 export {
@@ -27846,9 +28156,10 @@ export {
 	//
 	Root as Textarea
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/textarea/textarea.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/textarea/textarea.svelte
+````svelte
 <script lang="ts">
 	import { cn, type WithElementRef, type WithoutChildren } from '$lib/components/ui/utils';
 	import type { HTMLTextareaAttributes } from 'svelte/elements';
@@ -27871,9 +28182,10 @@ export {
 	bind:value
 	{...restProps}
 ></textarea>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/tooltip/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/tooltip/index.ts
+````typescript
 import { Tooltip as TooltipPrimitive } from 'bits-ui';
 import Trigger from './tooltip-trigger.svelte';
 import Content from './tooltip-content.svelte';
@@ -27895,9 +28207,10 @@ export {
 	Provider as TooltipProvider,
 	Portal as TooltipPortal
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/tooltip/tooltip-content.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/tooltip/tooltip-content.svelte
+````svelte
 <script lang="ts">
 	import { Tooltip as TooltipPrimitive } from 'bits-ui';
 	import { cn } from '$lib/components/ui/utils.js';
@@ -27959,9 +28272,10 @@ export {
 		{@render tooltipContent()}
 	</TooltipPrimitive.Portal>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/tooltip/tooltip-trigger.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/ui/tooltip/tooltip-trigger.svelte
+````svelte
 <script lang="ts">
 	import { Tooltip as TooltipPrimitive } from 'bits-ui';
 
@@ -27974,9 +28288,10 @@ export {
 	class="cursor-pointer"
 	{...restProps}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/ui/utils.ts">
+## File: cerebro_unificado/frontend/src/lib/components/ui/utils.ts
+````typescript
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -27990,9 +28305,10 @@ export type WithoutChild<T> = T extends { child?: any } ? Omit<T, 'child'> : T;
 export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, 'children'> : T;
 export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/agentic.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/agentic.ts
+````typescript
 import type { AgenticConfig } from '$lib/types/agentic';
 
 export const ATTACHMENT_SAVED_REGEX = /\[Attachment saved: ([^\]]+)\]/;
@@ -28045,9 +28361,10 @@ export const LEGACY_AGENTIC_REGEX = {
 	AGENTIC_TOOL_CALL_OPEN: /\n*<<<AGENTIC_TOOL_CALL_START>>>[\s\S]*$/,
 	HAS_LEGACY_MARKERS: /<<<(?:AGENTIC_TOOL_CALL_START|reasoning_content_start)>>>/
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/api-endpoints.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/api-endpoints.ts
+````typescript
 export const API_MODELS = {
 	LIST: '/v1/models',
 	LOAD: '/models/load',
@@ -28079,20 +28396,23 @@ export const API_STREAM = {
 
 /** CORS proxy endpoint path */
 export const CORS_PROXY_ENDPOINT = '/cors-proxy';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/app.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/app.ts
+````typescript
 export const APP_NAME = import.meta.env?.VITE_PUBLIC_APP_NAME || 'llama-ui';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/attachment-labels.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/attachment-labels.ts
+````typescript
 export const ATTACHMENT_LABEL_FILE = 'File';
 export const ATTACHMENT_LABEL_PDF_FILE = 'PDF File';
 export const ATTACHMENT_LABEL_MCP_PROMPT = 'MCP Prompt';
 export const ATTACHMENT_LABEL_MCP_RESOURCE = 'MCP Resource';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/attachment-menu.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/attachment-menu.ts
+````typescript
 import type { Component } from 'svelte';
 import { MessageSquare, Zap, FolderOpen } from '@lucide/svelte';
 import { FILE_TYPE_ICONS } from '$lib/constants/icons';
@@ -28207,14 +28527,16 @@ export const ATTACHMENT_MCP_ITEMS: AttachmentMenuItem[] = [
 ];
 
 export const ATTACHMENT_TOOLTIP_TEXT = 'Add files, prompts, tools or MCP Servers';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/auto-scroll.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/auto-scroll.ts
+````typescript
 export const AUTO_SCROLL_INTERVAL = 100;
 export const AUTO_SCROLL_AT_BOTTOM_THRESHOLD = 10;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/binary-detection.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/binary-detection.ts
+````typescript
 import type { BinaryDetectionOptions } from '$lib/types';
 
 export const DEFAULT_BINARY_DETECTION_OPTIONS: BinaryDetectionOptions = {
@@ -28222,9 +28544,10 @@ export const DEFAULT_BINARY_DETECTION_OPTIONS: BinaryDetectionOptions = {
 	suspiciousCharThresholdRatio: 0.15, // Allow up to 15% suspicious chars
 	maxAbsoluteNullBytes: 2
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/cache.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/cache.ts
+````typescript
 /**
  * Cache configuration constants
  */
@@ -28279,27 +28602,30 @@ export const MAX_INACTIVE_CONVERSATION_STATES = 10;
  * @default 30 minutes
  */
 export const INACTIVE_CONVERSATION_STATE_MAX_AGE_MS = 30 * 60 * 1000;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/chat-form.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/chat-form.ts
+````typescript
 export const INITIAL_FILE_SIZE = 0;
 export const PROMPT_CONTENT_SEPARATOR = '\n\n';
 export const CLIPBOARD_CONTENT_QUOTE_PREFIX = '"';
 export const PROMPT_TRIGGER_PREFIX = '/';
 export const RESOURCE_TRIGGER_PREFIX = '@';
 export const NEW_CHAT_DRAFT_KEY = '__new_chat__';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/cli-flags.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/cli-flags.ts
+````typescript
 export const CLI_FLAGS = {
 	API_KEY: '--api-key',
 	MCP_PROXY: '--ui-mcp-proxy',
 	SLOTS: '--slots',
 	TOOLS: '--tools'
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/code-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/code-blocks.ts
+````typescript
 export const CODE_BLOCK_SCROLL_CONTAINER_CLASS = 'code-block-scroll-container';
 export const CODE_BLOCK_WRAPPER_CLASS = 'code-block-wrapper';
 export const CODE_BLOCK_HEADER_CLASS = 'code-block-header';
@@ -28309,9 +28635,10 @@ export const COPY_CODE_BTN_CLASS = 'copy-code-btn';
 export const PREVIEW_CODE_BTN_CLASS = 'preview-code-btn';
 export const RELATIVE_CLASS = 'relative';
 export const RUN_CODE_BTN_CLASS = 'run-code-btn';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/code.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/code.ts
+````typescript
 export const NEWLINE = '\n';
 export const TAB = '\t';
 export const DEFAULT_LANGUAGE = 'text';
@@ -28320,16 +28647,18 @@ export const AMPERSAND_REGEX = /&/g;
 export const LT_REGEX = /</g;
 export const GT_REGEX = />/g;
 export const FENCE_PATTERN = /^```|\n```/g;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/context-keys.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/context-keys.ts
+````typescript
 export const CONTEXT_KEY_MESSAGE_EDIT = 'chat-message-edit';
 export const CONTEXT_KEY_CHAT_ACTIONS = 'chat-actions';
 export const CONTEXT_KEY_CHAT_SETTINGS_CONFIG = 'chat-settings-config';
 export const CONTEXT_KEY_PROCESSING_INFO = 'processing-info';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/control-actions.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/control-actions.ts
+````typescript
 // actions accepted by the realtime inference control endpoint (API_CHAT.CONTROL)
 // kept separate from the endpoint paths since these are protocol level verbs
 export const CONTROL_ACTION = {
@@ -28337,9 +28666,10 @@ export const CONTROL_ACTION = {
 } as const;
 
 export type ControlAction = (typeof CONTROL_ACTION)[keyof typeof CONTROL_ACTION];
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/css-classes.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/css-classes.ts
+````typescript
 export const BOX_BORDER =
 	'border border-border/30 focus-within:border-border  dark:border-border/20 dark:focus-within:border-border';
 
@@ -28359,9 +28689,10 @@ export const PANEL_CLASSES = `
 `;
 
 export const CHAT_FORM_POPOVER_MAX_HEIGHT = 'max-h-80';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/database.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/database.ts
+````typescript
 /**
  * Database-related constants (IndexedDB, Dexie).
  *
@@ -28391,9 +28722,10 @@ export const IDXDB_STORES = {
 	[IDXDB_TABLES.conversations]: IDXDB_STORE_SCHEMAS.conversations,
 	[IDXDB_TABLES.messages]: IDXDB_STORE_SCHEMAS.messages
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/diagram-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/diagram-blocks.ts
+````typescript
 // Shared constants for diagram blocks (mermaid and svg) that toggle between a
 // rendered view and a source view. The wrapper carries the active mode, css
 // drives the visibility, the click handler only flips the attribute.
@@ -28403,9 +28735,10 @@ export const DIAGRAM_VIEW_RENDERED = 'rendered';
 export const DIAGRAM_VIEW_SOURCE = 'source';
 export const DIAGRAM_SOURCE_CLASS = 'diagram-source';
 export const TOGGLE_SOURCE_BTN_CLASS = 'toggle-source-btn';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/error.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/error.ts
+````typescript
 export const ERROR_MESSAGES = {
 	NETWORK: {
 		GENERIC: 'Failed to connect to server',
@@ -28429,14 +28762,16 @@ export const HTTP_CODE_TO_STRING: Record<string, string> = {
 	500: ERROR_MESSAGES.HTTP.INTERNAL_ERROR,
 	503: ERROR_MESSAGES.HTTP.TEMPORARILY_UNAVAILABLE
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/floating-ui-constraints.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/floating-ui-constraints.ts
+````typescript
 export const VIEWPORT_GUTTER = 8;
 export const MENU_OFFSET = 6;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/formatters.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/formatters.ts
+````typescript
 export const MS_PER_SECOND = 1000;
 export const SECONDS_PER_MINUTE = 60;
 export const SECONDS_PER_HOUR = 3600;
@@ -28472,9 +28807,10 @@ export const STRIP_MARKDOWN_INLINE_REGEX = new RegExp(
 	'gmu'
 );
 /* eslint-enable no-misleading-character-class */
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/icons.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/icons.ts
+````typescript
 /**
  * Icon mappings for file types and model modalities
  * Centralized configuration to ensure consistent icon usage across the app
@@ -28520,15 +28856,17 @@ export const PREVIEW_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="
 export const CODE_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code lucide-code-icon"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>`;
 
 export const RUN_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play lucide-play-icon"><polygon points="6 3 20 12 6 21 6 3"/></svg>`;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/image-size.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/image-size.ts
+````typescript
 export const MEGAPIXELS_TO_PIXELS = 1_000_000;
 
 export const HEIC_JPEG_QUALITY = 0.85;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/index.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/index.ts
+````typescript
 // Central constants export file
 // All constants should be imported from '$lib/constants'
 
@@ -28590,9 +28928,10 @@ export * from './ui';
 export * from './uri-template';
 export * from './url';
 export * from './viewport';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/jpeg-exif.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/jpeg-exif.ts
+````typescript
 /**
  * JPEG and EXIF binary format constants for orientation parsing.
  */
@@ -28623,9 +28962,10 @@ export const EXIF_ORIENTATION_TAG = 0x0112;
 
 /** Size in bytes of one IFD directory entry */
 export const IFD_ENTRY_SIZE = 12;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/key-value-pairs.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/key-value-pairs.ts
+````typescript
 /**
  * Key-value pair form constraints and sanitization patterns.
  *
@@ -28646,9 +28986,10 @@ export const KEY_VALUE_PAIR_VALUE_MAX_LENGTH = 8192;
 export const KEY_VALUE_PAIR_UNSAFE_KEY_RE = /[\x00-\x1F\x7F]/g;
 // eslint-disable-next-line no-control-regex
 export const KEY_VALUE_PAIR_UNSAFE_VALUE_RE = /[\x00-\x08\x0A-\x0D\x0E-\x1F\x7F]/g;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/latex-protection.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/latex-protection.ts
+````typescript
 /**
  * Matches common Markdown code blocks to exclude them from further processing (e.g. LaTeX).
  * - Fenced: ```...```
@@ -28684,9 +29025,10 @@ export const MHCHEM_PATTERN_MAP: readonly [RegExp, string][] = [
 	[/(\s)\$\\ce{/g, '$1$\\\\ce{'],
 	[/(\s)\$\\pu{/g, '$1$\\\\pu{']
 ] as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/literal-html.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/literal-html.ts
+````typescript
 export const LINE_BREAK = /\r?\n/;
 
 export const PHRASE_PARENTS = new Set([
@@ -28702,27 +29044,31 @@ export const PHRASE_PARENTS = new Set([
 
 export const NBSP = '\u00a0';
 export const TAB_AS_SPACES = NBSP.repeat(4);
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/markdown.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/markdown.ts
+````typescript
 export const IMAGE_NOT_ERROR_BOUND_SELECTOR = 'img:not([data-error-bound])';
 export const DATA_ERROR_BOUND_ATTR = 'errorBound';
 export const DATA_ERROR_HANDLED_ATTR = 'errorHandled';
 export const BOOL_TRUE_STRING = 'true';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/max-bundle-size.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/max-bundle-size.ts
+````typescript
 export const MAX_BUNDLE_SIZE = 2 * 1024 * 1024;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/mcp-form.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/mcp-form.ts
+````typescript
 export const MCP_SERVER_URL_PLACEHOLDER = 'https://mcp.example.com/sse';
 export const MIN_AUTOCOMPLETE_INPUT_LENGTH = 1;
 /** Number of tools shown on the compact MCP server card before collapsing to a "+ N more" badge */
 export const MCP_CARD_VISIBLE_TOOL_LIMIT = 4;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/mcp-resource.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/mcp-resource.ts
+````typescript
 import { MimeTypeImage } from '$lib/enums';
 
 // File extension patterns for resource type detection
@@ -28778,9 +29124,10 @@ export const IMAGE_MIME_TO_EXTENSION: Record<string, string> = {
 	[MimeTypeImage.GIF]: 'gif',
 	[MimeTypeImage.WEBP]: 'webp'
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/mcp.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/mcp.ts
+````typescript
 import { Zap, Globe, Radio } from '@lucide/svelte';
 import { MCPTransportType } from '$lib/enums';
 import type { ClientCapabilities, Implementation } from '$lib/types';
@@ -28875,9 +29222,10 @@ export const MCP_TRANSPORT_ICONS: Record<MCPTransportType, Component> = {
 export const MCP_SSE_ENDPOINT = '/sse';
 export const MCP_SSE_ENDPOINT_SLASH = '/sse/';
 export const MCP_SSE_ENDPOINT_QUERY = '/sse?';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/mermaid-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/mermaid-blocks.ts
+````typescript
 export const MERMAID_WRAPPER_CLASS = 'mermaid-block-wrapper';
 export const MERMAID_SCROLL_CONTAINER_CLASS = 'mermaid-scroll-container';
 export const MERMAID_BLOCK_CLASS = 'mermaid';
@@ -28887,9 +29235,10 @@ export const MERMAID_LANGUAGE = 'mermaid';
 export const MERMAID_SYNTAX_ATTR = 'data-mermaid-syntax';
 export const MERMAID_ID_ATTR = 'data-mermaid-id';
 export const MERMAID_RENDERED_ATTR = 'data-mermaid-rendered';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/message-export.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/message-export.ts
+````typescript
 // Conversation filename constants
 
 // Length of the trimmed conversation ID in the filename
@@ -28910,9 +29259,10 @@ export const ISO_DATE_TIME_SEPARATOR_REPLACEMENT = '_';
 
 export const ISO_TIME_SEPARATOR = ':';
 export const ISO_TIME_SEPARATOR_REPLACEMENT = '-';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/model-id.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/model-id.ts
+````typescript
 /** Sentinel value returned by `indexOf` when a substring is not found. */
 export const MODEL_ID_NOT_FOUND = -1;
 
@@ -28957,9 +29307,10 @@ export const MODEL_IGNORED_SEGMENTS = new Set(['GGUF', 'GGML']);
  * Matches a trailing weight file extension, e.g. `model.gguf` -> `model`.
  */
 export const MODEL_WEIGHT_EXTENSION_RE = /\.(gguf|ggml)$/i;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/model-loading.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/model-loading.ts
+````typescript
 /**
  * Labels shown while a model loads, keyed by the stage reported on /models/sse.
  */
@@ -28974,14 +29325,16 @@ export const MODEL_LOAD_STAGE_LABELS: Record<ApiModelLoadStage, string> = {
  * text_model fills the rest, so a plain model reaches 100% on its own.
  */
 export const MODEL_LOAD_TAIL_SHARE = 0.1;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/precision.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/precision.ts
+````typescript
 export const PRECISION_MULTIPLIER = 1000000;
 export const PRECISION_DECIMAL_PLACES = 6;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/processing-info.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/processing-info.ts
+````typescript
 export const PROCESSING_INFO_TIMEOUT = 2000;
 
 /**
@@ -28990,9 +29343,10 @@ export const PROCESSING_INFO_TIMEOUT = 2000;
 export const STATS_UNITS = {
 	TOKENS_PER_SECOND: 't/s'
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/pwa.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/pwa.ts
+````typescript
 /**
  * Centralized PWA constants to avoid magic strings, regexes, and duplicated
  * definitions across the codebase.
@@ -29361,9 +29715,10 @@ export const SVELTEKIT_PWA_OPTIONS: SvelteKitPWAOptions = {
 		includeVersionFile: true
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/reasoning-effort-tokens.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/reasoning-effort-tokens.ts
+````typescript
 import { ReasoningEffort } from '$lib/enums';
 
 /**
@@ -29376,9 +29731,10 @@ export const REASONING_EFFORT_TOKENS: Record<string, number> = {
 	[ReasoningEffort.HIGH]: 8192,
 	[ReasoningEffort.MAX]: -1 // unlimited
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/reasoning-effort.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/reasoning-effort.ts
+````typescript
 import { ReasoningEffort } from '$lib/enums';
 import type { ReasoningEffortLevel } from '$lib/types';
 
@@ -29400,9 +29756,10 @@ export const REASONING_EFFORT_LEVELS: ReasoningEffortLevel[] = [
 	{ value: ReasoningEffort.HIGH, label: 'High' },
 	{ value: ReasoningEffort.MAX, label: 'Max', hasInfo: true }
 ];
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/recommended-mcp-servers.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/recommended-mcp-servers.ts
+````typescript
 import { DEFAULT_MCP_CONFIG } from './mcp';
 import type { RecommendedMCPServer } from '$lib/types';
 
@@ -29438,9 +29795,10 @@ export const RECOMMENDED_MCP_SERVER_IDS = new Set(
 );
 
 export const RECOMMENDED_MCP_SERVERS_OPTIN_DIALOG_DELAY = 1000;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/routes.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/routes.ts
+````typescript
 export const NEW_CHAT_PARAM = 'new_chat';
 
 /** Settings section slugs — used for routes and navigation. */
@@ -29475,9 +29833,10 @@ export const ROUTES = {
 	/** Interactive terminal. */
 	TERMINAL: '#/terminal'
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/sandbox.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/sandbox.ts
+````typescript
 import { JsonSchemaType, ToolCallType } from '$lib/enums';
 import type { OpenAIToolDefinition } from '$lib/types';
 
@@ -29517,9 +29876,10 @@ export const SANDBOX_TOOL_DEFINITION: OpenAIToolDefinition = {
 		}
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/settings-keys.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/settings-keys.ts
+````typescript
 /**
  * Settings key constants for ChatSettings configuration.
  *
@@ -29610,9 +29970,10 @@ export const SETTINGS_KEYS = {
 	CUSTOM_JSON: 'customJson',
 	CUSTOM_CSS: 'customCss'
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/settings-registry.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/settings-registry.ts
+````typescript
 import { ColorMode } from '$lib/enums/ui.enums';
 import { SettingsFieldType } from '$lib/enums/settings.enums';
 import { SyncableParameterType } from '$lib/enums';
@@ -30510,9 +30871,10 @@ export const SYNCABLE_PARAMETERS: SyncableParameter[] = getAllSettings()
 export const SETTINGS_FALLBACK_EXIT_ROUTE = ROUTES.START;
 
 export { SETTINGS_KEYS } from './settings-keys';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/sse.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/sse.ts
+````typescript
 /**
  * Server-sent events wire format, shared by the chat stream and the
  * /models/sse status feed (text/event-stream).
@@ -30529,9 +30891,10 @@ export const SSE_DATA_PREFIX = 'data:';
 
 // end-of-stream marker on the chat completion stream
 export const SSE_DONE_MARKER = '[DONE]';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/storage.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/storage.ts
+````typescript
 /**
  * Storage-related constants (localStorage, IndexedDB).
  *
@@ -30587,15 +30950,17 @@ export const NEW_TO_DEPRECATED_MAP: Record<string, string> = {
 	[FAVORITE_MODELS_LOCALSTORAGE_KEY]: DEPRECATED_FAVORITE_MODELS_LOCALSTORAGE_KEY,
 	[USER_OVERRIDES_LOCALSTORAGE_KEY]: DEPRECATED_USER_OVERRIDES_LOCALSTORAGE_KEY
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/stream.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/stream.ts
+````typescript
 // grace window after a visibilitychange before we kick a reader whose socket likely died
 // while the tab was hidden. covers brief background pauses without thrashing live streams
 export const STREAM_VISIBILITY_KICK_MS = 3000;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/supported-file-types.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/supported-file-types.ts
+````typescript
 /**
  * Comprehensive dictionary of all supported file types in llama-ui
  * Organized by category with TypeScript enums for better type safety
@@ -30830,9 +31195,10 @@ export const TEXT_FILE_TYPES = {
 		mimeTypes: [MimeTypeText.PROPERTIES]
 	}
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/svg-blocks.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/svg-blocks.ts
+````typescript
 export const SVG_WRAPPER_CLASS = 'svg-block-wrapper';
 export const SVG_SCROLL_CONTAINER_CLASS = 'svg-scroll-container';
 export const SVG_BLOCK_CLASS = 'svg-block';
@@ -30882,9 +31248,10 @@ export const SVG_INLINE_SHADOW_STYLE =
  */
 export const SVG_DIALOG_SHADOW_STYLE =
 	':host{display:inline-block}svg{min-height:min(50vh,12rem);min-width:min(80vw,20rem);max-width:none;max-height:none;height:auto;width:auto;display:block}';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/table-html-restorer.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/table-html-restorer.ts
+````typescript
 /**
  * Matches <br>, <br/>, <br /> tags (case-insensitive).
  * Used to detect line breaks in table cell text content.
@@ -30905,9 +31272,10 @@ export const LIST_PATTERN = /^<ul>([\s\S]*)<\/ul>$/i;
  * Case-insensitive, allows multiline content.
  */
 export const LI_PATTERN = /<li>([\s\S]*?)<\/li>/gi;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/terminal.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/terminal.ts
+````typescript
 import { JsonSchemaType, ToolCallType } from '$lib/enums';
 import type { OpenAIToolDefinition } from '$lib/types';
 
@@ -30942,9 +31310,10 @@ export const TERMINAL_TOOL_DEFINITION: OpenAIToolDefinition = {
 		}
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/title-generation.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/title-generation.ts
+````typescript
 /* Title generation constants */
 export const TITLE_GENERATION = {
 	MIN_LENGTH: 3,
@@ -30954,9 +31323,10 @@ export const TITLE_GENERATION = {
 	PREFIX_PATTERN: /^(Title:|Subject:|Topic:)\s*/i,
 	QUOTE_PATTERN: /^["]|["]$/g
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/tools.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/tools.ts
+````typescript
 import { ToolSource } from '$lib/enums/tools.enums';
 
 export const TOOL_GROUP_LABELS = {
@@ -30970,13 +31340,15 @@ export const TOOL_SERVER_LABELS = {
 	[ToolSource.CUSTOM]: 'Custom Tools',
 	[ToolSource.FRONTEND]: 'Browser Tools'
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/tooltip-config.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/tooltip-config.ts
+````typescript
 export const TOOLTIP_DELAY_DURATION = 500;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/ui.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/ui.ts
+````typescript
 import { Search, Settings, SquarePen, Network, SquareTerminal } from '@lucide/svelte';
 import McpLogo from '$lib/components/app/mcp/McpLogo.svelte';
 import type { Component } from 'svelte';
@@ -31026,9 +31398,10 @@ export const SIDEBAR_ACTIONS_ITEMS: DesktopIconStripItem[] = [
 		activeUrlIncludes: '#/settings'
 	}
 ];
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/uri-template.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/uri-template.ts
+````typescript
 /**
  * URI Template constants for RFC 6570 template processing.
  */
@@ -31089,9 +31462,10 @@ export const LEADING_SLASHES_REGEX = /^\/+/;
 
 /** Regex to match base64-encoded image URIs (format: "data:image/[media type];base64,[data]")*/
 export const BASE64_IMAGE_URI_REGEX = /^data:(image\/[a-z0-9.\-+]+);base64/;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/url.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/url.ts
+````typescript
 const STD = ['com', 'net', 'org', 'gov', 'edu'] as const;
 
 const STD_MIL = [...STD, 'mil'] as const;
@@ -31278,13 +31652,15 @@ function buildSuffixSet(suffixes: Record<string, readonly string[]>): Set<string
 
 export const TWO_PART_PUBLIC_SUFFIXES = buildSuffixSet(ccTLD_PREFIXES);
 export const WILDCARD_PUBLIC_SUFFIXES = buildSuffixSet(WILDCARD_BASES);
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/viewport.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/viewport.ts
+````typescript
 export const DEFAULT_MOBILE_BREAKPOINT = 768;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/constants/websearch.ts">
+## File: cerebro_unificado/frontend/src/lib/constants/websearch.ts
+````typescript
 import { JsonSchemaType, ToolCallType } from '$lib/enums';
 import type { OpenAIToolDefinition } from '$lib/types';
 
@@ -31309,9 +31685,10 @@ export const WEB_SEARCH_TOOL_DEFINITION: OpenAIToolDefinition = {
 		}
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/contexts/chat-actions.context.ts">
+## File: cerebro_unificado/frontend/src/lib/contexts/chat-actions.context.ts
+````typescript
 import { getContext, setContext } from 'svelte';
 import { CONTEXT_KEY_CHAT_ACTIONS } from '$lib/constants';
 
@@ -31351,9 +31728,10 @@ export function setChatActionsContext(ctx: ChatActionsContext): ChatActionsConte
 export function getChatActionsContext(): ChatActionsContext {
 	return getContext(CHAT_ACTIONS_KEY);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/contexts/chat-settings-config.context.ts">
+## File: cerebro_unificado/frontend/src/lib/contexts/chat-settings-config.context.ts
+````typescript
 import { getContext, setContext } from 'svelte';
 import { CONTEXT_KEY_CHAT_SETTINGS_CONFIG } from '$lib/constants';
 
@@ -31374,9 +31752,10 @@ export function setChatSettingsConfigContext(
 export function getChatSettingsConfigContext(): ChatSettingsConfigContext {
 	return getContext(CHAT_SETTINGS_CONFIG_KEY);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/contexts/index.ts">
+## File: cerebro_unificado/frontend/src/lib/contexts/index.ts
+````typescript
 export {
 	getMessageEditContext,
 	setMessageEditContext,
@@ -31402,9 +31781,10 @@ export {
 	setProcessingInfoContext,
 	type ProcessingInfoContext
 } from './processing-info.context';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/contexts/message-edit.context.ts">
+## File: cerebro_unificado/frontend/src/lib/contexts/message-edit.context.ts
+````typescript
 import { getContext, setContext } from 'svelte';
 import { CONTEXT_KEY_MESSAGE_EDIT } from '$lib/constants';
 import { MessageRole } from '$lib/enums';
@@ -31456,9 +31836,10 @@ export function setMessageEditContext(ctx: MessageEditContext): MessageEditConte
 export function getMessageEditContext(): MessageEditContext {
 	return getContext(MESSAGE_EDIT_KEY);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/contexts/processing-info.context.ts">
+## File: cerebro_unificado/frontend/src/lib/contexts/processing-info.context.ts
+````typescript
 import { getContext, setContext } from 'svelte';
 import { CONTEXT_KEY_PROCESSING_INFO } from '$lib/constants';
 
@@ -31475,9 +31856,10 @@ export function setProcessingInfoContext(ctx: ProcessingInfoContext): Processing
 export function getProcessingInfoContext(): ProcessingInfoContext {
 	return getContext(PROCESSING_INFO_KEY);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/agentic.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/agentic.enums.ts
+````typescript
 /**
  * OpenAI-compatible tool call type.
  */
@@ -31505,9 +31887,10 @@ export enum ContinueIntentKind {
 	RERUN_TURN = 'rerun_turn',
 	NEXT_TURN = 'next_turn'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/attachment.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/attachment.enums.ts
+````typescript
 /**
  * Attachment type enum for database message extras
  */
@@ -31564,9 +31947,10 @@ export enum AttachmentItemVisibleWhen {
 	HAS_MCP_PROMPTS_SUPPORT = 'hasMcpPromptsSupport',
 	HAS_MCP_RESOURCES_SUPPORT = 'hasMcpResourcesSupport'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/chat.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/chat.enums.ts
+````typescript
 export enum ChatMessageStatsView {
 	GENERATION = 'generation',
 	READING = 'reading',
@@ -31641,9 +32025,10 @@ export enum PdfViewMode {
 	TEXT = 'text',
 	PAGES = 'pages'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/files.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/files.enums.ts
+````typescript
 /**
  * Comprehensive dictionary of all supported file types in llama-ui
  * Organized by category with TypeScript enums for better type safety
@@ -31910,9 +32295,10 @@ export enum MimeTypeText {
 	CUDA = 'text/x-cuda',
 	PROPERTIES = 'text/properties'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/index.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/index.ts
+````typescript
 export {
 	AttachmentType,
 	AttachmentMenuItemId,
@@ -31981,9 +32367,10 @@ export { KeyboardKey } from './keyboard.enums';
 export { ToolSource, ToolPermissionDecision, ToolResponseField } from './tools.enums';
 
 export { SplashOrientation } from './splash.enums';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/keyboard.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/keyboard.enums.ts
+````typescript
 /**
  * Keyboard key names for event handling
  */
@@ -32003,9 +32390,10 @@ export enum KeyboardKey {
 	O_UPPER = 'O',
 	SPACE = ' '
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/mcp.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/mcp.enums.ts
+````typescript
 /**
  * Connection lifecycle phases for MCP protocol
  */
@@ -32074,18 +32462,20 @@ export enum MCPRefType {
 	PROMPT = 'ref/prompt',
 	RESOURCE = 'ref/resource'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/model.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/model.enums.ts
+````typescript
 export enum ModelModality {
 	TEXT = 'TEXT',
 	AUDIO = 'AUDIO',
 	VISION = 'VISION',
 	VIDEO = 'VIDEO'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/reasoning-effort.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/reasoning-effort.enums.ts
+````typescript
 /**
  * Reasoning effort levels for thinking models.
  * These values are sent to the server and mapped to token budgets.
@@ -32096,9 +32486,10 @@ export enum ReasoningEffort {
 	HIGH = 'high',
 	MAX = 'max'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/server.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/server.enums.ts
+````typescript
 /**
  * Server role enum - used for single/multi-model mode
  */
@@ -32134,9 +32525,10 @@ export enum ServerModelsSseEventType {
 	MODEL_REMOVE = 'model_remove',
 	DOWNLOAD_PROGRESS = 'download_progress'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/settings.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/settings.enums.ts
+````typescript
 /**
  * Parameter source - indicates whether a parameter uses default or custom value
  */
@@ -32163,9 +32555,10 @@ export enum SettingsFieldType {
 	CHECKBOX = 'checkbox',
 	SELECT = 'select'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/splash.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/splash.enums.ts
+````typescript
 /**
  * Splash screen orientation for iOS apple-touch-startup-image
  */
@@ -32173,9 +32566,10 @@ export enum SplashOrientation {
 	PORTRAIT = 'portrait',
 	LANDSCAPE = 'landscape'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/tools.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/tools.enums.ts
+````typescript
 export enum ToolSource {
 	BUILTIN = 'builtin',
 	MCP = 'mcp',
@@ -32194,9 +32588,10 @@ export enum ToolResponseField {
 	PLAIN_TEXT = 'plain_text_response',
 	ERROR = 'error'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/enums/ui.enums.ts">
+## File: cerebro_unificado/frontend/src/lib/enums/ui.enums.ts
+````typescript
 export enum ColorMode {
 	LIGHT = 'light',
 	DARK = 'dark',
@@ -32232,9 +32627,10 @@ export enum UrlProtocol {
 export enum HtmlInputType {
 	FILE = 'file'
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-attachment-menu.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-attachment-menu.svelte.ts
+````typescript
 import { page } from '$app/state';
 import { AttachmentAction } from '$lib/enums';
 
@@ -32317,9 +32713,10 @@ export function useAttachmentMenu(
 		getSystemMessageTooltip
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-auto-scroll.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-auto-scroll.svelte.ts
+````typescript
 import { AUTO_SCROLL_AT_BOTTOM_THRESHOLD, AUTO_SCROLL_INTERVAL } from '$lib/constants';
 
 export interface AutoScrollOptions {
@@ -32537,9 +32934,10 @@ export class AutoScrollController {
 export function createAutoScrollController(options: AutoScrollOptions = {}): AutoScrollController {
 	return new AutoScrollController(options);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-active-model.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-active-model.svelte.ts
+````typescript
 /**
  * Active model resolution and capability detection for the ChatScreen.
  *
@@ -32640,9 +33038,10 @@ export function useChatScreenActiveModel() {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-drag-and-drop.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-drag-and-drop.svelte.ts
+````typescript
 /**
  * Drag-and-drop state machine for the ChatScreen.
  *
@@ -32715,9 +33114,10 @@ export function useChatScreenDragAndDrop(options: UseChatScreenDragAndDropOption
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-file-upload.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-file-upload.svelte.ts
+````typescript
 /**
  * File upload lifecycle for the ChatScreen form.
  *
@@ -32822,9 +33222,10 @@ export function useChatScreenFileUpload(options: UseChatScreenFileUploadOptions)
 		handleFileRemove
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-scroll.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-chat-screen-scroll.svelte.ts
+````typescript
 /**
  * Scroll container binding and navigation guard for the ChatScreen.
  *
@@ -32872,9 +33273,10 @@ export function useChatScreenScroll(autoScroll: AutoScrollController) {
 		handleScroll
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-draft-messages.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-draft-messages.svelte.ts
+````typescript
 import { onMount } from 'svelte';
 import { afterNavigate, beforeNavigate } from '$app/navigation';
 import { draftMessagesStore } from '$lib/stores/draft-messages.svelte';
@@ -32920,9 +33322,10 @@ export function useDraftMessages(options: UseDraftMessagesOptions) {
 
 	return { clearDraft };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-keyboard-shortcuts.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-keyboard-shortcuts.svelte.ts
+````typescript
 import { goto } from '$app/navigation';
 import { KeyboardKey } from '$lib/enums';
 import { ROUTES } from '$lib/constants/routes';
@@ -32983,9 +33386,10 @@ export function useKeyboardShortcuts(callbacks: KeyboardShortcutsCallbacks) {
 
 	return { handleKeydown };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-mcp-recommendations.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-mcp-recommendations.svelte.ts
+````typescript
 import { browser } from '$app/environment';
 import {
 	MCP_SERVERS_ADDED_TO_CHAT_LOCALSTORAGE_KEY,
@@ -33071,9 +33475,10 @@ export function useMcpRecommendations() {
 		handleOpenChange
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-message-edit-context.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-message-edit-context.svelte.ts
+````typescript
 import { setMessageEditContext } from '$lib/contexts';
 import { MessageRole } from '$lib/enums';
 import { parseFilesToMessageExtras } from '$lib/utils/convert-files-to-extra';
@@ -33173,9 +33578,10 @@ export function useMessageEditContext(options: UseMessageEditContextOptions) {
 		handleCancelEdit
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-models-selector.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-models-selector.svelte.ts
+````typescript
 import { onMount } from 'svelte';
 import {
 	modelsStore,
@@ -33449,9 +33855,10 @@ export function useModelsSelector(opts: UseModelsSelectorOptions): UseModelsSele
 		getDisplayOption
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-processing-state.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-processing-state.svelte.ts
+````typescript
 import { activeProcessingState } from '$lib/stores/chat.svelte';
 import { config } from '$lib/stores/settings.svelte';
 import { STATS_UNITS } from '$lib/constants';
@@ -33777,9 +34184,10 @@ export function useProcessingState(): UseProcessingStateReturn {
 		stopMonitoring
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-pwa.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-pwa.svelte.ts
+````typescript
 import { browser } from '$app/environment';
 import { useRegisterSW } from 'virtual:pwa-register/svelte';
 import { versionStore } from '$lib/stores/version.svelte';
@@ -33862,9 +34270,10 @@ export function usePwa() {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-scroll-carousel.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-scroll-carousel.svelte.ts
+````typescript
 export function useScrollCarousel() {
 	let canScrollLeft = $state(false);
 	let canScrollRight = $state(false);
@@ -33926,9 +34335,10 @@ export function useScrollCarousel() {
 		updateScrollButtons
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-settings-navigation.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-settings-navigation.svelte.ts
+````typescript
 import { page } from '$app/state';
 import { beforeNavigate } from '$app/navigation';
 import { settingsReferrer } from '$lib/stores/settings-referrer.svelte';
@@ -33975,9 +34385,10 @@ export function useSettingsNavigation() {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-throttle.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-throttle.svelte.ts
+````typescript
 /**
  * Creates a reactive throttle key that increments when `getValue()` changes
  * and the throttle window has elapsed since the last increment.
@@ -34010,9 +34421,10 @@ export function useThrottle(getValue: () => string | undefined, ms: number) {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/hooks/use-tools-panel.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/hooks/use-tools-panel.svelte.ts
+````typescript
 import { CLI_FLAGS } from '$lib/constants';
 import { SvelteSet } from 'svelte/reactivity';
 import { ToolSource } from '$lib/enums';
@@ -34136,9 +34548,10 @@ export function useToolsPanel(): UseToolsPanelReturn {
 		handleOpen
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/chat.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/chat.service.ts
+````typescript
 import { getAuthHeaders, getJsonHeaders } from '$lib/utils/api-headers';
 import { formatAttachmentText } from '$lib/utils/formatters';
 import { isAbortError } from '$lib/utils/abort';
@@ -35629,9 +36042,10 @@ export class ChatService {
 		onTimingsCallback(timings, promptProgress);
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/database.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/database.service.ts
+````typescript
 import Dexie, { type EntityTable } from 'dexie';
 import { findDescendantMessages, uuid, filterByLeafNodeId } from '$lib/utils';
 import { IDXDB_TABLES, IDXDB_STORES, STORAGE_APP_NAME } from '$lib/constants';
@@ -36163,9 +36577,10 @@ export class DatabaseService {
 		);
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/index.ts">
+## File: cerebro_unificado/frontend/src/lib/services/index.ts
+````typescript
 /**
  *
  * SERVICES
@@ -36509,9 +36924,10 @@ export { TerminalService } from './terminal.service';
  * **WebSearchService** — Executes web searches via local or remote search providers.
  */
 export { WebSearchService } from './websearch.service';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/mcp.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/mcp.service.ts
+````typescript
 import { Client } from '@modelcontextprotocol/sdk/client';
 import {
 	StreamableHTTPClientTransport,
@@ -37730,9 +38146,10 @@ export class MCPService {
 		return !!connection.serverCapabilities?.resources?.subscribe;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/migration.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/migration.service.ts
+````typescript
 /**
  * Migration Service - Unified data migration hook
  *
@@ -38395,9 +38812,10 @@ export const MigrationService = {
 			console.log('[Migration] All migrations complete');
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/models.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/models.service.ts
+````typescript
 import { ServerModelStatus } from '$lib/enums';
 import { apiFetch, apiPost, normalizeModelName } from '$lib/utils';
 import type { ParsedModelId } from '$lib/types/models';
@@ -38631,9 +39049,10 @@ export class ModelsService {
 		return result;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/parameter-sync.service.spec.ts">
+## File: cerebro_unificado/frontend/src/lib/services/parameter-sync.service.spec.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { ParameterSyncService } from './parameter-sync.service';
 import { ColorMode } from '$lib/enums';
@@ -38783,9 +39202,10 @@ describe('ParameterSyncService', () => {
 		});
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/parameter-sync.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/parameter-sync.service.ts
+````typescript
 import { normalizeFloatingPoint } from '$lib/utils';
 import { SETTINGS_KEYS, SYNCABLE_PARAMETERS } from '$lib/constants';
 import type { ParameterRecord, ParameterInfo, ParameterValue } from '$lib/types';
@@ -39018,9 +39438,10 @@ export class ParameterSyncService {
 		return diff;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/props.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/props.service.ts
+````typescript
 import { apiFetchWithParams } from '$lib/utils';
 
 export class PropsService {
@@ -39068,9 +39489,10 @@ export class PropsService {
 		return apiFetchWithParams<ApiLlamaCppServerProps>('./props', params, { authOnly: true });
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/router.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/router.service.ts
+````typescript
 import { ROUTES } from '$lib/constants/routes';
 
 export class RouterService {
@@ -39082,9 +39504,10 @@ export class RouterService {
 		return `${ROUTES.SETTINGS}/${section}`;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/sandbox-harness.ts">
+## File: cerebro_unificado/frontend/src/lib/services/sandbox-harness.ts
+````typescript
 import WORKER_SHIM from './sandbox-worker.js?raw';
 
 /**
@@ -39110,9 +39533,10 @@ addEventListener('message', (event) => {
 	worker.postMessage({ code: event.data.code });
 });
 </script>`;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/sandbox-worker.js">
+## File: cerebro_unificado/frontend/src/lib/services/sandbox-worker.js
+````javascript
 const logs = [];
 const fmt = (value) => {
 	if (typeof value === 'string') return value;
@@ -39143,9 +39567,10 @@ self.onmessage = async (event) => {
 	}
 	self.postMessage(reply);
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/sandbox.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/sandbox.service.ts
+````typescript
 import {
 	NEWLINE_SEPARATOR,
 	SANDBOX_EMPTY_OUTPUT,
@@ -39258,9 +39683,10 @@ export class SandboxService {
 		});
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/terminal.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/terminal.service.ts
+````typescript
 import { TERMINAL_TOOL_NAME } from '$lib/constants';
 import type { ToolExecutionResult } from '$lib/types';
 
@@ -39296,9 +39722,10 @@ export class TerminalService {
 		}
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/tools.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/tools.service.ts
+````typescript
 import { apiFetch } from '$lib/utils';
 import { API_TOOLS } from '$lib/constants';
 import { ToolResponseField } from '$lib/enums';
@@ -39339,9 +39766,10 @@ export class ToolsService {
 		return { content: JSON.stringify(result), isError: false };
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/services/websearch.service.ts">
+## File: cerebro_unificado/frontend/src/lib/services/websearch.service.ts
+````typescript
 import { WEB_SEARCH_TOOL_NAME } from '$lib/constants';
 import type { ToolExecutionResult } from '$lib/types';
 import { config } from '$lib/stores/settings.svelte';
@@ -39465,9 +39893,10 @@ export class WebSearchService {
 		}
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/agentic.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/agentic.svelte.ts
+````typescript
 /**
  * agenticStore - Reactive State Store for Agentic Loop Orchestration
  *
@@ -40512,9 +40941,10 @@ export function agenticClearSteeringMessage(conversationId: string) {
 export function agenticIsAnyRunning() {
 	return agenticStore.isAnyRunning;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/build-info.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/build-info.svelte.ts
+````typescript
 /**
  * buildInfoStore - llama.cpp build information
  *
@@ -40557,9 +40987,10 @@ export const buildInfoStore = {
 		return build;
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/conversations.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/conversations.svelte.ts
+````typescript
 /**
  * conversationsStore - Reactive State Store for Conversations
  *
@@ -41838,9 +42269,10 @@ export function buildConversationTree(convs: DatabaseConversation[]): Conversati
 
 	return result;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/device.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/device.svelte.ts
+````typescript
 import { browser } from '$app/environment';
 import { MEDIA_QUERIES } from '$lib/constants';
 
@@ -41913,9 +42345,10 @@ if (browser) {
 		device.isStandalone = e.matches;
 	});
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/draft-messages.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/draft-messages.svelte.ts
+````typescript
 import { NEW_CHAT_DRAFT_KEY } from '$lib/constants';
 
 interface DraftMessage {
@@ -41947,9 +42380,10 @@ class DraftMessagesStore {
 }
 
 export const draftMessagesStore = new DraftMessagesStore();
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/mcp-resources.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/mcp-resources.svelte.ts
+````typescript
 /**
  * mcpResourceStore - Reactive State Store for MCP Resources
  *
@@ -42558,9 +42992,10 @@ export const mcpResourceAttachmentCount = () => mcpResourceStore.attachmentCount
 export const mcpHasResourceAttachments = () => mcpResourceStore.hasAttachments;
 export const mcpTotalResourceCount = () => mcpResourceStore.totalResourceCount;
 export const mcpResourcesLoading = () => mcpResourceStore.isLoading;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/mcp.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/mcp.svelte.ts
+````typescript
 /**
  * mcpStore - Reactive State Store for MCP Operations
  *
@@ -44552,9 +44987,10 @@ export const mcpHasServerInstructions = () => mcpStore.hasServerInstructions();
 export const mcpHasResourcesCapability = () => mcpStore.hasResourcesCapability();
 export const mcpServersWithResources = () => mcpStore.getServersWithResources();
 export const mcpResourceContext = () => mcpStore.getResourceContextForChat();
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/models.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/models.svelte.ts
+````typescript
 import { base } from '$app/paths';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { toast } from 'svelte-sonner';
@@ -45588,9 +46024,10 @@ export const supportsThinking = () => modelsStore.supportsThinking;
 export const checkModelSupportsThinking = (modelId: string) =>
 	modelsStore.checkModelSupportsThinking(modelId);
 export const thinkingSupportDetails = () => modelsStore.thinkingSupportDetails;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/permissions.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/permissions.svelte.ts
+````typescript
 import { ALWAYS_ALLOWED_TOOLS_LOCALSTORAGE_KEY } from '$lib/constants';
 
 import { SvelteSet } from 'svelte/reactivity';
@@ -45650,9 +46087,10 @@ class PermissionsStore {
 }
 
 export const permissionsStore = new PermissionsStore();
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/persisted.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/persisted.svelte.ts
+````typescript
 import { browser } from '$app/environment';
 
 type PersistedValue<T> = {
@@ -45703,9 +46141,10 @@ export function persisted<T>(key: string, initialValue: T): PersistedValue<T> {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/server.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/server.svelte.ts
+````typescript
 import { PropsService } from '$lib/services/props.service';
 import { ServerRole } from '$lib/enums';
 
@@ -45838,9 +46277,10 @@ export const defaultParams = () => serverStore.defaultParams;
 export const contextSize = () => serverStore.contextSize;
 export const isRouterMode = () => serverStore.isRouterMode;
 export const isModelMode = () => serverStore.isModelMode;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/settings-referrer.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/settings-referrer.svelte.ts
+````typescript
 import { SETTINGS_FALLBACK_EXIT_ROUTE } from '$lib/constants';
 
 let _url = $state<string>(SETTINGS_FALLBACK_EXIT_ROUTE);
@@ -45853,9 +46293,10 @@ export const settingsReferrer = {
 		_url = value;
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/settings.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/settings.svelte.ts
+````typescript
 /**
  * settingsStore - Application configuration and theme management
  *
@@ -46402,9 +46843,10 @@ export const settingsStore = new SettingsStore();
 export const config = () => settingsStore.config;
 export const theme = () => settingsStore.config[SETTINGS_KEYS.THEME];
 export const isInitialized = () => settingsStore.isInitialized;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/theme.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/theme.svelte.ts
+````typescript
 import { browser } from '$app/environment';
 import { MEDIA_QUERIES } from '$lib/constants';
 
@@ -46419,9 +46861,10 @@ if (browser) {
 		theme.isSystemDark = e.matches;
 	});
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/tools.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/tools.svelte.ts
+````typescript
 import type { OpenAIToolDefinition, ToolEntry, ToolGroup } from '$lib/types';
 import { ToolsService } from '$lib/services/tools.service';
 import { mcpStore } from '$lib/stores/mcp.svelte';
@@ -46846,9 +47289,10 @@ export const toolsStore = new ToolsStore();
 export const allTools = () => toolsStore.allTools;
 export const allToolDefinitions = () => toolsStore.allToolDefinitions;
 export const toolGroups = () => toolsStore.toolGroups;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/version.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/version.svelte.ts
+````typescript
 /**
  * versionStore - Frontend build version
  *
@@ -46890,9 +47334,10 @@ export const versionStore = {
 		return version;
 	}
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/viewport.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/viewport.svelte.ts
+````typescript
 import { browser } from '$app/environment';
 import { DEFAULT_MOBILE_BREAKPOINT } from '$lib/constants/viewport';
 import { MediaQuery } from 'svelte/reactivity';
@@ -46902,9 +47347,10 @@ export const viewport = $state({
 });
 
 export const isMobile = new MediaQuery(`max-width: ${DEFAULT_MOBILE_BREAKPOINT - 1}px`);
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/agentic.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/agentic.d.ts
+````typescript
 import type { MessageRole } from '$lib/enums';
 import { ToolCallType } from '$lib/enums';
 import type {
@@ -47064,9 +47510,10 @@ export interface SteeringMessage {
 	content: string;
 	extras?: DatabaseMessageExtra[];
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/api.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/api.d.ts
+````typescript
 import type {
 	ContentPartType,
 	FileTypeAudio,
@@ -47597,9 +48044,10 @@ export interface ApiStreamSession {
 	started_at: number;
 	completed_at: number;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/chat.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/chat.d.ts
+````typescript
 import type { ErrorDialogType } from '$lib/enums';
 import type { ApiChatCompletionToolCall } from './api';
 import type { DatabaseMessage, DatabaseMessageExtra } from './database';
@@ -47762,9 +48210,10 @@ export interface FileProcessingResult {
 	extras: DatabaseMessageExtra[];
 	emptyFiles: string[];
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/common.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/common.d.ts
+````typescript
 import type { AttachmentType } from '$lib/enums';
 
 /**
@@ -47837,9 +48286,10 @@ export type MimeTypeUnion =
 	| MimeTypeImage
 	| MimeTypeApplication
 	| MimeTypeText;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/database.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/database.d.ts
+````typescript
 import type { ChatMessageTimings, ChatRole, ChatMessageType } from '$lib/types/chat';
 import { AttachmentType, ReasoningEffort } from '$lib/enums';
 
@@ -47973,9 +48423,10 @@ export type ExportedConversation = {
 };
 
 export type ExportedConversations = ExportedConversation | ExportedConversation[];
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/index.ts">
+## File: cerebro_unificado/frontend/src/lib/types/index.ts
+````typescript
 /**
  * Unified exports for all type definitions
  * Import types from '$lib/types' for cleaner imports
@@ -48158,9 +48609,10 @@ export type { ReasoningEffortLevel } from './reasoning';
 
 // Splash
 export type { SplashDimensions } from './splash';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/mcp.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/mcp.d.ts
+````typescript
 import type { MCPConnectionPhase, MCPLogLevel, HealthCheckStatus } from '$lib/enums/mcp.enums';
 import type { ToolSource } from '$lib/enums/tools.enums';
 import type {
@@ -48610,9 +49062,10 @@ export interface MCPServerResources {
 	loading: boolean;
 	error?: string;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/models.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/models.d.ts
+````typescript
 import type { ApiModelDataEntry, ApiModelDetails, ApiModelLoadStage } from '$lib/types/api';
 
 export interface ModelModalities {
@@ -48664,18 +49117,20 @@ export interface ModalityCapabilities {
 	hasAudio: boolean;
 	hasVideo: boolean;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/reasoning.ts">
+## File: cerebro_unificado/frontend/src/lib/types/reasoning.ts
+````typescript
 export interface ReasoningEffortLevel {
 	value: string;
 	label: string;
 	isOff?: boolean;
 	hasInfo?: boolean;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/settings.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/settings.d.ts
+````typescript
 import type { SETTING_CONFIG_DEFAULT, SETTINGS_SECTION_TITLES } from '$lib/constants';
 import type { ChatMessagePromptProgress, ChatMessageTimings } from './chat';
 import type { OpenAIToolDefinition } from './mcp';
@@ -48840,13 +49295,15 @@ export interface SettingsExportType {
 	/** Keys that differ from server defaults (derived, but persisted for fidelity) */
 	userOverrides: string[];
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/splash.ts">
+## File: cerebro_unificado/frontend/src/lib/types/splash.ts
+````typescript
 export type SplashDimensions = { deviceW: number; deviceH: number; dpr: number };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/types/tools.d.ts">
+## File: cerebro_unificado/frontend/src/lib/types/tools.d.ts
+````typescript
 import type { ToolSource } from '$lib/enums';
 import type { OpenAIToolDefinition } from './mcp';
 
@@ -48868,9 +49325,10 @@ export interface ToolGroup {
 	serverId?: string;
 	tools: ToolEntry[];
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/abort.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/abort.ts
+````typescript
 /**
  * Abort Signal Utilities
  *
@@ -49040,9 +49498,10 @@ export async function withAbortSignal<T>(promise: Promise<T>, signal?: AbortSign
 			});
 	});
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/agentic.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/agentic.ts
+````typescript
 import { AgenticSectionType, ContinueIntentKind, MessageRole } from '$lib/enums';
 import { ATTACHMENT_SAVED_REGEX, NEWLINE_SEPARATOR } from '$lib/constants';
 import type { ApiChatCompletionToolCall } from '$lib/types/api';
@@ -49420,9 +49879,10 @@ export function classifyContinueIntent(messages: DatabaseMessage[], idx: number)
 
 	return { kind: ContinueIntentKind.RERUN_TURN, truncateAfter: idx - 1 };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/api-fetch.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/api-fetch.ts
+````typescript
 import { base } from '$app/paths';
 import { getJsonHeaders, getAuthHeaders } from './api-headers';
 import { UrlProtocol } from '$lib/enums';
@@ -49624,9 +50084,10 @@ function beautifyNetworkError(throwable: unknown): string {
 
 	return `${ERROR_MESSAGES.NETWORK.GENERIC} (${message})`;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/api-headers.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/api-headers.ts
+````typescript
 import { config } from '$lib/stores/settings.svelte';
 import { CORS_PROXY_HEADER_PREFIX, REDACTED_HEADERS } from '$lib/constants';
 import { redactValue } from './redact';
@@ -49703,9 +50164,10 @@ export function sanitizeHeaders(
 
 	return sanitized;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/api-key-validation.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/api-key-validation.ts
+````typescript
 import { base } from '$app/paths';
 import { error } from '@sveltejs/kit';
 import { browser } from '$app/environment';
@@ -49755,9 +50217,10 @@ export async function validateApiKey(fetch: typeof globalThis.fetch): Promise<vo
 		console.warn('Cannot connect to server for API key validation:', err);
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/attachment-display.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/attachment-display.ts
+````typescript
 import { AttachmentType, FileTypeCategory, SpecialFileType } from '$lib/enums';
 import { getFileTypeCategory, getFileTypeCategoryByExtension, isImageFile } from '$lib/utils';
 import type {
@@ -49843,9 +50306,10 @@ export function getAttachmentDisplayItems(
 
 	return items.reverse();
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/attachment-type.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/attachment-type.ts
+````typescript
 import { AttachmentType, FileTypeCategory } from '$lib/enums';
 import { getFileTypeCategory, getFileTypeCategoryByExtension } from '$lib/utils';
 
@@ -49972,9 +50436,10 @@ export function isVideoFile(
 
 	return false;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/audio-recording.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/audio-recording.ts
+````typescript
 import { MimeTypeAudio } from '$lib/enums';
 
 /**
@@ -50232,9 +50697,10 @@ export function isAudioRecordingSupported(): boolean {
 		window.MediaRecorder
 	);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/autoresize-textarea.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/autoresize-textarea.ts
+````typescript
 /**
  * Automatically resizes a textarea element to fit its content
  * @param textareaElement - The textarea element to resize
@@ -50245,9 +50711,10 @@ export default function autoResizeTextarea(textareaElement: HTMLTextAreaElement 
 		textareaElement.style.height = textareaElement.scrollHeight + 'px';
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/branching.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/branching.ts
+````typescript
 /**
  * Message branching utilities for conversation tree navigation.
  *
@@ -50493,9 +50960,10 @@ export function buildSiblingInfoMap(
 	}
 	return siblingMap;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/browser-only.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/browser-only.ts
+````typescript
 /**
  * Browser-only utility exports
  *
@@ -50531,9 +50999,10 @@ export { svgBase64UrlToPngDataURL, isSvgFile, isSvgMimeType } from './svg-to-png
 
 // WebP utilities (Canvas/Image API)
 export { webpBase64UrlToPngDataURL, isWebpFile, isWebpMimeType } from './webp-to-png';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/cache-ttl.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/cache-ttl.ts
+````typescript
 import { DEFAULT_CACHE_TTL_MS, DEFAULT_CACHE_MAX_ENTRIES } from '$lib/constants';
 
 /**
@@ -50826,9 +51295,10 @@ export class ReactiveTTLMap<K extends string, V> {
 		}
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/cap-img-size.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/cap-img-size.ts
+````typescript
 import { MEGAPIXELS_TO_PIXELS } from '$lib/constants/image-size';
 import { BASE64_IMAGE_URI_REGEX } from '$lib/constants/uri-template';
 import { getJpegOrientationFromDataURL, isJpegMimeType } from './jpeg-orientation';
@@ -50917,9 +51387,10 @@ export function capImageDataURLSize(
 		}
 	});
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/chat-template-thinking-detector.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/chat-template-thinking-detector.ts
+````typescript
 /**
  * Detects whether a model's chat template supports thinking/reasoning control.
  *
@@ -51006,9 +51477,10 @@ export function detectThinkingSupportWithReason(t: string): { supported: boolean
 	}
 	return { supported: false, reason: 'No thinking patterns found' };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/clipboard.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/clipboard.ts
+````typescript
 import { toast } from 'svelte-sonner';
 import { AttachmentType } from '$lib/enums';
 import type {
@@ -51320,9 +51792,10 @@ export function hasClipboardAttachments(clipboardText: string): boolean {
 	const parsed = parseClipboardContent(clipboardText);
 	return parsed.textAttachments.length > 0 || parsed.mcpPromptAttachments.length > 0;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/code.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/code.ts
+````typescript
 import hljs from 'highlight.js';
 import {
 	NEWLINE,
@@ -51408,9 +51881,10 @@ export function detectIncompleteCodeBlock(markdown: string): IncompleteCodeBlock
 		openingIndex
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/config-helpers.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/config-helpers.ts
+````typescript
 /**
  * Type-safe configuration helpers
  *
@@ -51462,9 +51936,10 @@ export function configToParameterRecord<T extends SettingsConfigType>(
 
 	return record;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/conversation-utils.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/conversation-utils.ts
+````typescript
 /**
  * Utility functions for conversation data manipulation
  */
@@ -51496,9 +51971,10 @@ export function createMessageCountMap(
 export function getMessageCount(conversationId: string, countMap: Map<string, number>): number {
 	return countMap.get(conversationId) ?? 0;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/convert-files-to-extra.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/convert-files-to-extra.ts
+````typescript
 import { convertPDFToImage, convertPDFToText } from './pdf-processing';
 import { isSvgMimeType, svgBase64UrlToPngDataURL } from './svg-to-png';
 import { isWebpMimeType, webpBase64UrlToPngDataURL } from './webp-to-png';
@@ -51723,9 +52199,10 @@ export async function parseFilesToMessageExtras(
 
 	return { extras, emptyFiles };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/cors-proxy.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/cors-proxy.ts
+````typescript
 /**
  * CORS Proxy utility for routing requests through llama-server's CORS proxy.
  */
@@ -51765,9 +52242,10 @@ export function buildProxiedHeaders(headers: Record<string, string>): Record<str
 
 	return proxiedHeaders;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/css.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/css.ts
+````typescript
 /**
  * Converts a rem CSS value to pixels based on the document root font size.
  */
@@ -51777,9 +52255,10 @@ export function remToPx(rem: string): number {
 
 	return val * fontSize;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/data-url.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/data-url.ts
+````typescript
 /**
  * Creates a base64 data URL from MIME type and base64-encoded data.
  *
@@ -51790,9 +52269,10 @@ export function remToPx(rem: string): number {
 export function createBase64DataUrl(mimeType: string, base64Data: string): string {
 	return `data:${mimeType};base64,${base64Data}`;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/debounce.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/debounce.ts
+````typescript
 /**
  * @param fn - The function to debounce
  * @param delay - The delay in milliseconds
@@ -51815,9 +52295,10 @@ export function debounce<T extends (...args: Parameters<T>) => void>(
 		}, delay);
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/file-preview.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/file-preview.ts
+````typescript
 /**
  * Gets a display label for a file type from various input formats
  *
@@ -51854,9 +52335,10 @@ export function getFileTypeLabel(input: string | undefined): string {
 	// Handle AttachmentType or other plain strings
 	return input.toUpperCase();
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/file-type.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/file-type.ts
+````typescript
 import {
 	AUDIO_FILE_TYPES,
 	VIDEO_FILE_TYPES,
@@ -52105,9 +52587,10 @@ export function isFileTypeSupported(filename: string, mimeType?: string): boolea
 	// Fallback: treat everything else as text (inclusive by default)
 	return true;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/formatters.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/formatters.ts
+````typescript
 import {
 	MS_PER_SECOND,
 	SECONDS_PER_MINUTE,
@@ -52295,9 +52778,10 @@ export function formatReasoningPreview(content: string): { preview: string; over
 
 	return { preview: lastLine, overflow };
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/headers.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/headers.ts
+````typescript
 /**
  * Header utilities for parsing and serializing HTTP headers.
  * Generic utilities not specific to MCP.
@@ -52342,9 +52826,10 @@ export function serializeHeaders(pairs: { key: string; value: string }[]): strin
 
 	return JSON.stringify(obj);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/heic-to-jpeg.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/heic-to-jpeg.ts
+````typescript
 import { MimeTypeImage } from '$lib/enums';
 import { HEIC_JPEG_QUALITY } from '$lib/constants/image-size';
 
@@ -52401,9 +52886,10 @@ export function isHeicMimeType(mimeType: string): boolean {
 
 	return normalized === MimeTypeImage.HEIC || normalized === MimeTypeImage.HEIF;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/image-error-fallback.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/image-error-fallback.ts
+````typescript
 /**
  * Simplified HTML fallback for external images that fail to load.
  * Displays a centered message with a link to open the image in a new tab.
@@ -52414,9 +52900,10 @@ export function getImageErrorFallbackHtml(src: string): string {
 		<a href="${src}" target="_blank" rel="noopener noreferrer">(open link)</a>
 	</div>`;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/index.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/index.ts
+````typescript
 /**
  * Unified exports for all utility functions
  * Import utilities from '$lib/utils' for cleaner imports
@@ -52610,17 +53097,19 @@ export { uuid } from './uuid';
 
 // CSS utilities
 export { remToPx } from './css';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/is-ime-composing.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/is-ime-composing.ts
+````typescript
 export function isIMEComposing(event: KeyboardEvent) {
 	// Check for IME composition using isComposing property and keyCode 229 (specifically for IME composition on Safari, which is notorious for not supporting KeyboardEvent.isComposing)
 	// This prevents form submission when confirming IME word selection (e.g., Japanese/Chinese input)
 	return event.isComposing || event.keyCode === 229;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/jpeg-orientation.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/jpeg-orientation.ts
+````typescript
 import {
 	EXIF_SCAN_BYTE_LIMIT,
 	JPEG_SOI_MARKER,
@@ -52767,9 +53256,10 @@ function parseExifOrientation(view: DataView, start: number, segmentLength: numb
 export function isJpegMimeType(mimeType: string): boolean {
 	return mimeType === MimeTypeImage.JPEG || mimeType === MimeTypeImage.JPG;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/latex-protection.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/latex-protection.ts
+````typescript
 import {
 	CODE_BLOCK_REGEXP,
 	LATEX_MATH_AND_CODE_PATTERN,
@@ -53040,9 +53530,10 @@ export function preprocessLaTeX(content: string): string {
 
 	return content;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/legacy-migration.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/legacy-migration.ts
+````typescript
 /**
  * @deprecated Legacy migration utility — remove at some point in the future once all users have migrated to the new structured agentic message format.
  *
@@ -53407,9 +53898,10 @@ export async function runLegacyMigration(): Promise<void> {
 		markMigrationDone();
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/mcp.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/mcp.ts
+````typescript
 import type { MCPServerSettingsEntry, MCPResourceContent, MCPResourceInfo } from '$lib/types';
 import {
 	MCPTransportType,
@@ -53731,9 +54223,10 @@ export function downloadResourceContent(
 	document.body.removeChild(a);
 	URL.revokeObjectURL(url);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/modality-file-validation.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/modality-file-validation.ts
+````typescript
 /**
  * File validation utilities based on model modalities
  * Ensures only compatible file types are processed based on model capabilities
@@ -53903,9 +54396,10 @@ export function generateModalityErrorMessage(
  * @param capabilities - The modality capabilities to check against
  * @returns Accept string for HTML file input element
  */
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/model-names.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/model-names.ts
+````typescript
 /**
  * Normalizes a model name by extracting the filename from a path, but preserves Hugging Face repository format.
  *
@@ -53962,9 +54456,10 @@ export function normalizeModelName(modelName: string): string {
 export function isValidModelName(modelName: string): boolean {
 	return normalizeModelName(modelName).length > 0;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/pdf-processing.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/pdf-processing.ts
+````typescript
 /**
  * PDF processing utilities using PDF.js
  * Handles PDF text extraction and image conversion in the browser
@@ -54115,9 +54610,10 @@ export function isPdfFile(file: File): boolean {
 export function isApplicationMimeType(mimeType: string): boolean {
 	return mimeType === MimeTypeApplication.PDF;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/portal-to-body.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/portal-to-body.ts
+````typescript
 export function portalToBody(node: HTMLElement) {
 	if (typeof document === 'undefined') {
 		return;
@@ -54138,9 +54634,10 @@ export function portalToBody(node: HTMLElement) {
 		}
 	};
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/precision.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/precision.ts
+````typescript
 /**
  * Floating-point precision utilities
  *
@@ -54166,9 +54663,10 @@ export function normalizeFloatingPoint(value: unknown): unknown {
 export function normalizeNumber(value: number): number {
 	return Math.round(value * PRECISION_MULTIPLIER) / PRECISION_MULTIPLIER;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/process-uploaded-files.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/process-uploaded-files.ts
+````typescript
 import { isSvgMimeType, svgBase64UrlToPngDataURL } from './svg-to-png';
 import { isWebpMimeType, webpBase64UrlToPngDataURL } from './webp-to-png';
 import { heicFileToJpegDataURL, isHeicMimeType } from './heic-to-jpeg';
@@ -54318,9 +54816,10 @@ export async function processFilesToChatUploaded(
 
 	return results;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/progress.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/progress.ts
+````typescript
 /**
  * Model load progress helpers for the /models/sse surfaces
  * (selector row and chat message).
@@ -54364,9 +54863,10 @@ export function modelLoadProgressText(progress: ModelLoadProgress | null): strin
 	const label = modelLoadStageLabel(progress.current);
 	return `${label} ${Math.round(modelLoadFraction(progress) * 100)}%`;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/redact.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/redact.ts
+````typescript
 /**
  * Redacts a sensitive value, optionally showing the last N characters.
  *
@@ -54381,9 +54881,10 @@ export function redactValue(value: string, showLastChars?: number): string {
 
 	return '[redacted]';
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/request-helpers.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/request-helpers.ts
+````typescript
 /**
  * HTTP request inspection utilities for diagnostic logging.
  * These helpers extract metadata from fetch-style request arguments
@@ -54495,9 +54996,10 @@ export function extractJsonRpcMethods(body: BodyInit | null | undefined): string
 		return undefined;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/sanitize-svg.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/sanitize-svg.ts
+````typescript
 import DOMPurify from 'dompurify';
 import { SVG_MAX_BYTES, SVG_SANITIZE_CONFIG, SVG_TAG_PREFIX } from '$lib/constants';
 
@@ -54520,9 +55022,10 @@ export function sanitizeSvg(source: string): string {
 
 	return clean;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/sanitize.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/sanitize.ts
+````typescript
 import {
 	KEY_VALUE_PAIR_KEY_MAX_LENGTH,
 	KEY_VALUE_PAIR_VALUE_MAX_LENGTH,
@@ -54546,9 +55049,10 @@ export function sanitizeKeyValuePairKey(raw: string): string {
 export function sanitizeKeyValuePairValue(raw: string): string {
 	return raw.replace(KEY_VALUE_PAIR_UNSAFE_VALUE_RE, '').slice(0, KEY_VALUE_PAIR_VALUE_MAX_LENGTH);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/stream-identity.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/stream-identity.ts
+````typescript
 /**
  * Build the conversation identity used by the server side replay buffer.
  *
@@ -54562,9 +55066,10 @@ export function streamIdentity(conversationId: string, model?: string | null): s
 	if (!model) return conversationId;
 	return `${conversationId}::${model}`;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/svg-shadow.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/svg-shadow.ts
+````typescript
 /**
  * Mounts svg markup inside an open shadow root on the host element.
  * The shadow boundary scopes the svg <style> and its animations to the host,
@@ -54575,9 +55080,10 @@ export function mountSvgShadow(host: HTMLElement, markup: string, style: string)
 	const root = host.shadowRoot ?? host.attachShadow({ mode: 'open' });
 	root.innerHTML = markup ? `<style>${style}</style>${markup}` : '';
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/svg-to-png.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/svg-to-png.ts
+````typescript
 import { MimeTypeImage } from '$lib/enums';
 
 /**
@@ -54649,9 +55155,10 @@ export function isSvgFile(file: File): boolean {
 export function isSvgMimeType(mimeType: string): boolean {
 	return mimeType === MimeTypeImage.SVG;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/syntax-highlight-language.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/syntax-highlight-language.ts
+````typescript
 /**
  * Maps file extensions to highlight.js language identifiers
  */
@@ -54797,9 +55304,10 @@ export function getLanguageFromFilename(filename: string): string {
 			return 'plaintext';
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/text-files.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/text-files.ts
+````typescript
 /**
  * Text file processing utilities
  * Handles text file detection, reading, and validation
@@ -54895,9 +55403,10 @@ export function isLikelyTextFile(
 
 	return true;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/text.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/text.ts
+````typescript
 import { NEWLINE_SEPARATOR } from '$lib/constants';
 
 /**
@@ -54920,9 +55429,10 @@ export function generateConversationTitle(content: string, useFirstLine: boolean
 
 	return content.trim();
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/uri-template.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/uri-template.ts
+````typescript
 import {
 	TEMPLATE_EXPRESSION_REGEX,
 	URI_SCHEME_SEPARATOR,
@@ -55121,9 +55631,10 @@ export function isTemplateComplete(template: string, values: Record<string, stri
 
 	return variables.every((v) => (values[v.name] ?? '').trim() !== '');
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/url.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/url.ts
+````typescript
 import { TWO_PART_PUBLIC_SUFFIXES, WILDCARD_PUBLIC_SUFFIXES } from '$lib/constants';
 import { UrlProtocol } from '$lib/enums';
 
@@ -55196,15 +55707,17 @@ export function sanitizeExternalUrl(raw: string): string | null {
 		return null;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/uuid.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/uuid.ts
+````typescript
 export function uuid(): string {
 	return globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).substring(2);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/viewport.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/viewport.ts
+````typescript
 /**
  * Check if an element is within the current viewport.
  */
@@ -55217,9 +55730,10 @@ export function isElementInViewport(node: HTMLElement): boolean {
 		rect.right > 0
 	);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/utils/webp-to-png.ts">
+## File: cerebro_unificado/frontend/src/lib/utils/webp-to-png.ts
+````typescript
 import { FileExtensionImage, MimeTypeImage } from '$lib/enums';
 
 /**
@@ -55293,9 +55807,10 @@ export function isWebpFile(file: File): boolean {
 export function isWebpMimeType(mimeType: string): boolean {
 	return mimeType === MimeTypeImage.WEBP;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/(chat)/chat/[id]/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/(chat)/chat/[id]/+page.svelte
+````svelte
 <script lang="ts">
 	import { goto, replaceState } from '$app/navigation';
 	import { page } from '$app/state';
@@ -55429,18 +55944,20 @@ export function isWebpMimeType(mimeType: string): boolean {
 	modelName={requestedModelName}
 	availableModels={availableModelNames}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/(chat)/chat/[id]/+page.ts">
+## File: cerebro_unificado/frontend/src/routes/(chat)/chat/[id]/+page.ts
+````typescript
 import type { PageLoad } from './$types';
 import { validateApiKey } from '$lib/utils';
 
 export const load: PageLoad = async ({ fetch }) => {
 	await validateApiKey(fetch);
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/(chat)/+layout.svelte">
+## File: cerebro_unificado/frontend/src/routes/(chat)/+layout.svelte
+````svelte
 <script lang="ts">
 	import { page } from '$app/state';
 	import { ChatScreen } from '$lib/components/app';
@@ -55453,9 +55970,10 @@ export const load: PageLoad = async ({ fetch }) => {
 <ChatScreen {showCenteredEmpty} />
 
 {@render children?.()}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/(chat)/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/(chat)/+page.svelte
+````svelte
 <script lang="ts">
 	import { DialogModelNotAvailable } from '$lib/components/app';
 	import { chatStore } from '$lib/stores/chat.svelte';
@@ -55548,26 +56066,29 @@ export const load: PageLoad = async ({ fetch }) => {
 	modelName={requestedModelName}
 	availableModels={availableModelNames}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/(chat)/+page.ts">
+## File: cerebro_unificado/frontend/src/routes/(chat)/+page.ts
+````typescript
 import type { PageLoad } from './$types';
 import { validateApiKey } from '$lib/utils';
 
 export const load: PageLoad = async ({ fetch }) => {
 	await validateApiKey(fetch);
 };
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/mcp-servers/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/mcp-servers/+page.svelte
+````svelte
 <script lang="ts">
 	import { SettingsMcpServers } from '$lib/components/app/settings';
 </script>
 
 <SettingsMcpServers class="mx-auto w-full p-4 md:p-8 md:py-8" />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/search/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/search/+page.svelte
+````svelte
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -55663,9 +56184,10 @@ export const load: PageLoad = async ({ fetch }) => {
 		onStop={handleStopGeneration}
 	/>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/settings/[[section]]/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/settings/[[section]]/+page.svelte
+````svelte
 <script lang="ts">
 	import { SettingsChat } from '$lib/components/app/settings';
 	import { page } from '$app/state';
@@ -55681,9 +56203,10 @@ export const load: PageLoad = async ({ fetch }) => {
 </script>
 
 <SettingsChat initialSection={(page.params as Record<string, string | undefined>).section} />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/settings/+layout.svelte">
+## File: cerebro_unificado/frontend/src/routes/settings/+layout.svelte
+````svelte
 <script lang="ts">
 	import { X } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
@@ -55720,9 +56243,10 @@ export const load: PageLoad = async ({ fetch }) => {
 <div class="min-h-full">
 	{@render children?.()}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/terminal/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/terminal/+page.svelte
+````svelte
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
@@ -56099,9 +56623,10 @@ export const load: PageLoad = async ({ fetch }) => {
 		opacity: 0.5;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/viewer-ui/+page.svelte">
+## File: cerebro_unificado/frontend/src/routes/viewer-ui/+page.svelte
+````svelte
 <script lang="ts">
 	// Vista incrustada del Visualizador Neuronal (viewer.html) dentro de llama-ui
 </script>
@@ -56114,9 +56639,10 @@ export const load: PageLoad = async ({ fetch }) => {
 		style="width: 100%; height: 100%; border: none;"
 	></iframe>
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/+error.svelte">
+## File: cerebro_unificado/frontend/src/routes/+error.svelte
+````svelte
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -56189,9 +56715,10 @@ export const load: PageLoad = async ({ fetch }) => {
 		</div>
 	</div>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/styles/katex-custom.scss">
+## File: cerebro_unificado/frontend/src/styles/katex-custom.scss
+````scss
 // Override KaTeX SCSS variables to disable ttf and woff fonts
 // Only use woff2 format which is embedded in the bundle
 $use-woff2: true;
@@ -56208,13 +56735,15 @@ $font-folder: 'katex-fonts';
 	$use-ttf: false,
 	$font-folder: 'katex-fonts'
 );
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/.gitignore">
+## File: cerebro_unificado/frontend/src/.gitignore
+````
 !*
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/app.css">
+## File: cerebro_unificado/frontend/src/app.css
+````css
 @import 'tailwindcss';
 @source '.';
 @plugin '@tailwindcss/forms';
@@ -56510,9 +57039,10 @@ $font-folder: 'katex-fonts';
 	color: var(--foreground);
 	background: color-mix(in oklch, var(--muted) 40%, transparent);
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/app.d.ts">
+## File: cerebro_unificado/frontend/src/app.d.ts
+````typescript
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 
@@ -56659,9 +57189,10 @@ declare global {
 		idxCodeBlock?: number;
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/app.html">
+## File: cerebro_unificado/frontend/src/app.html
+````html
 <!doctype html>
 <html lang="en">
 	<head>
@@ -56684,9 +57215,10 @@ declare global {
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/static/loading.html">
+## File: cerebro_unificado/frontend/static/loading.html
+````html
 <!DOCTYPE html>
 <html>
     <head>
@@ -56699,9 +57231,10 @@ declare global {
         </div>
     </body>
 </html>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/client/components/McpServerFormWrapper.svelte">
+## File: cerebro_unificado/frontend/tests/client/components/McpServerFormWrapper.svelte
+````svelte
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import McpServerForm from '$lib/components/app/mcp/McpServerForm.svelte';
@@ -56739,9 +57272,10 @@ declare global {
 />
 
 <div data-testid="captured-headers" data-captured-headers={headersState} hidden></div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/client/components/TestWrapper.svelte">
+## File: cerebro_unificado/frontend/tests/client/components/TestWrapper.svelte
+````svelte
 <script lang="ts">
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import Page from '../../../src/routes/(chat)/+page.svelte';
@@ -56754,9 +57288,10 @@ declare global {
 <Tooltip.Provider>
 	<Page />
 </Tooltip.Provider>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/client/cap-img-size.svelte.test.ts">
+## File: cerebro_unificado/frontend/tests/client/cap-img-size.svelte.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { capImageDataURLSize } from '$lib/utils/cap-img-size';
 import { getJpegOrientationFromDataURL } from '$lib/utils/jpeg-orientation';
@@ -56878,9 +57413,10 @@ describe('capImageDataURLSize orientation and capping', () => {
 		expectUpright(await quadrantColors(result));
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/client/mcp-server-form.svelte.test.ts">
+## File: cerebro_unificado/frontend/tests/client/mcp-server-form.svelte.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import McpServerFormWrapper from './components/McpServerFormWrapper.svelte';
@@ -57014,9 +57550,10 @@ describe('McpServerForm - Authorization / bearer UI', () => {
 		await expect.element(headerKeyInput).not.toBeInTheDocument();
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/client/page.svelte.test.ts">
+## File: cerebro_unificado/frontend/tests/client/page.svelte.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import TestWrapper from './components/TestWrapper.svelte';
@@ -57029,9 +57566,10 @@ describe('/+page.svelte', () => {
 		expect(true).toBe(true);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/e2e/pwa.e2e.ts">
+## File: cerebro_unificado/frontend/tests/e2e/pwa.e2e.ts
+````typescript
 import { expect, test } from '@playwright/test';
 
 test.describe('PWA Service Worker', () => {
@@ -57141,9 +57679,10 @@ test.describe('PWA Service Worker', () => {
 		expect(html).toMatch(/import\("(\.\/|\/)_app\/immutable\/bundle\.[a-zA-Z0-9_-]+\.js"\)/);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/a11y/ActionIcon.a11y.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/a11y/ActionIcon.a11y.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { Copy } from '@lucide/svelte';
@@ -57178,9 +57717,10 @@ test.describe('PWA Service Worker', () => {
 		<ActionIcon icon={Copy} tooltip="Copy" onclick={() => {}} />
 	</div>
 </Story>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/a11y/ChatMessageStatistics.a11y.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/a11y/ChatMessageStatistics.a11y.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import ChatMessageStatistics from '$lib/components/app/chat/ChatMessages/ChatMessageStatistics/ChatMessageStatistics.svelte';
@@ -57231,9 +57771,10 @@ test.describe('PWA Service Worker', () => {
 		await expect(summary).toHaveFocus();
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/a11y/ChatScreenForm.a11y.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/a11y/ChatScreenForm.a11y.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import ChatScreenForm from '$lib/components/app/chat/ChatScreen/ChatScreenForm.svelte';
@@ -57284,9 +57825,10 @@ test.describe('PWA Service Worker', () => {
 		});
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/a11y/HorizontalScrollCarousel.a11y.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/a11y/HorizontalScrollCarousel.a11y.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import HorizontalScrollCarousel from '$lib/components/app/misc/HorizontalScrollCarousel.svelte';
@@ -57356,9 +57898,10 @@ test.describe('PWA Service Worker', () => {
 		</HorizontalScrollCarousel>
 	</div>
 </Story>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/a11y/SidebarNavigationConversationItem.a11y.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/a11y/SidebarNavigationConversationItem.a11y.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import SidebarNavigationConversationItem from '$lib/components/app/navigation/SidebarNavigation/SidebarNavigationConversationItem.svelte';
@@ -57395,9 +57938,10 @@ test.describe('PWA Service Worker', () => {
 		await expect(forkIcon).toHaveFocus();
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/assets/hf-logo.svg">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/assets/hf-logo.svg
+````xml
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M230.721 172.7C230.183 170.673 229.313 168.75 228.146 167.008C228.396 166.091 228.587 165.159 228.714 164.217C229.543 158.241 227.471 152.77 223.567 148.537C221.452 146.225 219.185 144.698 216.784 143.761C218.36 137.018 219.157 130.117 219.161 123.193C219.161 120.03 218.982 116.932 218.682 113.88C218.526 112.356 218.337 110.836 218.115 109.32C217.428 104.847 216.408 100.431 215.064 96.11C214.183 93.2707 213.164 90.476 212.01 87.736C210.281 83.6782 208.262 79.75 205.969 75.982C204.465 73.475 202.827 71.0508 201.062 68.72C200.197 67.543 199.296 66.3938 198.358 65.274C195.58 61.898 192.561 58.7277 189.325 55.788C188.25 54.7997 187.145 53.8453 186.01 52.926C184.893 51.9943 183.751 51.0927 182.586 50.222C180.241 48.4766 177.818 46.8392 175.324 45.315C161.543 36.945 145.382 32.145 128.109 32.145C77.817 32.145 37.057 72.907 37.057 123.196C37.055 130.208 37.867 137.196 39.477 144.02C37.317 144.958 35.247 146.42 33.327 148.535C29.424 152.766 27.351 158.217 28.18 164.193C28.306 165.142 28.495 166.082 28.747 167.006C27.5811 168.749 26.7117 170.673 26.174 172.7C24.974 177.261 25.369 181.374 26.894 184.978C25.236 189.688 25.65 194.704 27.809 199.065C29.379 202.25 31.626 204.714 34.396 206.916C37.689 209.534 41.811 211.758 46.783 213.892C52.715 216.422 59.956 218.799 63.249 219.671C71.755 221.873 79.911 223.269 88.177 223.337C99.954 223.446 110.096 220.677 117.357 213.59C120.924 214.027 124.515 214.246 128.109 214.244C131.906 214.236 135.699 213.997 139.467 213.529C146.711 220.661 156.892 223.455 168.712 223.343C176.977 223.277 185.133 221.881 193.617 219.676C196.932 218.804 204.17 216.427 210.105 213.897C215.077 211.76 219.199 209.536 222.514 206.922C225.263 204.719 227.508 202.256 229.079 199.071C231.26 194.709 231.652 189.693 230.017 184.983C231.527 181.379 231.92 177.257 230.721 172.7ZM222.281 184.673C223.952 187.844 224.059 191.427 222.585 194.764C220.349 199.821 214.795 203.805 204.008 208.082C197.3 210.742 191.158 212.443 191.104 212.458C182.232 214.759 174.208 215.928 167.262 215.928C155.76 215.928 147.201 212.754 141.773 206.486C132.594 208.05 123.222 208.103 114.026 206.644C108.591 212.808 100.081 215.928 88.676 215.928C81.729 215.928 73.706 214.759 64.833 212.458C64.779 212.443 58.639 210.742 51.929 208.082C41.143 203.805 35.587 199.824 33.352 194.764C31.878 191.427 31.985 187.844 33.656 184.673C33.81 184.378 33.976 184.091 34.153 183.813C33.1516 182.309 32.4799 180.61 32.182 178.827C31.8842 177.045 31.967 175.22 32.425 173.472C33.089 170.949 34.46 168.851 36.322 167.344C35.425 165.87 34.8365 164.23 34.592 162.522C34.056 158.808 35.289 155.1 38.062 152.076C40.222 149.723 43.275 148.428 46.655 148.428H46.745C44.1965 140.259 42.9044 131.75 42.913 123.193C42.913 76.522 80.749 38.683 127.427 38.683C174.104 38.683 211.94 76.518 211.94 123.193C211.947 131.773 210.646 140.304 208.081 148.492C208.489 148.452 208.889 148.432 209.282 148.431C212.662 148.431 215.716 149.726 217.874 152.079C220.647 155.1 221.881 158.811 221.344 162.525C221.1 164.233 220.511 165.873 219.615 167.347C221.477 168.854 222.849 170.952 223.512 173.475C223.97 175.223 224.053 177.048 223.755 178.831C223.458 180.613 222.786 182.312 221.784 183.816C221.961 184.091 222.129 184.378 222.281 184.673Z" fill="white"/>
 <path d="M221.784 183.816C222.786 182.312 223.458 180.613 223.756 178.831C224.053 177.048 223.97 175.223 223.512 173.475C222.848 170.952 221.476 168.854 219.615 167.347C220.512 165.873 221.1 164.233 221.344 162.525C221.881 158.811 220.648 155.103 217.874 152.079C215.716 149.726 212.662 148.431 209.282 148.431C208.889 148.431 208.489 148.452 208.081 148.492C210.643 140.304 211.942 131.774 211.933 123.195C211.933 76.5231 174.097 38.6851 127.424 38.6851C80.75 38.6851 42.9099 76.5191 42.9099 123.195C42.9015 131.752 44.1936 140.261 46.742 148.43H46.6519C43.2719 148.43 40.219 149.724 38.06 152.077C35.287 155.098 34.0529 158.81 34.5899 162.523C34.8346 164.231 35.4231 165.872 36.3199 167.346C34.4579 168.852 33.086 170.95 32.422 173.473C31.9642 175.222 31.8817 177.047 32.1799 178.83C32.4781 180.612 33.1501 182.312 34.1519 183.816C33.9739 184.094 33.8099 184.381 33.6549 184.676C31.9849 187.847 31.877 191.43 33.352 194.767C35.588 199.824 41.1419 203.808 51.9289 208.085C58.6359 210.745 64.779 212.446 64.833 212.461C73.705 214.762 81.729 215.931 88.675 215.931C100.081 215.931 108.591 212.811 114.026 206.647C123.222 208.106 132.594 208.052 141.773 206.489C147.201 212.757 155.76 215.931 167.262 215.931C174.208 215.931 182.232 214.762 191.103 212.461C191.158 212.446 197.298 210.745 204.008 208.085C214.795 203.808 220.35 199.824 222.585 194.767C224.059 191.43 223.952 187.847 222.281 184.676C222.129 184.379 221.961 184.091 221.784 183.816ZM110.137 196.997C109.669 197.815 109.168 198.614 108.635 199.391C107.23 201.448 105.382 203.02 103.237 204.188C99.1369 206.424 93.947 207.205 88.675 207.205C80.346 207.205 71.808 205.256 67.023 204.015C66.787 203.954 37.689 195.735 41.373 188.739C41.993 187.562 43.0129 187.092 44.2979 187.092C49.4849 187.092 58.9299 194.816 62.9889 194.816C63.8959 194.816 64.5359 194.43 64.7969 193.488C66.5269 187.284 38.5039 184.676 40.8639 175.692C41.2799 174.102 42.41 173.456 43.998 173.456C50.856 173.455 66.248 185.516 69.467 185.516C69.714 185.516 69.8909 185.443 69.9869 185.291C70.0009 185.268 70.015 185.246 70.028 185.222C71.539 182.727 70.6719 180.913 60.3209 174.573L59.3269 173.968C47.9359 167.074 39.9409 162.925 44.4879 157.975C45.0109 157.404 45.7529 157.151 46.6539 157.151C47.7219 157.151 49.0149 157.508 50.4389 158.108C56.4549 160.645 64.793 167.564 68.276 170.581C68.8239 171.057 69.3683 171.538 69.9089 172.022C69.9089 172.022 74.319 176.608 76.985 176.608C77.599 176.608 78.1199 176.366 78.4729 175.768C80.364 172.58 60.9099 157.838 59.8129 151.755C59.0689 147.634 60.3349 145.546 62.6749 145.546C63.7879 145.546 65.1459 146.02 66.6449 146.971C71.2949 149.922 80.2729 165.35 83.5599 171.352C84.6619 173.363 86.5429 174.213 88.2379 174.213C91.6009 174.213 94.2299 170.87 88.5459 166.622C80.0029 160.23 83.001 149.782 87.078 149.139C87.252 149.111 87.4279 149.097 87.6029 149.097C91.3109 149.097 92.9459 155.486 92.9459 155.486C92.9459 155.486 97.7399 167.524 105.975 175.753C113.447 183.222 114.491 189.351 110.137 196.997ZM136.766 198.407L136.339 198.458L135.611 198.541C135.228 198.581 134.844 198.619 134.459 198.654L134.084 198.688L133.741 198.717L133.255 198.756L132.718 198.795L132.182 198.83L132.063 198.838C131.923 198.846 131.783 198.855 131.641 198.862L131.462 198.872C131.296 198.881 131.13 198.889 130.962 198.896L130.381 198.921L129.854 198.939L129.502 198.949H129.323C129.213 198.949 129.104 198.955 128.994 198.956H128.82C128.71 198.956 128.601 198.956 128.491 198.961L128.043 198.967H127.418C126.927 198.967 126.437 198.962 125.949 198.952L125.553 198.943C125.44 198.943 125.327 198.938 125.216 198.934L124.796 198.922L124.275 198.902L123.805 198.881L123.684 198.876L123.237 198.853C123.112 198.846 122.989 198.84 122.865 198.831L122.576 198.814C122.213 198.791 121.85 198.766 121.487 198.738L121.107 198.707C120.947 198.695 120.787 198.68 120.628 198.666C120.441 198.65 120.254 198.632 120.067 198.614C119.754 198.585 119.441 198.553 119.128 198.519H119.113C123.683 188.324 121.372 178.802 112.137 169.575C106.08 163.526 102.051 154.594 101.215 152.633C99.5229 146.828 95.045 140.375 87.608 140.375C86.979 140.375 86.351 140.425 85.73 140.523C82.472 141.036 79.624 142.911 77.592 145.733C75.396 143.002 73.262 140.831 71.332 139.605C68.422 137.76 65.5179 136.824 62.6889 136.824C59.1579 136.824 56.0019 138.274 53.8019 140.904L53.7459 140.971C53.7039 140.798 53.6639 140.625 53.6229 140.451L53.6179 140.428C53.1992 138.638 52.8477 136.833 52.5639 135.016C52.5639 135.004 52.5639 134.992 52.5579 134.98C52.5359 134.843 52.5159 134.705 52.4949 134.568C52.4334 134.162 52.3757 133.755 52.3219 133.348C52.2979 133.163 52.2719 132.978 52.2489 132.793L52.1809 132.238C52.1589 132.053 52.1409 131.885 52.1209 131.709L52.115 131.665C52.0351 130.945 51.9651 130.225 51.9049 129.503L51.8829 129.226L51.8479 128.754C51.8379 128.625 51.8279 128.495 51.8209 128.365C51.8209 128.334 51.8159 128.304 51.8149 128.275C51.7895 127.913 51.7678 127.55 51.7499 127.187C51.7399 126.998 51.7299 126.81 51.7219 126.62L51.7019 126.124L51.6969 125.974L51.6809 125.517L51.6709 125.128C51.6709 124.973 51.6629 124.818 51.6609 124.663C51.6579 124.508 51.6539 124.338 51.6529 124.174C51.6509 124.01 51.6529 123.848 51.6479 123.685C51.6439 123.521 51.6479 123.358 51.6479 123.195C51.6479 81.3421 85.5789 47.4111 127.436 47.4111C169.292 47.4111 203.222 81.3411 203.222 123.195V124.174C203.222 124.337 203.217 124.501 203.214 124.663C203.214 124.798 203.208 124.931 203.204 125.068C203.204 125.188 203.199 125.309 203.195 125.425C203.195 125.578 203.186 125.731 203.181 125.884V125.896L203.16 126.427C203.153 126.582 203.147 126.738 203.139 126.893L203.134 127.003L203.107 127.499C203.048 128.562 202.967 129.623 202.866 130.683V130.696C202.849 130.87 202.832 131.044 202.813 131.218L202.768 131.629L202.679 132.433L202.628 132.84L202.565 133.319C202.542 133.493 202.519 133.668 202.493 133.841C202.467 134.036 202.438 134.23 202.409 134.424L202.34 134.883L202.258 135.403C202.23 135.576 202.2 135.748 202.168 135.92C202.135 136.093 202.109 136.265 202.079 136.437C202.019 136.781 201.956 137.125 201.89 137.468C201.789 137.981 201.686 138.493 201.58 139.005L201.47 139.512C201.434 139.681 201.395 139.851 201.357 140.02C199.224 137.947 196.399 136.818 193.284 136.818C190.457 136.818 187.55 137.753 184.641 139.598C182.711 140.824 180.578 142.996 178.381 145.726C176.346 142.904 173.498 141.029 170.242 140.516C169.621 140.418 168.993 140.368 168.364 140.368C160.925 140.368 156.45 146.821 154.757 152.626C153.917 154.587 149.887 163.519 143.825 169.577C134.596 178.775 132.268 188.254 136.766 198.407ZM215.007 177.998L214.977 178.087C214.901 178.288 214.813 178.484 214.714 178.674C214.639 178.814 214.558 178.95 214.47 179.082C214.303 179.331 214.12 179.569 213.921 179.793C213.875 179.845 213.831 179.897 213.779 179.948C213.707 180.025 213.634 180.101 213.559 180.175C212.213 181.509 210.161 182.679 207.841 183.752C207.578 183.871 207.311 183.99 207.042 184.11L206.774 184.229C206.595 184.308 206.416 184.386 206.228 184.463C206.049 184.541 205.863 184.619 205.677 184.695L205.119 184.925C203.814 185.462 202.477 185.974 201.173 186.479L200.615 186.696L200.064 186.912C199.697 187.055 199.335 187.198 198.979 187.341L198.448 187.555L197.926 187.768L197.67 187.876C197.499 187.947 197.332 188.018 197.165 188.089C193.328 189.736 190.567 191.411 191.147 193.489C191.163 193.548 191.181 193.604 191.201 193.659C191.253 193.813 191.324 193.958 191.413 194.095C191.465 194.176 191.525 194.253 191.592 194.323C192.274 195.032 193.515 194.92 195.08 194.357C195.3 194.276 195.519 194.192 195.736 194.104L195.872 194.048C196.23 193.896 196.609 193.726 196.996 193.542C197.093 193.496 197.191 193.452 197.289 193.401C199.203 192.465 201.372 191.205 203.524 190.058C204.385 189.593 205.258 189.152 206.142 188.733C208.18 187.774 210.096 187.094 211.636 187.094C212.359 187.094 212.997 187.242 213.529 187.582L213.618 187.641C213.952 187.876 214.232 188.178 214.441 188.528C214.482 188.595 214.522 188.666 214.561 188.739C215.322 190.184 214.685 191.68 213.194 193.147C211.763 194.556 209.537 195.937 207.007 197.215C206.819 197.31 206.631 197.405 206.44 197.498C198.91 201.196 189.049 203.981 188.912 204.016C186.284 204.697 182.526 205.591 178.292 206.26L177.666 206.358L177.563 206.373C177.089 206.445 176.614 206.512 176.138 206.574C175.655 206.639 175.167 206.698 174.676 206.753L174.586 206.763C172.806 206.968 171.019 207.104 169.228 207.169H169.202C168.554 207.192 167.907 207.204 167.259 207.204H166.512C165.524 207.191 164.538 207.146 163.553 207.07C163.53 207.07 163.505 207.07 163.482 207.064C163.129 207.037 162.777 207.004 162.425 206.965C162.06 206.926 161.696 206.882 161.333 206.833C161.094 206.801 160.856 206.765 160.618 206.726C160.376 206.687 160.134 206.647 159.893 206.605L159.564 206.543L159.539 206.538C159.192 206.472 158.847 206.399 158.503 206.319C158.303 206.274 158.104 206.23 157.907 206.176L157.788 206.146C157.69 206.122 157.595 206.096 157.498 206.07L157.445 206.056L157.137 205.966C157.025 205.935 156.913 205.901 156.801 205.868L156.762 205.857L156.471 205.768C156.361 205.734 156.251 205.698 156.142 205.662L155.874 205.573L155.677 205.504C155.487 205.437 155.298 205.368 155.111 205.296L154.933 205.226L154.786 205.168C154.502 205.054 154.22 204.935 153.941 204.81L153.756 204.72L153.725 204.706C153.659 204.675 153.594 204.644 153.528 204.617C153.399 204.555 153.271 204.491 153.144 204.426L153.105 204.407L152.921 204.31C152.594 204.139 152.274 203.957 151.96 203.764L151.788 203.658C151.702 203.605 151.616 203.55 151.532 203.494L151.308 203.346L151.067 203.18L150.923 203.077C150.771 202.969 150.622 202.857 150.476 202.742L150.243 202.563C150.15 202.488 150.058 202.412 149.967 202.335C149.89 202.272 149.815 202.206 149.74 202.14L149.734 202.135C149.653 202.064 149.574 201.993 149.495 201.92C149.417 201.849 149.339 201.777 149.263 201.704L149.254 201.695C149.174 201.619 149.096 201.542 149.019 201.463C148.942 201.385 148.863 201.307 148.788 201.227C148.713 201.148 148.636 201.067 148.562 200.984C148.488 200.902 148.42 200.827 148.35 200.746L148.327 200.719C148.259 200.641 148.192 200.562 148.126 200.481C147.983 200.31 147.844 200.135 147.71 199.956C147.575 199.776 147.443 199.592 147.314 199.405L147.191 199.221C147.027 198.981 146.867 198.739 146.712 198.493C146.596 198.316 146.483 198.138 146.373 197.957C146.302 197.844 146.234 197.73 146.166 197.618L146.138 197.572C146.073 197.462 146.009 197.354 145.947 197.245C145.911 197.186 145.877 197.127 145.845 197.066C145.812 197.004 145.774 196.941 145.739 196.878L145.682 196.779L145.647 196.715C145.58 196.595 145.514 196.474 145.45 196.352C145.42 196.298 145.391 196.244 145.36 196.192L145.271 196.019L145.181 195.848C144.956 195.398 144.743 194.942 144.543 194.48L144.472 194.311C144.426 194.198 144.383 194.086 144.337 193.975C144.315 193.921 144.293 193.868 144.274 193.814C144.167 193.537 144.067 193.257 143.975 192.975C143.942 192.874 143.91 192.775 143.88 192.675C143.808 192.448 143.743 192.219 143.685 191.988C143.614 191.719 143.551 191.448 143.498 191.175C143.487 191.12 143.476 191.065 143.467 191.012C143.415 190.745 143.373 190.476 143.34 190.206C143.332 190.153 143.326 190.1 143.32 190.047L143.303 189.885C143.281 189.673 143.264 189.46 143.254 189.247C143.254 189.193 143.249 189.139 143.247 189.087C143.242 188.981 143.24 188.875 143.239 188.769C143.183 184.496 145.345 180.388 149.968 175.767C158.203 167.54 162.997 155.501 162.997 155.501C162.997 155.501 163.126 154.996 163.394 154.269C163.431 154.168 163.47 154.064 163.514 153.955C163.67 153.548 163.846 153.148 164.041 152.758L164.08 152.683C164.246 152.351 164.428 152.027 164.624 151.712C164.67 151.639 164.714 151.567 164.765 151.494C164.912 151.277 165.067 151.065 165.23 150.86C165.319 150.749 165.416 150.639 165.513 150.532C165.552 150.49 165.59 150.448 165.631 150.408C166.108 149.915 166.653 149.513 167.27 149.299L167.348 149.273C167.4 149.256 167.452 149.24 167.505 149.225C167.566 149.209 167.627 149.195 167.69 149.182L167.719 149.176C167.849 149.15 167.981 149.133 168.114 149.124H168.125C168.194 149.124 168.264 149.117 168.335 149.117C168.424 149.117 168.507 149.117 168.594 149.126C168.684 149.134 168.773 149.144 168.863 149.158C169.605 149.276 170.311 149.718 170.919 150.4C171.15 150.66 171.358 150.94 171.54 151.236C171.66 151.428 171.773 151.631 171.88 151.845C171.923 151.934 171.964 152.016 172.004 152.104C172.108 152.33 172.202 152.56 172.284 152.795C172.479 153.345 172.626 153.911 172.723 154.487C172.807 154.992 172.857 155.502 172.873 156.013C172.881 156.286 172.881 156.563 172.873 156.842C172.819 158.14 172.553 159.421 172.086 160.634C172.044 160.745 171.997 160.857 171.952 160.969C171.86 161.195 171.759 161.417 171.65 161.634C171.569 161.799 171.484 161.965 171.392 162.13C171.332 162.24 171.269 162.35 171.206 162.46C171.045 162.734 170.871 163.006 170.684 163.277L170.571 163.439C170.129 164.055 169.637 164.633 169.099 165.167C168.569 165.698 168.001 166.189 167.4 166.637C166.798 167.083 166.233 167.577 165.711 168.114C164.208 169.691 163.858 171.083 164.196 172.138C164.25 172.304 164.321 172.465 164.407 172.617C164.508 172.791 164.628 172.951 164.764 173.097L164.817 173.152L164.871 173.206C164.925 173.258 164.982 173.309 165.043 173.359L165.103 173.407C165.248 173.519 165.402 173.619 165.563 173.707C165.61 173.732 165.652 173.757 165.705 173.781C165.879 173.866 166.058 173.939 166.242 173.998C166.293 174.015 166.344 174.03 166.396 174.046L166.461 174.063L166.551 174.087L166.628 174.106L166.712 174.124L166.795 174.141L166.874 174.154C166.932 174.164 166.992 174.174 167.052 174.181L167.109 174.19L167.213 174.2L167.277 174.207L167.382 174.214H167.444L167.554 174.22H167.9L167.999 174.214L168.113 174.207L168.252 174.194L168.382 174.179C168.412 174.179 168.442 174.171 168.472 174.165C168.872 174.107 169.264 174.001 169.639 173.849L169.798 173.782C169.887 173.743 169.977 173.702 170.059 173.658C170.235 173.57 170.406 173.47 170.57 173.361C170.799 173.211 171.015 173.043 171.217 172.858C171.265 172.815 171.312 172.769 171.358 172.725C171.381 172.703 171.403 172.682 171.425 172.658C171.469 172.613 171.514 172.569 171.558 172.52C171.878 172.168 172.155 171.78 172.383 171.363C174.34 167.804 176.391 164.298 178.534 160.849L178.828 160.378L179.125 159.907C179.273 159.668 179.423 159.433 179.572 159.199L179.722 158.965C180.22 158.185 180.726 157.41 181.241 156.641L181.546 156.185C182.158 155.278 182.768 154.396 183.373 153.558L183.674 153.143C184.332 152.236 185.017 151.348 185.728 150.482L186.01 150.144C186.057 150.088 186.1 150.032 186.151 149.978C186.244 149.868 186.337 149.761 186.428 149.657C186.474 149.604 186.517 149.552 186.566 149.5L186.834 149.198L186.968 149.051C187.103 148.906 187.235 148.767 187.365 148.634C187.455 148.544 187.538 148.455 187.624 148.371C188.131 147.853 188.69 147.388 189.293 146.985L189.433 146.895C189.567 146.805 189.706 146.721 189.848 146.645C192.212 145.303 194.169 145.204 195.296 146.331C195.978 147.013 196.356 148.144 196.335 149.718C196.335 149.787 196.335 149.857 196.33 149.929V150.006C196.33 150.078 196.324 150.15 196.318 150.223C196.318 150.313 196.308 150.402 196.299 150.492C196.29 150.581 196.285 150.649 196.276 150.729C196.276 150.751 196.272 150.774 196.268 150.798C196.262 150.867 196.253 150.938 196.243 151.009C196.243 151.03 196.243 151.052 196.235 151.074C196.224 151.169 196.21 151.263 196.194 151.357C196.183 151.447 196.168 151.531 196.152 151.619L196.126 151.768C196.1 151.91 196.067 152.05 196.026 152.188C195.948 152.447 195.854 152.7 195.743 152.946C195.588 153.284 195.417 153.613 195.229 153.933C195.125 154.111 195.018 154.286 194.907 154.459C194.793 154.638 194.673 154.819 194.549 155.002C194.233 155.454 193.905 155.897 193.564 156.33L193.408 156.527C192.852 157.22 192.278 157.899 191.686 158.562L191.499 158.772C191.247 159.053 190.991 159.336 190.729 159.62L190.532 159.834C190.401 159.977 190.264 160.12 190.132 160.264C190.001 160.407 189.864 160.552 189.726 160.697L189.315 161.13L188.898 161.566L188.478 162.002C188.196 162.294 187.913 162.586 187.628 162.878C183.573 167.037 179.301 171.182 177.855 173.766C177.758 173.934 177.671 174.108 177.593 174.285C177.387 174.755 177.301 175.157 177.36 175.482C177.379 175.589 177.416 175.691 177.471 175.785C177.552 175.926 177.651 176.056 177.766 176.172C177.819 176.224 177.875 176.272 177.934 176.316C178.232 176.528 178.591 176.637 178.957 176.627H179.071L179.188 176.618L179.305 176.605L179.402 176.591C179.415 176.589 179.429 176.587 179.442 176.583L179.531 176.566L179.554 176.561L179.653 176.54L179.688 176.531C179.723 176.522 179.757 176.513 179.792 176.503C179.827 176.493 179.875 176.48 179.917 176.466C180.093 176.413 180.265 176.35 180.434 176.278C180.523 176.242 180.61 176.203 180.696 176.161C180.741 176.141 180.786 176.12 180.828 176.098L180.962 176.032C181.282 175.866 181.594 175.685 181.898 175.491L182.031 175.401C182.076 175.373 182.121 175.344 182.164 175.312L182.297 175.223L182.368 175.174L182.56 175.039C182.739 174.916 182.906 174.789 183.075 174.66L183.09 174.648L183.359 174.44C183.726 174.15 184.074 173.858 184.39 173.583L184.6 173.399L184.619 173.381L184.729 173.284C184.987 173.052 185.217 172.836 185.408 172.658L185.487 172.581C185.556 172.516 185.619 172.455 185.676 172.403L185.788 172.292L185.828 172.253L185.839 172.242L185.956 172.125L186.03 172.048L186.039 172.041L186.074 172.009L186.118 171.969L186.132 171.956L186.169 171.922L186.373 171.743L186.487 171.641C186.548 171.588 186.607 171.534 186.666 171.479L186.802 171.358C186.827 171.338 186.851 171.316 186.876 171.294L187.019 171.169L187.229 170.984L187.341 170.887C187.776 170.509 188.305 170.052 188.913 169.537L189.162 169.326L189.573 168.981L189.994 168.63C190.544 168.173 191.136 167.688 191.762 167.185L192.173 166.855C192.523 166.576 192.882 166.292 193.246 166.006C193.393 165.891 193.542 165.776 193.694 165.662C194.066 165.373 194.44 165.086 194.817 164.803C195.675 164.155 196.56 163.506 197.456 162.874L197.84 162.606C198.109 162.421 198.377 162.235 198.645 162.054L198.888 161.89C199.367 161.565 199.853 161.248 200.343 160.939L200.586 160.786L200.827 160.636C201.069 160.486 201.309 160.339 201.548 160.196L201.787 160.053L202.265 159.775L202.734 159.506L202.829 159.454L203.2 159.25C203.355 159.166 203.509 159.085 203.663 159.006L203.892 158.888L204.115 158.776C204.193 158.739 204.27 158.7 204.346 158.663C204.848 158.415 205.36 158.187 205.88 157.979C206.021 157.919 206.161 157.865 206.3 157.818L206.71 157.674C206.833 157.633 206.953 157.594 207.068 157.559L207.108 157.547C207.17 157.527 207.232 157.509 207.293 157.493L207.311 157.488C207.439 157.451 207.566 157.419 207.691 157.389H207.7C208.054 157.304 208.414 157.243 208.777 157.206C208.944 157.189 209.111 157.18 209.279 157.181H209.363C209.475 157.181 209.583 157.188 209.69 157.199C209.739 157.199 209.788 157.209 209.836 157.215H209.856C209.904 157.221 209.952 157.228 210 157.239C210.047 157.248 210.095 157.256 210.141 157.267H210.156C210.203 157.277 210.245 157.289 210.294 157.303C210.548 157.374 210.79 157.484 211.012 157.628C211.121 157.699 211.223 157.779 211.317 157.868L211.344 157.894C211.362 157.91 211.379 157.927 211.395 157.944L211.444 157.997C211.846 158.418 212.178 158.901 212.428 159.427L212.466 159.517C212.551 159.717 212.618 159.924 212.666 160.135C212.808 160.781 212.753 161.455 212.508 162.07C212.415 162.318 212.302 162.557 212.169 162.785C211.858 163.309 211.489 163.796 211.07 164.237L210.981 164.332C210.848 164.472 210.71 164.612 210.565 164.752C210.501 164.815 210.434 164.877 210.367 164.94L210.162 165.129L210.055 165.224C209.797 165.454 209.532 165.677 209.263 165.893C209.1 166.025 208.936 166.154 208.77 166.281C208.184 166.729 207.587 167.161 206.979 167.578C206.612 167.83 206.242 168.077 205.869 168.321C204.95 168.924 204.021 169.512 203.083 170.084C201.115 171.294 198.934 172.588 196.609 173.995L196.007 174.36C195.348 174.762 194.726 175.146 194.14 175.512L193.845 175.697L193.287 176.055C192.917 176.292 192.548 176.531 192.179 176.77L191.882 176.966C191.737 177.06 191.593 177.156 191.449 177.252L191.308 177.342L190.876 177.633L190.647 177.79L190.379 177.976L190.13 178.149C189.713 178.444 189.325 178.725 188.968 178.992L188.834 179.094C188.624 179.253 188.416 179.415 188.211 179.58C187.902 179.829 187.62 180.067 187.367 180.296L187.243 180.409C187.172 180.474 187.102 180.539 187.035 180.603C186.989 180.648 186.946 180.693 186.898 180.736L186.834 180.8C186.691 180.944 186.551 181.091 186.416 181.242L186.35 181.318C186.203 181.488 186.075 181.651 185.963 181.81L185.913 181.881C185.825 182.009 185.744 182.141 185.671 182.277C185.652 182.311 185.635 182.345 185.618 182.379L185.569 182.481L185.536 182.555L185.515 182.605L185.498 182.65L185.475 182.711C185.413 182.88 185.37 183.056 185.345 183.234L185.337 183.296L185.331 183.354V183.669C185.331 183.695 185.331 183.721 185.338 183.749L185.343 183.797C185.343 183.823 185.349 183.848 185.353 183.876C185.357 183.902 185.364 183.949 185.372 183.986V183.991C185.379 184.026 185.386 184.06 185.395 184.095C185.404 184.13 185.413 184.17 185.424 184.206C185.443 184.277 185.467 184.347 185.492 184.417C185.508 184.459 185.523 184.5 185.54 184.541C185.54 184.549 185.546 184.558 185.55 184.566L185.586 184.647L185.636 184.758C185.69 184.873 185.749 184.985 185.813 185.094L185.879 185.208L185.947 185.322C185.959 185.341 185.973 185.359 185.988 185.376L186.01 185.399L186.035 185.422L186.061 185.442C186.099 185.469 186.14 185.49 186.183 185.505C186.206 185.513 186.23 185.519 186.254 185.525C186.831 185.655 188.017 185.178 189.593 184.346C189.682 184.298 189.78 184.248 189.875 184.196L190.355 183.934L190.589 183.804C190.756 183.715 190.926 183.614 191.1 183.515L191.417 183.336C193.5 182.137 195.988 180.597 198.56 179.093C198.801 178.952 199.043 178.811 199.285 178.672L199.771 178.361C200.335 178.038 200.902 177.719 201.471 177.404C202.188 177.01 202.91 176.626 203.639 176.254L204.115 176.013C204.431 175.857 204.744 175.705 205.053 175.557C205.651 175.273 206.256 175.003 206.868 174.748L207.203 174.612L207.243 174.596C209.018 173.893 210.627 173.459 211.929 173.459C212.21 173.456 212.492 173.48 212.769 173.528H212.778C212.867 173.544 212.948 173.562 213.031 173.582H213.046C213.259 173.636 213.466 173.713 213.662 173.812C213.937 173.954 214.184 174.143 214.393 174.371C214.489 174.477 214.574 174.592 214.649 174.714C214.789 174.929 214.899 175.162 214.978 175.406C215.01 175.501 215.038 175.594 215.067 175.693C215.278 176.45 215.257 177.253 215.007 177.998Z" fill="#FF9D00"/>
@@ -57406,9 +57950,10 @@ test.describe('PWA Service Worker', () => {
 <path d="M144.097 149.317C139.856 152.659 134.219 154.9 126.878 154.9C119.981 154.9 114.587 152.922 110.443 149.911C111.596 147.572 113.219 145.495 115.211 143.812C117.202 142.128 119.52 140.873 122.018 140.125C123.73 139.614 125.545 145.901 127.423 145.901C129.433 145.901 131.37 139.655 133.189 140.236C137.863 141.738 141.773 144.993 144.097 149.317Z" fill="#FF323D"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M81.2 111.64C80.2312 112.288 79.1173 112.687 77.9572 112.801C76.7971 112.916 75.6267 112.742 74.55 112.295C73.6893 111.94 72.9072 111.418 72.2488 110.759C71.5903 110.101 71.0684 109.319 70.713 108.458C70.267 107.381 70.0935 106.211 70.2082 105.051C70.3228 103.891 70.7219 102.777 71.37 101.808C72.1488 100.642 73.2558 99.7333 74.5512 99.1967C75.8466 98.6601 77.272 98.5197 78.6471 98.7935C80.0223 99.0672 81.2853 99.7427 82.2764 100.734C83.2675 101.726 83.9422 102.99 84.215 104.365C84.4883 105.74 84.3477 107.165 83.8113 108.46C83.2748 109.755 82.3654 110.861 81.2 111.64ZM182.613 111.64C181.644 112.288 180.53 112.687 179.37 112.801C178.209 112.916 177.039 112.742 175.962 112.295C175.101 111.939 174.319 111.418 173.661 110.759C173.003 110.101 172.481 109.319 172.125 108.458C171.68 107.381 171.507 106.211 171.621 105.051C171.736 103.891 172.135 102.777 172.782 101.808C173.364 100.936 174.133 100.205 175.032 99.6658C175.931 99.1269 176.938 98.7942 177.981 98.6917C179.025 98.5891 180.078 98.7193 181.064 99.0728C182.051 99.4264 182.947 99.9944 183.688 100.736C184.68 101.727 185.355 102.99 185.628 104.365C185.902 105.74 185.761 107.165 185.224 108.46C184.687 109.755 183.779 110.861 182.613 111.64Z" fill="#FFAD03"/>
 </svg>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/ai-tutorial.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/ai-tutorial.ts
+````typescript
 // AI Assistant Tutorial Response
 export const AI_TUTORIAL_MD = String.raw`
 # Building a Modern Chat Application with SvelteKit
@@ -57573,9 +58118,10 @@ ${'```'}
 
 *Need help? Check the [documentation](https://kit.svelte.dev) or [open an issue](https://github.com/sveltejs/kit/issues)*
 `;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/api-docs.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/api-docs.ts
+````typescript
 // API Documentation
 export const API_DOCS_MD = String.raw`
 # REST API Documentation
@@ -57736,9 +58282,10 @@ ${'```'}
 
 📚 [Full API Reference](https://api.example.com/docs) | 💬 [Support](https://support.example.com)
 `;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/blog-post.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/blog-post.ts
+````typescript
 // Blog Post Content
 export const BLOG_POST_MD = String.raw`
 # Understanding Rust's Ownership System
@@ -57864,9 +58411,10 @@ Rust's ownership system eliminates entire classes of bugs at compile time. While
 
 *Questions? Reach out on [Twitter](https://twitter.com/rustlang) or join the [Rust Discord](https://discord.gg/rust-lang)*
 `;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/data-analysis.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/data-analysis.ts
+````typescript
 // Data Analysis Report
 export const DATA_ANALYSIS_MD = String.raw`
 # Q4 2024 Business Analytics Report
@@ -57991,14 +58539,16 @@ Data collected from:
 
 *Report prepared by Data Analytics Team • [View Interactive Dashboard](https://analytics.example.com)*
 `;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/empty.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/empty.ts
+````typescript
 // Empty state
 export const EMPTY_MD = '';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/math-formulas.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/math-formulas.ts
+````typescript
 /* eslint-disable no-irregular-whitespace */
 // Math Formulas Content
 export const MATH_FORMULAS_MD = String.raw`
@@ -58220,9 +58770,10 @@ The standard enthalpy change for the reaction is: $\Delta H^\circ = \pu{-572 kJ 
 
 *This document showcases various mathematical notation and formulas that can be rendered in markdown using LaTeX syntax.*
 `;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/readme.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/readme.ts
+````typescript
 // README Content
 export const README_MD = String.raw`
 # 🚀 Awesome Web Framework
@@ -58359,9 +58910,10 @@ Special thanks to all our sponsors and contributors who make this project possib
 
 **[Website](https://awesome.dev)** • **[Documentation](https://docs.awesome.dev)** • **[Discord](https://discord.gg/awesome)** • **[Twitter](https://twitter.com/awesomeframework)**
 `;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/fixtures/storybook-mocks.ts">
+## File: cerebro_unificado/frontend/tests/stories/fixtures/storybook-mocks.ts
+````typescript
 import { serverStore } from '$lib/stores/server.svelte';
 import { modelsStore } from '$lib/stores/models.svelte';
 
@@ -58448,9 +59000,10 @@ export const mockConfigs = {
 		modalities: { vision: false, audio: false, video: false }
 	}
 } as const;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/ChatMessage.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/ChatMessage.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import ChatMessage from '$lib/components/app/chat/ChatMessages/ChatMessage/ChatMessage.svelte';
@@ -58658,9 +59211,10 @@ export const mockConfigs = {
 		await new Promise((resolve) => setTimeout(resolve, 100));
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/ChatScreenForm.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/ChatScreenForm.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import ChatScreenForm from '$lib/components/app/chat/ChatScreen/ChatScreenForm.svelte';
@@ -58755,9 +59309,10 @@ export const mockConfigs = {
 		await expect(pdfSize).toBeInTheDocument();
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/Introduction.mdx">
+## File: cerebro_unificado/frontend/tests/stories/Introduction.mdx
+````markdown
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Introduction" />
@@ -58802,9 +59357,10 @@ To explore the components:
 2. **Click on stories** to see different component states
 3. **Use the controls panel** to interact with component props
 4. **Check the docs tab** for detailed component information
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/MarkdownContent.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/MarkdownContent.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { expect } from 'storybook/test';
@@ -58937,9 +59493,10 @@ All links should have \`target="_blank"\` and \`rel="noopener noreferrer"\` attr
 		console.log(`✅ URL Links test passed - Found ${links.length} links with proper attributes`);
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/ModelsSelector.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/ModelsSelector.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import ModelsSelectorList from '$lib/components/app/models/ModelsSelectorList.svelte';
@@ -59209,9 +59766,10 @@ All links should have \`target="_blank"\` and \`rel="noopener noreferrer"\` attr
 		/>
 	</div>
 </Story>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/PwaRefreshAlert.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/PwaRefreshAlert.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import PwaRefreshAlert from '$lib/components/pwa/PwaRefreshAlert.svelte';
@@ -59269,9 +59827,10 @@ All links should have \`target="_blank"\` and \`rel="noopener noreferrer"\` attr
 		await expect(reloadBtn).not.toBeInTheDocument();
 	}}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/stories/SidebarNavigation.stories.svelte">
+## File: cerebro_unificado/frontend/tests/stories/SidebarNavigation.stories.svelte
+````svelte
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import SidebarNavigation from '$lib/components/app/navigation/SidebarNavigation/SidebarNavigation.svelte';
@@ -59378,9 +59937,10 @@ All links should have \`target="_blank"\` and \`rel="noopener noreferrer"\` attr
 		<SidebarNavigation />
 	</div>
 </Story>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/abort.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/abort.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { isAbortError } from '$lib/utils/abort';
 
@@ -59437,9 +59997,10 @@ describe('isAbortError', () => {
 		expect(isAbortError(new TypeError('the network connection WAS LOST'))).toBe(true);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/agentic-sections.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/agentic-sections.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { deriveAgenticSections, hasAgenticContent } from '$lib/utils/agentic';
 import { AgenticSectionType, MessageRole } from '$lib/enums';
@@ -59697,9 +60258,10 @@ describe('hasAgenticContent', () => {
 		expect(hasAgenticContent(msg)).toBe(false);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/agentic-strip.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/agentic-strip.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { LEGACY_AGENTIC_REGEX } from '$lib/constants/agentic';
 
@@ -59795,9 +60357,10 @@ describe('legacy agentic marker stripping (for migration)', () => {
 		);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/clipboard.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/clipboard.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { AttachmentType } from '$lib/enums';
 import {
@@ -60221,9 +60784,10 @@ describe('roundtrip edge cases', () => {
 		expect(parsed.textAttachments[0].content).toBe('\t\t\n\n   ');
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/continue-intent.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/continue-intent.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { classifyContinueIntent } from '$lib/utils/agentic';
 import { ContinueIntentKind, MessageRole, MessageType } from '$lib/enums';
@@ -60390,9 +60954,10 @@ describe('classifyContinueIntent', () => {
 		expect(classifyContinueIntent([], 0)).toEqual({ kind: ContinueIntentKind.APPEND_TEXT });
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/favicon-colorize.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/favicon-colorize.test.ts
+````typescript
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -60591,9 +61156,10 @@ describe('writeThemeFavicons', () => {
 		expect(readFileSync(sourcePath, 'utf-8')).toBe(LOGO);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/headers.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/headers.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { parseHeadersToArray, serializeHeaders } from '$lib/utils/headers';
 
@@ -60720,9 +61286,10 @@ describe('parseHeadersToArray / serializeHeaders roundtrip', () => {
 		expect(parseHeadersToArray(serialized)).toEqual(pairs);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/jpeg-orientation.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/jpeg-orientation.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { getJpegOrientationFromDataURL, isJpegMimeType } from '$lib/utils/jpeg-orientation';
 
@@ -60823,9 +61390,10 @@ describe('isJpegMimeType', () => {
 		expect(isJpegMimeType('image/webp')).toBe(false);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/latex-protection.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/latex-protection.test.ts
+````typescript
 /* eslint-disable no-irregular-whitespace */
 import { describe, it, expect, test } from 'vitest';
 import { maskInlineLaTeX, preprocessLaTeX } from '$lib/utils/latex-protection';
@@ -61202,9 +61770,10 @@ $$\n\\pi_n(\\mathbb{S}^3) = \\begin{cases}
 		expect(output).toBe('Regular text with $x^2$.\n\n> Quote with $y^2$.\n\nMore text with $z^2$.');
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/mcp-service.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/mcp-service.test.ts
+````typescript
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Client } from '@modelcontextprotocol/sdk/client';
 import { MCPService } from '$lib/services/mcp.service';
@@ -61517,9 +62086,10 @@ describe('MCPService', () => {
 		).toHaveLength(0);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/model-id-parser.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/model-id-parser.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { ModelsService } from '$lib/services/models.service';
 
@@ -61790,9 +62360,10 @@ describe('parseModelId', () => {
 		});
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/model-names.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/model-names.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { isValidModelName, normalizeModelName } from '$lib/utils/model-names';
 
@@ -61844,9 +62415,10 @@ describe('isValidModelName', () => {
 		expect(isValidModelName('   ')).toBe(false);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/parse-mcp-server-settings.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/parse-mcp-server-settings.test.ts
+````typescript
 import { describe, expect, it, vi } from 'vitest';
 import { parseMcpServerSettings } from '$lib/utils/mcp';
 import { DEFAULT_MCP_CONFIG, MCP_SERVER_ID_PREFIX } from '$lib/constants/mcp';
@@ -61991,9 +62563,10 @@ describe('parseMcpServerSettings', () => {
 		expect(parsed[2]?.url).toBe('https://c.test');
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/pwa.spec.ts">
+## File: cerebro_unificado/frontend/tests/unit/pwa.spec.ts
+````typescript
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -62191,9 +62764,10 @@ describe('PWA Build Output', () => {
 		});
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/reasoning-context.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/reasoning-context.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import { MessageRole } from '$lib/enums';
 
@@ -62283,9 +62857,10 @@ describe('reasoning content in new structured format', () => {
 		expect(apiMessage.reasoning_content).toBeUndefined();
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/recommended-mcp-servers.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/recommended-mcp-servers.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import {
 	RECOMMENDED_MCP_SERVER_IDS,
@@ -62376,9 +62951,10 @@ describe('recommended-mcp-servers default value', () => {
 		expect(entry?.requestTimeoutSeconds).toBe(DEFAULT_MCP_CONFIG.requestTimeoutSeconds);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/redact.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/redact.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { redactValue } from '$lib/utils/redact';
 
@@ -62399,9 +62975,10 @@ describe('redactValue', () => {
 		expect(redactValue('secret', 0)).toBe('[redacted]');
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/request-helpers.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/request-helpers.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import {
 	getRequestUrl,
@@ -62526,9 +63103,10 @@ describe('extractJsonRpcMethods', () => {
 		expect(extractJsonRpcMethods(JSON.stringify({ foo: 'bar' }))).toBeUndefined();
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/sanitize-headers.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/sanitize-headers.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { sanitizeHeaders } from '$lib/utils/api-headers';
 import { CORS_PROXY_HEADER_PREFIX } from '$lib/constants';
@@ -62602,9 +63180,10 @@ describe('sanitizeHeaders', () => {
 		expect(result[proxiedVendorKey]).toBe('[redacted]');
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/stream-discovery.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/stream-discovery.test.ts
+````typescript
 import { describe, expect, it } from 'vitest';
 import { ChatService } from '$lib/services/chat.service';
 import type { ApiStreamSession } from '$lib/types';
@@ -62679,9 +63258,10 @@ describe('selectActiveStream', () => {
 		);
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/stream-resume.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/stream-resume.test.ts
+````typescript
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 // node env unit project has no DOM, install a minimal localStorage backed by a Map
@@ -62810,9 +63390,10 @@ describe('ChatService stream resume', () => {
 		});
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tests/unit/uri-template.test.ts">
+## File: cerebro_unificado/frontend/tests/unit/uri-template.test.ts
+````typescript
 import { describe, it, expect } from 'vitest';
 import {
 	extractTemplateVariables,
@@ -62989,15 +63570,17 @@ describe('normalizeResourceUri', () => {
 		expect(normalizeResourceUri('not-a-uri')).toBe('not-a-uri');
 	});
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.env.example">
+## File: cerebro_unificado/frontend/.env.example
+````
 VITE_PUBLIC_APP_NAME='llama-ui'
 VITE_DEBUG='true'
 VITE_PUBLIC_SERVER_ORIGIN='http://localhost:8033'
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.gitignore">
+## File: cerebro_unificado/frontend/.gitignore
+````
 test-results
 node_modules
 
@@ -63036,14 +63619,16 @@ static/favicon*
 *storybook.log
 storybook-static
 *.code-workspace
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.npmrc">
+## File: cerebro_unificado/frontend/.npmrc
+````
 engine-strict=true
 ignore-scripts=true
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.prettierignore">
+## File: cerebro_unificado/frontend/.prettierignore
+````
 # Package Managers
 package-lock.json
 pnpm-lock.yaml
@@ -63062,9 +63647,10 @@ build/
 /build/
 /.svelte-kit/
 test-results
-</file>
+````
 
-<file path="cerebro_unificado/frontend/.prettierrc">
+## File: cerebro_unificado/frontend/.prettierrc
+````
 {
 	"useTabs": true,
 	"singleQuote": true,
@@ -63081,9 +63667,10 @@ test-results
 	],
 	"tailwindStylesheet": "./src/app.css"
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/CMakeLists.txt">
+## File: cerebro_unificado/frontend/CMakeLists.txt
+````
 set(TARGET llama-ui)
 
 set(LLAMA_UI_HF_BUCKET "ggml-org/llama-ui" CACHE STRING "Hugging Face bucket name for prebuilt UI assets")
@@ -63191,9 +63778,10 @@ endif()
 target_include_directories(${TARGET} PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}
 )
-</file>
+````
 
-<file path="cerebro_unificado/frontend/components.json">
+## File: cerebro_unificado/frontend/components.json
+````json
 {
 	"$schema": "https://shadcn-svelte.com/schema.json",
 	"tailwind": {
@@ -63210,9 +63798,10 @@ target_include_directories(${TARGET} PUBLIC
 	"typescript": true,
 	"registry": "https://shadcn-svelte.com/registry"
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/embed.cpp">
+## File: cerebro_unificado/frontend/embed.cpp
+````cpp
 // llama-ui-embed: generate ui.cpp / ui.h that embed UI assets as C arrays.
 //
 // Usage:
@@ -63520,9 +64109,10 @@ int main(int argc, char ** argv) {
     ok = write_if_different(out_cpp, cpp) && ok;
     return ok ? 0 : 1;
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/eslint.config.js">
+## File: cerebro_unificado/frontend/eslint.config.js
+````javascript
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
 import storybook from 'eslint-plugin-storybook';
 
@@ -63582,9 +64172,10 @@ export default ts.config(
 	},
 	storybook.configs['flat/recommended']
 );
-</file>
+````
 
-<file path="cerebro_unificado/frontend/package.json">
+## File: cerebro_unificado/frontend/package.json
+````json
 {
 	"name": "llama-ui",
 	"private": true,
@@ -63692,9 +64283,10 @@ export default ts.config(
 		"cookie": "1.1.1"
 	}
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/playwright.config.ts">
+## File: cerebro_unificado/frontend/playwright.config.ts
+````typescript
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
@@ -63726,9 +64318,10 @@ export default defineConfig({
 		reuseExistingServer: !process.env.CI
 	}
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/pwa-assets-dark.config.ts">
+## File: cerebro_unificado/frontend/pwa-assets-dark.config.ts
+````typescript
 import { defineConfig } from '@vite-pwa/assets-generator/config';
 import { FAVICON_COLORS, PWA_ASSET_GENERATOR } from './src/lib/constants/pwa';
 import { writeThemeFavicons } from './scripts/favicon-colorize';
@@ -63756,9 +64349,10 @@ export default defineConfig({
 	},
 	images: ['static/favicon-dark.svg']
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/pwa-assets.config.ts">
+## File: cerebro_unificado/frontend/pwa-assets.config.ts
+````typescript
 import {
 	combinePresetAndAppleSplashScreens,
 	defineConfig,
@@ -63827,9 +64421,10 @@ export default defineConfig({
 	),
 	images: ['static/favicon.svg']
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/README.md">
+## File: cerebro_unificado/frontend/README.md
+````markdown
 # llama-ui
 
 A modern, feature-rich web interface for llama-server built with SvelteKit. This UI provides an intuitive chat interface with advanced file handling, conversation management, and comprehensive model interaction capabilities.
@@ -64518,9 +65113,10 @@ tools/ui/
 - [llama.cpp Server README](../server/README.md) - Full server documentation
 - [Multimodal Documentation](../../docs/multimodal.md) - Image and audio support
 - [Function Calling](../../docs/function-calling.md) - Tool use capabilities
-</file>
+````
 
-<file path="cerebro_unificado/frontend/sources.cmake">
+## File: cerebro_unificado/frontend/sources.cmake
+````cmake
 # Inputs used to decide whether the npm build output is up-to-date.
 
 set(UI_SOURCE_GLOBS
@@ -64537,9 +65133,10 @@ set(UI_SOURCE_FILES
     tsconfig.json
     scripts/vite-plugin-llama-cpp-build.ts
 )
-</file>
+````
 
-<file path="cerebro_unificado/frontend/svelte.config.js">
+## File: cerebro_unificado/frontend/svelte.config.js
+````javascript
 import { mdsvex } from 'mdsvex';
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
@@ -64578,9 +65175,10 @@ const config = {
 };
 
 export default config;
-</file>
+````
 
-<file path="cerebro_unificado/frontend/tsconfig.json">
+## File: cerebro_unificado/frontend/tsconfig.json
+````json
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
@@ -64615,9 +65213,10 @@ export default config;
 	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
 	// from the referenced tsconfig.json - TypeScript does not merge them in
 }
-</file>
+````
 
-<file path="cerebro_unificado/frontend/vite.config.ts">
+## File: cerebro_unificado/frontend/vite.config.ts
+````typescript
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
@@ -64724,9 +65323,10 @@ export default defineConfig({
 		}
 	}
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/vitest-setup-client.ts">
+## File: cerebro_unificado/frontend/vitest-setup-client.ts
+````typescript
 /// <reference types="@vitest/browser/matchers" />
 /// <reference types="@vitest/browser/providers/playwright" />
 
@@ -64807,13 +65407,15 @@ beforeEach(() => {
 		}
 	);
 });
-</file>
+````
 
-<file path="cerebro_unificado/frontend/vitest.shims.d.ts">
+## File: cerebro_unificado/frontend/vitest.shims.d.ts
+````typescript
 /// <reference types="@vitest/browser-playwright" />
-</file>
+````
 
-<file path="cerebro_unificado/storage/searxng/settings.yml">
+## File: cerebro_unificado/storage/searxng/settings.yml
+````yaml
 # SearXNG settings.yml for Cerebro Autónomo integration
 use_default_settings: true
 
@@ -64841,9 +65443,10 @@ engines:
     engine: wikipedia
     shortcut: wp
     timeout: 2.0
-</file>
+````
 
-<file path="cerebro_unificado/config.yaml">
+## File: cerebro_unificado/config.yaml
+````yaml
 llm:
   server_url: "http://127.0.0.1:8080"        # DeepSeek-R1 (chat)
   max_output_tokens: 4096
@@ -64881,9 +65484,10 @@ backup:
 agent_cron:
   enabled: false
   interval_seconds: 60  # Ejecutar bucle autónomo en background cada 60 segundos (ajustable)
-</file>
+````
 
-<file path="cerebro_unificado/start.sh">
+## File: cerebro_unificado/start.sh
+````bash
 #!/bin/bash
 
 # --- Script de Arranque de Producción (Cerebro Autónomo) ---
@@ -64933,9 +65537,10 @@ UVICORN_PID=$!
 
 # Esperar al subproceso uvicorn
 wait "$UVICORN_PID"
-</file>
+````
 
-<file path="2026-07-07_20-35-53_conv_24c8a781_que_comparaciones_ha.jsonl">
+## File: 2026-07-07_20-35-53_conv_24c8a781_que_comparaciones_ha.jsonl
+````
 {"type":"session","harness":"llama.app","id":"24c8a781-b8cf-4d48-9cd6-5aadf1d81495","name":"Que comparaciones hay entre la version actual de rust de hoy y el rust que tienes cuando lo aprendiste.","lastModified":1783456240468,"currNode":"0227527b-13e7-4c06-92bb-19a0bcf5cce2","thinkingEnabled":true}
 {"type":"message","message":{"convId":"24c8a781-b8cf-4d48-9cd6-5aadf1d81495","role":"user","content":"Que comparaciones hay entre la version actual de rust de hoy y el rust que tienes cuando lo aprendiste.","type":"text","timestamp":1783456240487,"children":["f739eb41-9d9f-43c3-ae98-e12413045ba0"],"extra":[],"id":"5bfe3d55-6d75-4f59-ac04-0e8c43eed522","parent":"cec2c593-3c49-4827-b679-c444d8e52702"}}
 {"type":"message","message":{"convId":"24c8a781-b8cf-4d48-9cd6-5aadf1d81495","type":"text","role":"assistant","content":"\n\nComparando la versión actual de Rust con la que tenías cuando la aprendiste, se han realizado significativos avances en diferentes aspectos del lenguaje y su entornidad de desarrollo. A continuación, se enumeran algunos de los cambios más relevantes:\n\n### 1. **Mejoras en el rendimiento y la estabilidad**\n   - **Shadow Caching**: Un modo de cache experimental para Mejor rendimiento en la renderización de sombras.\n   - **Optimización de rendimiento**: Mejoras en la velocidad de ejecución y la eficiencia en la memoria.\n   - **Estabilidad incrementada**: Menos errores y mayor predictibilidad en las ejecuciones.\n\n### 2. **Avances en la jugabilidad**\n   - **Sistema de clans y tablas**: Nueva función que permite la creación y gestión de clans, con su propia tabla de premios y sistema de rangos.\n   - **Mejoras en los objetos**: Nuevos objetos como el \"Armored Ladder Hatch\" y la \"Water Wheel\".\n   - **Actualizaciones de calidad de vida (QoL)**: Mejoras en la interacción con el entorno, como el aumento del tiempo de día en el Océano Profundo.\n\n### 3. **Actualizaciones de funcionalidades**\n   - **Apartment Complex Monument**: Nueva monumentación en forma de complejo de apartamentos.\n   - **Tiendas rentables**: Comercios donde puedes comprar y vender objetos.\n   - **Arma moderna (M16A2 rifle)**: Nueva arma y animaciones de personajes actualizadas.\n   - **Mejoras en el hardcore mode**: Aumento de la tasa de recolección y nuevas ventanas de asalto.\n\n### 4. **Mejoras en el desarrollo**\n   - **Compatibilidad con demos**: Capacidad de ejecutar demos de otros proyectos en Rust.\n   - **Sistema de compilación mejorado**: Mejor rendimiento y eficiencia en el compilado.\n   - **Actualizaciones regulares**: Lanzamiento constante de actualizaciones y versiones beta.\n\n### 5. **Comparación con la versión antigua**\n   - **Versiones pasadas**: La versión que tenías cuando la aprendiste, probablemente era la versión 1.0 o similar, que se lanzó en 2015. En those versions, el lenguaje tenía características y funcionalidades más sencillas en comparación con las actuales.\n   - **Evolución del lenguaje**: Rust ha evolucionado significativamente, pasando de ser un lenguaje experimentar en 2010 a convertirse en una herramienta madura y versátil en 2026.\n\nEn resumen, la versión actual de Rust ha experimentado un gran crecimiento en términos de funcionalidades, rendimiento y estabilidad, lo que hace que sea una herramienta mucho más potente y divertida para el desarrollo.","timestamp":1783456240507,"children":["4d6422f0-9dcd-4af6-872f-de0a74c8e2b2"],"model":"DeepSeek-R1-Llama-8B","id":"f739eb41-9d9f-43c3-ae98-e12413045ba0","parent":"5bfe3d55-6d75-4f59-ac04-0e8c43eed522","completionId":"chatcmpl-gsNd0LyW1BsQHIFcPyiKZtEF4ZMyPCJ6","reasoningContent":"\nBueno, el usuario me está preguntando las diferencias entre la versión actual de Rust y la que tenía cuando lo aprendí. Primero, debo entender qué es Rust y cuándo fue actualizado. Rust es un lenguaje programado en 2010, pero sus versiones se actualizan constantemente. La versión que el usuario se refiere probablemente es la versión 1.0, que se lanzó en 2015.\n\nAhora, veo que el contexto web menciona varios cambios recientes en Rust, como el Apartment Complex Monument, Rentable Stores, y mejora en el rendimiento gráfico. También hay mencionadas mejoras en la jugabilidad, como el sistema de clans y los bug fixes. Comparando esto con la versión 1.0, que es más antigua, estoy seguro de que han agregado muchísimos nuevos elementos y mejorado muchísimo.\n\nTambién hay que considerar la evolución de las características como el shadow caching, que mejora el rendimiento de las sombras, y el hardcore mode, que aporta más desafíos. Además, la compatibilidad con demos y las mejoras de la calidad de vida son factores importantes que diferencian las versiones antiguas de la actual.\n\nPor lo que veo, la versión actual de Rust es muchísimo mejor en todos los aspectos: jugabilidad, rendimiento, funcionalidades y estabilidad. Es probable que el usuario esté interesado en saber cómo estas mejoras pueden beneficiar su desarrollo en Rust o simplemente curiosear sobre la evolución del lenguaje.\n\nAdemás, debo asegurarme de que las fechas y los cambios estén actualizadas, ya que el sistema me ha proporcionado un timestamp de julio de 2026. Aunque la mayoría de los cambios mencionados en el contexto son de 2024 y 2025, lo más probable es que el usuario esté refiriéndose a la actualización más reciente que he mencionado.\n\nEn resumen, debo transmitir la información de manera clara, destacando los cambios significativos que han ocurrido en Rust desde su versión antigua, para que el usuario comprenda las mejoras y progrese en su aprendizaje.\n","timings":{"cache_n":1,"prompt_n":1092,"prompt_ms":2776.701,"prompt_per_token_ms":2.5427664835164836,"prompt_per_second":393.2724481317938,"predicted_n":1124,"predicted_ms":32760.528,"predicted_per_token_ms":29.146377224199288,"predicted_per_second":34.309581335197045}}}
@@ -64943,9 +65548,10 @@ wait "$UVICORN_PID"
 {"type":"message","message":{"convId":"24c8a781-b8cf-4d48-9cd6-5aadf1d81495","type":"text","timestamp":1783456496527,"role":"assistant","content":"\n\nSí, en el año 2026 se ha realizado una actualización significativa en el lenguaje de programación **Rust**. La versión más reciente, Rust 2026.0.0, ha incluido mejoras y características nuevas que han mejorado la productividad y la experiencia de desarrollo.\n\n### Algunas de las mejoras y actualizaciones en Rust 2026.0.0:\n\n1. **Mejoras en el rendimiento:**\n   - Optimización en el uso de memoria.\n   - Mejorias en la compilación y ejecución de código.\n\n2. **Nuevas características:**\n   - **`const` keyword:** Permite declarar constantes en tiempo de ejecución.\n   - **`pattern matching` en `match`:** Mejoras en la escritura de condicionales.\n   - **Mejoras en el sistema de errores:** Nuevos tipos de errores más específicos.\n\n3. **Actualizaciones de calidad de vida:**\n   - **Mejoras en las herramientas de desarrollo:** Actualizaciones del entorno de desarrollo, como `Rust Analyzer`.\n   - **Mejoras en la documentación:** Nueva documentación más detallada y mejorada.\n\n4. **Estabilidad y robustez:**\n   - Mejoras en la estabilidad del lenguaje, con menos errores y mejor predictibilidad.\n\nEstas actualizaciones reflejan el continuo crecimiento de Rust como herramienta moderna y versátil para el desarrollo de software. Si estás principiante en Rust, la versión 2026.0.0 sería una buena opción para empezar, ya que incluye todas las mejoras más recientes y está optimizada para una experiencia de desarrollo más fluida.","children":[],"model":"DeepSeek-R1-Llama-8B","id":"98b3d67d-1a3e-4ede-ad48-e910927eec3f","parent":"4d6422f0-9dcd-4af6-872f-de0a74c8e2b2","completionId":"chatcmpl-8lwhLwktulRA83q6WTtR67xqUxbv8Pn2","reasoningContent":"\nOkay, so the user is asking if there were any updates in 2026. First, I need to make sure I understand what they're referring to. Since they mentioned Rust, they're probably talking about software updates or feature releases in Rust. \n\nI remember that Rust is a programming language, so its updates are versioned. Let me check what versions of Rust were released around 2026. From what I recall, Rust 1.0 came out in 2015, and it's been updating regularly since then. Each release adds new features and improves existing ones. \n\nIn 2026, the latest stable version as of July 2026 would be Rust 2026.0.0 or something close. I should mention some key features of that version, like new keywords or modules that make development easier. Also, it's important to explain why these updates are significant, maybe by comparing it to older versions of Rust to highlight the growth over time.\n\nI should structure the response clearly, starting with confirming the updates, then detailing specific features of Rust 2026.0.0, and explaining the improvements made. Keeping it informative but not too technical, so the user can understand the value of these updates without needing deep programming knowledge.\n","timings":{"cache_n":1,"prompt_n":1184,"prompt_ms":3119.11,"prompt_per_token_ms":2.634383445945946,"prompt_per_second":379.595461525884,"predicted_n":631,"predicted_ms":18488.187,"predicted_per_token_ms":29.299820919175914,"predicted_per_second":34.129901433818254}}}
 {"type":"message","message":{"convId":"24c8a781-b8cf-4d48-9cd6-5aadf1d81495","role":"user","content":"En que version de discord.js estamos hoy en dia? Y si hay alguna diferencia con la v13","type":"text","timestamp":1783456553420,"children":[],"extra":[],"id":"50570f56-fd84-480d-ab6f-d3010e6fe4c8","parent":"98b3d67d-1a3e-4ede-ad48-e910927eec3f"}}
 {"type":"message","message":{"convId":"24c8a781-b8cf-4d48-9cd6-5aadf1d81495","type":"text","role":"assistant","content":"\n\nActualmente, la versión más reciente de **Discord.js** es la **v0.22.0** (fecha de lanzamiento: 15 de julio de 2026). Comparada con la **v13**, que fue lanzada en junio de 2017, hay significativos avances en la funcionalidad, rendimiento y compatibilidad.\n\n### Comparación entre Discord.js v13 y la versión actual (v0.22.0):\n\n#### 1. **Mejoras en la API**\n   - **Nuevos comandos y métodos**: La versión actual de Discord.js incluye comandos y métodos nuevos que han mejorado la experiencia de desarrollo.\n   - **Mejoras en la gestión de mensajes y chats**: Se han optimizado las funciones relacionadas con la lectura, escritura y eliminación de mensajes, chats y canales.\n   - **Soporte mejorado para las API de Discord**: La integración con las API de Discord es más robusta y eficiente ahora.\n\n#### 2. **Mejoras en el rendimiento**\n   - **Optimización de la compilación**: La versión actual de Discord.js se compila más rápido y consume menos recursos.\n   - **Mejoras en la gestión de conexiones**: Hay un mejor manejo de las conexiones, lo que reduce el latencia y mejora la estabilidad.\n   - **Soporte para múltiples hilos**: Se han implementado mejoras para manejar múltiples hilos de manera más eficiente.\n\n#### 3. **Mejoras en la integración**\n   - **Mejoras en la interacción con los botones de Discord**: La gestión de botones y menúes ha mejorado, permitiendo interacciones más fluidas.\n   - **Mejoras en la personalización de la interfaz**: Se han agregado opciones de personalización más detalladas para la creación de interfaces personalizadas.\n   - **Mejoras en la gestión de usuarios y roles**: Hay mejoras en la gestión de usuarios, roles y permisos, lo que facilita la configuración de servidores avanzados.\n\n#### 4. **Mejoras en la documentación**\n   - **Documentación mejorada**: La documentación de Discord.js ha mejorado significativamente, con más detalles sobre cada función y ejemplo de uso.\n   - **Mejoras en el sistema de error**: Hay mejoras en el manejo de errores, lo que facilita el debugging.\n   - **Mejoras en el sistema de ayuda en línea**: Se ha mejorado el sistema de ayuda en línea, con más información y ejemplos.\n\n#### 5. **Mejoras en la compatibilidad**\n   - **Mejoras en la compatibilidad con versiones antiguas de Node.js**: La versión actual de Discord.js es más compatible con versiones recientes de Node.js.\n   - **Mejoras en la compatibilidad con los motores de JavaScript**: Hay mejoras en la integración con motores como V8JS y others.\n   - **Mejoras en la compatibilidad con las API de Discord**: La integración con las API de Discord es más robusta y ha soportado mejor las actualizaciones de Discord.\n\n#### 6. **Avances en la comunidad**\n   - **Mejoras en el ecosistema de plugins**: Hay más plugins y herramientas disponibles para personalizar Discord.js.\n   - **Mejoras en los ejemplos y recursos**: Hay más recursos y ejemplos de uso publicados, lo que facilita el aprendizaje.\n\n#### 7. **Diferencias principales con la v13**\n   - **Actualizaciones en la sintaxis**: La sintaxis de Discord.js ha mejorado, con nuevas funciones y mejoras en la escritura de código.\n   - **Mejoras en la gestión de eventos**: Hay mejoras en la gestión de eventos, como el manejo de interacciones con los usuarios.\n   - **Mejoras en la gestión de datos**: Se han mejorado las funciones relacionadas con la gestión de datos, como la serialización y deserialización de datos.\n   - **Mejoras en la compatibilidad con las versiones antiguas de Node.js y JavaScript**: La versión actual de Discord.js es más compatible con las versiones más recientes de Node.js y JavaScript.\n\n### Conclusión\nLa versión actual de Discord.js (v0.22.0) representa un salto cuántico en términos de funcionalidad, rendimiento y compatibilidad en comparación con la antigua versión v13. Estas mejoras han permitido a los desarrolladores aprovechar las funcionalidades más modernas de Discord y Node.js, ofreciendo una experiencia de desarrollo más fluida y eficiente.\n\nSi estás desarrollando un bot o aplicación de Discord, la versión actual de Discord.js es una elección obligada debido a sus mejoras significativas.","timestamp":1783456553453,"children":[],"model":"DeepSeek-R1-Llama-8B","id":"0227527b-13e7-4c06-92bb-19a0bcf5cce2","parent":"50570f56-fd84-480d-ab6f-d3010e6fe4c8","completionId":"chatcmpl-0UIsS0Ep0Uhl67yKOHySC4x4j8WWf8DL","reasoningContent":"\nBueno, el usuario preguntó sobre la versión actual de Discord.js y si hay diferencias con la v13. Primero, debo asegurarme de qué versión de Discord.js se está usando actualmente y cómo ha evolucionado desde la v13. \n\nSé que Discord actualizó Discord.js en 2026, así que probablemente la versión actual sea algo como la 0.22.x. Comparado con la v13, que fue lanzada anteriormente, se han hecho muchos cambios. Por ejemplo, la API de Discord.js ha mejorado mucho, soporta más comandos y tiene mejoras en la gestión de errores.\n\nTambién debo considerar que el usuario podría estar interesado en cómo estas mejoras afectan su desarrollo, así que quizás deba mencionar cómo estas actualizaciones pueden beneficiarle. Además, es importante ofrecer una comparación detallada entre ambas versiones, enfocándose en aspectos como el rendimiento, la funcionalidad y la estabilidad.\n\nAdemás, como parte de la respuesta, es útil proporcionar enlaces donde puede descargar la versión actual de Discord.js para que el usuario las pruebe por sí mismo. También, si el usuario está lidiando con problemas específicos, podría ayudar a recomendar soluciones basadas en la versión más reciente.\n\nFinalmente, debo asegurarme de que toda la información sea actualizada y que no haya errores, tal vez verificando fuentes confiables o la documentación oficial de Discord para asegurar la precisión de la información.\n","timings":{"cache_n":663,"prompt_n":915,"prompt_ms":2547.454,"prompt_per_token_ms":2.7841027322404375,"prompt_per_second":359.1821481369241,"predicted_n":1392,"predicted_ms":41656.168,"predicted_per_token_ms":29.92540804597701,"predicted_per_second":33.41641986848142}}}
-</file>
+````
 
-<file path="cerebro-brain-core.service">
+## File: cerebro-brain-core.service
+````
 [Unit]
 Description=Cerebro Autónomo Unificado - Brain Core (Producción)
 After=network.target cerebro-llama-server.service cerebro-embeddings.service
@@ -64962,9 +65568,10 @@ StandardError=journal
 
 [Install]
 WantedBy=default.target
-</file>
+````
 
-<file path="Proyecto.md">
+## File: Proyecto.md
+````markdown
 # 🧠 Proyecto.md: Cerebro Autónomo Unificado
 
 ## 1. Arquitectura del Sistema e IPC
@@ -65282,9 +65889,10 @@ Con cinco piezas moviéndose en paralelo (core, base de datos, scraper, fork de 
 3. **Extensión de VS Code:** conectar `llama-vscode-chat` (confirmar primero cuál es la base exacta — Sección 8) una vez que `POST /process` responde de forma confiable.
 4. **Capa visual:** conectar el fork de `claude-mem` al WebSocket.
 5. **Scraping web:** se suma al final — es la pieza menos crítica y la que más puede esperar.
-</file>
+````
 
-<file path="cerebro_unificado/backend/classifier.py">
+## File: cerebro_unificado/backend/classifier.py
+````python
 """
 classifier.py — Clasificador de intenciones híbrido.
 
@@ -65475,9 +66083,10 @@ class IntentionClassifier:
         result = await self.llm_classify(message)
         logger.info("Clasificación final: %s", result.value)
         return result
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageSystem/ChatMessageSystem.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageSystem/ChatMessageSystem.svelte
+````svelte
 <script lang="ts">
 	import { Check, X } from '@lucide/svelte';
 	import { ChatMessageActionIcons, MarkdownContent } from '$lib/components/app';
@@ -65712,9 +66321,10 @@ class IntentionClassifier:
 		{/if}
 	{/if}
 </div>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageUser/ChatMessageUserBubble.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessage/ChatMessageUser/ChatMessageUserBubble.svelte
+````svelte
 <script lang="ts">
 	import { Card } from '$lib/components/ui/card';
 	import { ChatAttachmentsList, MarkdownContent } from '$lib/components/app';
@@ -65772,9 +66382,10 @@ class IntentionClassifier:
 		{/if}
 	</Card>
 {/if}
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/index.ts">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/index.ts
+````typescript
 /**
  *
  * ATTACHMENTS
@@ -66473,9 +67084,10 @@ export { default as ChatScreenStreamResumeStatus } from './ChatScreen/ChatScreen
  * Sliding side panel (drawer) for HTML/SVG code previews and source code display.
  */
 export { default as ChatArtifactDrawer } from './ChatArtifactDrawer.svelte';
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/SyntaxHighlightedCode.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/SyntaxHighlightedCode.svelte
+````svelte
 <script lang="ts">
 	import hljs from 'highlight.js';
 	import { browser } from '$app/environment';
@@ -66782,9 +67394,10 @@ export { default as ChatArtifactDrawer } from './ChatArtifactDrawer.svelte';
 		background: transparent;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogCodePreview.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/dialogs/DialogCodePreview.svelte
+````svelte
 <script lang="ts">
 	import { Dialog as DialogPrimitive } from 'bits-ui';
 	import hljs from 'highlight.js';
@@ -67116,9 +67729,10 @@ export { default as ChatArtifactDrawer } from './ChatArtifactDrawer.svelte';
 		z-index: 100001;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatImportExportTab.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/settings/SettingsChat/SettingsChatImportExportTab.svelte
+````svelte
 <script lang="ts">
 	import { Download, Upload, Trash2, RefreshCw } from '@lucide/svelte';
 	import {
@@ -67520,9 +68134,10 @@ export { default as ChatArtifactDrawer } from './ChatArtifactDrawer.svelte';
 		</div>
 	{/if}
 </DialogConfirmation>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/routes/+layout.svelte">
+## File: cerebro_unificado/frontend/src/routes/+layout.svelte
+````svelte
 <script lang="ts">
 	import '../app.css';
 	import { base } from '$app/paths';
@@ -67871,9 +68486,10 @@ export { default as ChatArtifactDrawer } from './ChatArtifactDrawer.svelte';
 		{updateServiceWorker}
 	/>
 </div>
-</file>
+````
 
-<file path="storage/searxng/settings.yml">
+## File: storage/searxng/settings.yml
+````yaml
 # Read the documentation before extending the defaults:
 # https://docs.searxng.org/admin/settings/
 
@@ -67888,9 +68504,10 @@ search:
 server:
   secret_key: "wAMH0R8rqm8gZrDuPoBZJA0uvjkljQ"
   image_proxy: false
-</file>
+````
 
-<file path=".gitignore">
+## File: .gitignore
+````
 # Storage
 storage/brain.db
 storage/brain.db-wal
@@ -67918,9 +68535,10 @@ Thumbs.db
 
 # Reference
 references/
-</file>
+````
 
-<file path="cerebro_unificado/backend/database.py">
+## File: cerebro_unificado/backend/database.py
+````python
 """
 database.py — Capa de acceso a datos para el Cerebro Autónomo Unificado.
 
@@ -68694,9 +69312,10 @@ class Database:
             "deleted_nodes_count": len(candidates),
             "new_node": consolidated_node
         }
-</file>
+````
 
-<file path="cerebro_unificado/backend/embeddings.py">
+## File: cerebro_unificado/backend/embeddings.py
+````python
 """
 embeddings.py — Cliente de embeddings para el Cerebro Autónomo Unificado.
 
@@ -68971,9 +69590,10 @@ class EmbeddingsClient:
             logger.error("Error al parsear JSON de respuesta de embeddings: %s", exc)
 
         return None
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageAgenticContent.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/ChatMessageAgenticContent.svelte
+````svelte
 <script lang="ts">
 	import { Wrench, Loader2, Brain } from '@lucide/svelte';
 	import {
@@ -69580,9 +70200,10 @@ class EmbeddingsClient:
 		border-top: 1px solid hsl(var(--muted) / 0.5);
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenDialogsAndAlerts.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatScreen/ChatScreenDialogsAndAlerts.svelte
+````svelte
 <script lang="ts">
 	import { Trash2 } from '@lucide/svelte';
 	import { ErrorDialogType } from '$lib/enums';
@@ -69638,9 +70259,10 @@ class EmbeddingsClient:
 	open={Boolean(activeErrorDialog)}
 	type={activeErrorDialog?.type ?? ErrorDialogType.SERVER}
 />
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/MarkdownContent.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/content/MarkdownContent/MarkdownContent.svelte
+````svelte
 <script lang="ts">
 	import { remark } from 'remark';
 	import remarkBreaks from 'remark-breaks';
@@ -70745,9 +71367,10 @@ class EmbeddingsClient:
 <style>
 	@import './markdown-content.css';
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/stores/chat.svelte.ts">
+## File: cerebro_unificado/frontend/src/lib/stores/chat.svelte.ts
+````typescript
 /**
  * chatStore - Reactive State Store for Chat Operations
  *
@@ -73247,9 +73870,10 @@ export const chatInjectPendingMessage = (
 ) => chatStore.injectPendingMessage(convId, content, extras);
 
 export const codePreviewState = () => chatStore.codePreviewState;
-</file>
+````
 
-<file path="cerebro_unificado/backend/web_scraper.py">
+## File: cerebro_unificado/backend/web_scraper.py
+````python
 """
 web_scraper.py — Módulo de ingesta, limpieza y parsing de fuentes web.
 
@@ -73505,9 +74129,10 @@ class WebScraper:
     async def scrape_url(self, url: str) -> str:
         """Realiza la petición HTTP asíncrona a la URL y devuelve el texto plano limpio."""
         return await scrape_url(url, self.max_content_length)
-</file>
+````
 
-<file path="cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/WebSearchStatus.svelte">
+## File: cerebro_unificado/frontend/src/lib/components/app/chat/ChatMessages/WebSearchStatus.svelte
+````svelte
 <script lang="ts">
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Globe from '@lucide/svelte/icons/globe';
@@ -73897,9 +74522,10 @@ class WebScraper:
 		animation: shimmer 1.8s infinite linear !important;
 	}
 </style>
-</file>
+````
 
-<file path="cerebro_unificado/backend/main.py">
+## File: cerebro_unificado/backend/main.py
+````python
 """
 main.py — API FastAPI, Proxy Interceptor Activo y orquestador del ciclo de pensamiento.
 
@@ -76382,6 +77008,4 @@ if __name__ == "__main__":
         reload=False,
         log_level="info",
     )
-</file>
-
-</files>
+````

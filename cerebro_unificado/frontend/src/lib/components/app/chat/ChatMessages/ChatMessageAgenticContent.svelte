@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Wrench, Loader2, Brain } from '@lucide/svelte';
+	import { Wrench, Loader2, Brain, Globe, Clock } from '@lucide/svelte';
 	import {
 		ChatMessageStatistics,
 		CollapsibleContentBlock,
@@ -272,6 +272,17 @@
 
 		return { cleanText: cleanText.trim(), searches };
 	}
+
+	function extractShortReasoning(text: string | undefined): string {
+		if (!text) return '';
+		const match = text.match(/^[^.!?\n]+(?:[.!?]|\n\n)?/);
+		let sentence = match ? match[0].trim() : text.trim();
+		sentence = sentence.replace(/\s+/g, ' ');
+		if (sentence.length > 120) {
+			sentence = sentence.slice(0, 117) + '…';
+		}
+		return sentence;
+	}
 </script>
 
 {#snippet renderSection(section: (typeof sectionsParsed)[number], index: number)}
@@ -374,11 +385,22 @@
 					<span class="w-1.5 h-1.5 rounded-full {isPending ? 'bg-amber-400 animate-pulse' : 'bg-green-400'}"></span>
 					Result
 				</div>
+
+				{#if section.toolName === 'web_search'}
+					{@const shortReason = extractShortReasoning(message?.reasoningContent)}
+					{#if shortReason}
+						<div class="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
+							<Clock class="h-3.5 w-3.5 shrink-0 text-muted-foreground/80" />
+							<span>{shortReason}</span>
+						</div>
+					{/if}
+				{/if}
+
 				{#if isPending}
 					<div class="flex flex-col gap-2 rounded-lg border border-border/20 bg-muted/40 p-4">
 						<div class="flex items-center gap-2.5 text-xs text-muted-foreground/80">
 							<Loader2 class="h-3.5 w-3.5 animate-spin text-primary" />
-							<span class="font-sans italic">Searching the web...</span>
+							<span class="font-sans italic">Buscando en la web...</span>
 						</div>
 						<div class="w-full bg-muted/70 rounded-full h-1 overflow-hidden mt-1.5 relative">
 							<div class="bg-primary h-1 rounded-full absolute left-0 top-0 animate-[pulse_1.5s_infinite]" style="width: 45%; background: linear-gradient(90deg, var(--primary) 0%, #b4befe 100%)"></div>
@@ -392,25 +414,35 @@
 								<div class="flex items-center justify-between text-xs text-muted-foreground/90 border-b border-border/20 pb-2 mb-2">
 									<span class="font-medium flex items-center gap-1.5">
 										<Globe class="h-3.5 w-3.5 text-primary" />
-										Searched the web
+										Se buscó en la web
 									</span>
 									<span class="font-mono text-[10px] bg-muted px-2 py-0.5 rounded-full">
-										{searchItems.length} results
+										{searchItems.length} resultados
 									</span>
 								</div>
 								
 								<div class="flex flex-col gap-2.5">
 									{#each searchItems as item, i (i)}
+										{@const favicon = `https://www.google.com/s2/favicons?domain=${item.domain}&sz=32`}
 										<a
 											href={item.url}
 											target="_blank"
 											rel="noopener noreferrer"
 											class="group flex flex-col gap-1 rounded-lg border border-border/10 hover:border-primary/20 bg-muted/20 hover:bg-primary/5 p-3 transition-all duration-200"
 										>
-											<div class="flex items-start justify-between gap-2">
-												<span class="text-xs font-semibold text-foreground/90 group-hover:text-primary transition-colors leading-tight">
-													{item.title}
-												</span>
+											<div class="flex items-start justify-between gap-2 w-full">
+												<div class="flex items-start gap-2 min-w-0">
+													<img
+														src={favicon}
+														class="h-4 w-4 rounded-sm shrink-0 mt-0.5"
+														alt=""
+														loading="lazy"
+														onerror={(e) => { e.currentTarget.style.display = 'none'; }}
+													/>
+													<span class="text-xs font-semibold text-foreground/90 group-hover:text-primary transition-colors leading-tight">
+														{item.title}
+													</span>
+												</div>
 												<span class="shrink-0 flex items-center gap-1 text-[10px] text-muted-foreground font-medium bg-muted/80 px-1.5 py-0.5 rounded border border-border/15">
 													{item.domain}
 												</span>
@@ -426,7 +458,7 @@
 								
 								<div class="flex items-center gap-1.5 text-[10px] font-semibold text-green-500 uppercase tracking-wider mt-2 pt-2 border-t border-border/20">
 									<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-									Done
+									Listo
 								</div>
 							</div>
 						{:else}

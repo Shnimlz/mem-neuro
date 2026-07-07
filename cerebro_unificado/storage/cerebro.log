@@ -7369,3 +7369,108 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 17:12:55 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
 2026-07-07 17:13:19 | INFO     | cerebro.database | Nodo creado: b555638e [CONOCIMIENTO] sesión=proxy-chat-session
 2026-07-07 17:13:19 | INFO     | cerebro.database | Arista creada: 2fb0977c → b555638e (peso=1.0)
+2026-07-07 17:35:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 17:35:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 17:35:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 17:35:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 17:35:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 17:35:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 17:35:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 17:35:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 17:35:39 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 17:35:39 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 17:35:39 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 17:35:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 17:35:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 17:35:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 17:35:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 17:35:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 17:35:44 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 17:35:44 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 17:35:44 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'dólar a peso mexicano actual...'
+2026-07-07 17:35:44 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:44 | INFO     | cerebro.main | [Background Search] Invocando execute_web_search_and_scrape para query: 'dólar a peso mexicano actual'
+2026-07-07 17:35:44 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'dólar a peso mexicano actual'
+2026-07-07 17:35:44 | DEBUG    | cerebro.database | Embedding guardado para nodo a4f55d95 (rowid=73)
+2026-07-07 17:35:44 | INFO     | cerebro.database | Nodo creado: a4f55d95 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:35:44 | INFO     | cerebro.database | Arista creada: b555638e → a4f55d95 (peso=1.0)
+2026-07-07 17:35:44 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 17:35:47 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://mx.investing.com/currencies/usd-mxn
+2026-07-07 17:35:47 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://wise.com/mx/currency-converter/usd-to-mxn-rate
+2026-07-07 17:35:47 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://wise.com/mx/currency-converter/usd-to-mxn-rate?amount=1
+2026-07-07 17:35:47 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.banamex.com/economia-finanzas/es/mercado-de-divisas/index.html
+2026-07-07 17:35:48 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:35:48 | DEBUG    | cerebro.database | Embedding guardado para nodo 0b78bed7 (rowid=74)
+2026-07-07 17:35:48 | INFO     | cerebro.database | Nodo creado: 0b78bed7 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:35:48 | INFO     | cerebro.database | Arista creada: a4f55d95 → 0b78bed7 (peso=1.0)
+2026-07-07 17:36:14 | INFO     | cerebro.database | Nodo creado: 7fb41dd3 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:36:14 | INFO     | cerebro.database | Arista creada: a4f55d95 → 7fb41dd3 (peso=1.0)
+2026-07-07 17:36:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 17:36:30 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'y hace un mes como estuvo?...'
+2026-07-07 17:36:34 | WARNING  | cerebro.main | [Query Reformulation] Fallo al reformular query: 
+2026-07-07 17:36:34 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:34 | INFO     | cerebro.main | [Background Search] Invocando execute_web_search_and_scrape para query: 'y hace un mes como estuvo?'
+2026-07-07 17:36:34 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'y hace un mes como estuvo?'
+2026-07-07 17:36:34 | DEBUG    | cerebro.database | Embedding guardado para nodo c2c810ac (rowid=76)
+2026-07-07 17:36:34 | INFO     | cerebro.database | Nodo creado: c2c810ac [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:36:34 | INFO     | cerebro.database | Arista creada: 7fb41dd3 → c2c810ac (peso=1.0)
+2026-07-07 17:36:34 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 17:36:35 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.youtube.com/watch?v=WVEtMSYKm-U
+2026-07-07 17:36:35 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.rae.es/gram%C3%A1tica/sintaxis/tiempo-aspecto-y-adjuntos-de-localizaci%C3%B3n-temporal-iii-construcciones-temporales-con-el-verbo-hacer
+2026-07-07 17:36:35 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.instagram.com/p/DR2eghfCTmy/
+2026-07-07 17:36:35 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.elcastellano.org/nelson-enrique-rodr%C3%ADguez-ruiz
+2026-07-07 17:36:36 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:36:36 | DEBUG    | cerebro.database | Embedding guardado para nodo 17eeec6f (rowid=77)
+2026-07-07 17:36:36 | INFO     | cerebro.database | Nodo creado: 17eeec6f [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:36:36 | INFO     | cerebro.database | Arista creada: c2c810ac → 17eeec6f (peso=1.0)
+2026-07-07 17:37:12 | INFO     | cerebro.main | [Interceptor Tool] Detectada tool_call emulada para: 'clima del 7 de junio de 2026'
+2026-07-07 17:37:12 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'clima del 7 de junio de 2026'
+2026-07-07 17:37:13 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.milenio.com/videos/el-clima/clima-domingo-7-junio-2026-pronostico-natalia-sanchez
+2026-07-07 17:37:13 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://heraldodemexico.com.mx/nacional/2026/6/6/clima-en-reynosa-hoy-domingo-de-junio-lluvia-ligera-ambiente-caluroso-827204.html
+2026-07-07 17:37:13 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.youtube.com/watch?v=osMlsyeV5CI
+2026-07-07 17:37:13 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://es.weatherspark.com/h/m/7083/2026/6/Tiempo-hist%C3%B3rico-en-junio-de-2026-en-Reynosa-M%C3%A9xico
+2026-07-07 17:37:15 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 17:37:15 | INFO     | cerebro.main | [Interceptor Tool] Resultados y raspado completo (3408 chars)
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | ERROR    | cerebro.embeddings | No se pudo obtener embedding de http://127.0.0.1:8081 tras probar todos los endpoints
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 17:37:15 | DEBUG    | cerebro.database | Embedding guardado para nodo 30360564 (rowid=78)
+2026-07-07 17:37:15 | INFO     | cerebro.database | Nodo creado: 30360564 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:37:15 | INFO     | cerebro.database | Arista creada: c2c810ac → 30360564 (peso=1.0)
+2026-07-07 17:37:15 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
+2026-07-07 17:38:19 | INFO     | cerebro.database | Nodo creado: d0909471 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 17:38:19 | INFO     | cerebro.database | Arista creada: 30360564 → d0909471 (peso=1.0)
