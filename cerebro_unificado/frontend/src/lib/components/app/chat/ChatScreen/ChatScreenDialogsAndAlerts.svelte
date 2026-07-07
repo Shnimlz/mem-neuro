@@ -5,8 +5,10 @@
 		DialogChatError,
 		DialogConfirmation,
 		DialogEmptyFileAlert,
-		DialogFileUploadError
+		DialogFileUploadError,
+		DialogCodePreview
 	} from '$lib/components/app';
+	import { chatStore } from '$lib/stores/chat.svelte';
 
 	let {
 		showDeleteDialog,
@@ -52,4 +54,10 @@
 	onOpenChange={handleErrorDialogOpenChange}
 	open={Boolean(activeErrorDialog)}
 	type={activeErrorDialog?.type ?? ErrorDialogType.SERVER}
+/>
+
+<DialogCodePreview
+	bind:open={chatStore.codePreviewState.open}
+	code={chatStore.codePreviewState.code}
+	language={chatStore.codePreviewState.language}
 />

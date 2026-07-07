@@ -73,7 +73,8 @@
 		CodeBlockActions,
 		DialogCodePreview,
 		DialogMermaidPreview,
-		ActionIconCopyToClipboard
+		ActionIconCopyToClipboard,
+		SyntaxHighlightedCode
 	} from '$lib/components/app';
 	import { createAutoScrollController } from '$lib/hooks/use-auto-scroll.svelte';
 	import type { DatabaseMessageExtra } from '$lib/types/database';
@@ -85,6 +86,7 @@
 		content: string;
 		class?: string;
 		disableMath?: boolean;
+		onMaximizeCode?: (code: string, language: string) => void;
 	}
 
 	interface MarkdownBlock {
@@ -93,7 +95,13 @@
 		contentHash?: string;
 	}
 
-	let { content, attachments, class: className = '', disableMath = false }: Props = $props();
+	let {
+		content,
+		attachments,
+		class: className = '',
+		disableMath = false,
+		onMaximizeCode
+	}: Props = $props();
 
 	let containerRef = $state<HTMLDivElement>();
 	let renderedBlocks = $state<MarkdownBlock[]>([]);
@@ -321,9 +329,13 @@
 			return;
 		}
 
-		previewCode = info.rawCode;
-		previewLanguage = info.language;
-		previewDialogOpen = true;
+		if (onMaximizeCode) {
+			onMaximizeCode(info.rawCode, info.language);
+		} else {
+			previewCode = info.rawCode;
+			previewLanguage = info.language;
+			previewDialogOpen = true;
+		}
 	}
 
 	/**
@@ -1081,34 +1093,13 @@
 				{/if}
 			</div>
 		{:else}
-			<div class="code-block-wrapper streaming-code-block relative">
-				<div class="code-block-header">
-					<span class="code-language">{incompleteCodeBlock.language || 'text'}</span>
-					<CodeBlockActions
-						code={incompleteCodeBlock.code}
-						language={incompleteCodeBlock.language || 'text'}
-						disabled
-						onPreview={(code, lang) => {
-							previewCode = code;
-							previewLanguage = lang;
-							previewDialogOpen = true;
-						}}
-					/>
-				</div>
-
-				<div
-					bind:this={streamingCodeScrollContainer}
-					class="streaming-code-scroll-container"
-					onscroll={() => streamingAutoScroll.handleScroll()}
-				>
-					<pre class="streaming-code-pre"><code
-							class="hljs language-{incompleteCodeBlock.language || 'text'}"
-							>{@html highlightCode(
-								incompleteCodeBlock.code,
-								incompleteCodeBlock.language || 'text'
-							)}</code
-						></pre>
-				</div>
+			<div class="my-2">
+				<SyntaxHighlightedCode
+					code={incompleteCodeBlock.code}
+					language={incompleteCodeBlock.language || 'text'}
+					maxHeight="60vh"
+					onMaximize={onMaximizeCode}
+				/>
 			</div>
 		{/if}
 	{/if}

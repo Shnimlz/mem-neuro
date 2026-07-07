@@ -7,6 +7,7 @@
 	import { getMessageEditContext } from '$lib/contexts';
 	import { KeyboardKey, MessageRole } from '$lib/enums';
 	import { config } from '$lib/stores/settings.svelte';
+	import { chatStore } from '$lib/stores/chat.svelte';
 	import { isIMEComposing } from '$lib/utils';
 
 	interface Props {
@@ -160,6 +161,7 @@
 									<MarkdownContent
 										class="markdown-system-content -my-4"
 										content={message.content}
+										onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
 									/>
 								</div>
 							{:else}

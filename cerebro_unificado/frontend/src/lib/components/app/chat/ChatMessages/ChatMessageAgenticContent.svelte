@@ -36,6 +36,7 @@
 		agenticLastError
 	} from '$lib/stores/agentic.svelte';
 	import { config } from '$lib/stores/settings.svelte';
+	import { chatStore } from '$lib/stores/chat.svelte';
 
 	interface Props {
 		message: DatabaseMessage;
@@ -252,7 +253,11 @@
 			<WebSearchStatus query={ws.query} results={ws.results} />
 		{/each}
 		<div class="agentic-text">
-			<MarkdownContent content={parsed.cleanText} attachments={message?.extra} />
+			<MarkdownContent
+				content={parsed.cleanText}
+				attachments={message?.extra}
+				onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
+			/>
 		</div>
 	{:else if section.type === AgenticSectionType.TOOL_CALL_STREAMING}
 		{@const streamingIcon = isStreaming ? Loader2 : Loader2}
@@ -282,6 +287,7 @@
 						language={FileTypeText.JSON}
 						maxHeight="20rem"
 						class="text-xs"
+						onMaximize={(code, lang) => chatStore.showCodePreview(code, lang)}
 					/>
 				{:else if isStreaming}
 					<div class="rounded bg-muted/30 p-2 text-xs text-muted-foreground italic">
@@ -324,6 +330,7 @@
 							language={FileTypeText.JSON}
 							maxHeight="20rem"
 							class="text-[11px] font-mono leading-relaxed"
+							onMaximize={(code, lang) => chatStore.showCodePreview(code, lang)}
 						/>
 					</div>
 				</div>
@@ -436,7 +443,11 @@
 		>
 			<div class="pt-3">
 				{#if renderThinkingAsMarkdown}
-					<MarkdownContent content={section.content} attachments={message?.extra} />
+					<MarkdownContent
+						content={section.content}
+						attachments={message?.extra}
+						onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
+					/>
 				{:else}
 					<div class="text-xs leading-relaxed break-words whitespace-pre-wrap">
 						{section.content}
@@ -460,7 +471,11 @@
 		>
 			<div class="pt-3">
 				{#if renderThinkingAsMarkdown}
-					<MarkdownContent content={section.content} attachments={message?.extra} />
+					<MarkdownContent
+						content={section.content}
+						attachments={message?.extra}
+						onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
+					/>
 				{:else}
 					<div class="text-xs leading-relaxed break-words whitespace-pre-wrap">
 						{section.content}

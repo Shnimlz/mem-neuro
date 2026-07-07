@@ -72,6 +72,23 @@ class ChatStore {
 	currentResponse = $state('');
 	errorDialogState = $state<ErrorDialogState | null>(null);
 	isLoading = $state(false);
+	codePreviewState = $state({
+		open: false,
+		code: '',
+		language: ''
+	});
+
+	showCodePreview(code: string, language: string) {
+		this.codePreviewState = {
+			open: true,
+			code,
+			language
+		};
+	}
+
+	closeCodePreview() {
+		this.codePreviewState.open = false;
+	}
 	// true while the active conversation streams reasoning content but no visible content yet
 	isReasoning = $state(false);
 	// resumable stream connection state for the active conversation
@@ -2456,3 +2473,5 @@ export const chatInjectPendingMessage = (
 	content: string,
 	extras?: DatabaseMessageExtra[]
 ) => chatStore.injectPendingMessage(convId, content, extras);
+
+export const codePreviewState = () => chatStore.codePreviewState;

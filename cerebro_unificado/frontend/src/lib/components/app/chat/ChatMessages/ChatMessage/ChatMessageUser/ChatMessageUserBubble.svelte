@@ -2,6 +2,7 @@
 	import { Card } from '$lib/components/ui/card';
 	import { ChatAttachmentsList, MarkdownContent } from '$lib/components/app';
 	import { config } from '$lib/stores/settings.svelte';
+	import { chatStore } from '$lib/stores/chat.svelte';
 	import type { DatabaseMessageExtra } from '$lib/types/database';
 
 	interface Props {
@@ -22,33 +23,9 @@
 		maxHeightStyle = ''
 	}: Props = $props();
 
-	let isMultiline = $state(false);
-	let messageElement: HTMLElement | undefined = $state();
-	const currentConfig = config();
-
-	$effect(() => {
-		if (!messageElement || !content.trim()) return;
-
-		if (content.includes('\n')) {
-			isMultiline = true;
-			return;
-		}
-
-		const resizeObserver = new ResizeObserver((entries) => {
-			for (const entry of entries) {
-				const element = entry.target as HTMLElement;
-				const estimatedSingleLineHeight = 24; // Typical line height for text-md
-
-				isMultiline = element.offsetHeight > estimatedSingleLineHeight * 1.5;
-			}
-		});
-
-		resizeObserver.observe(messageElement);
-
-		return () => {
-			resizeObserver.disconnect();
-		};
-	});
+	let messageElement = $state<HTMLElement>();
+	const currentConfig = $derived(config());
+	const isMultiline = $derived(content.includes('\n'));
 </script>
 
 {#if attachments && attachments.length > 0}
@@ -65,7 +42,11 @@
 	>
 		{#if renderMarkdown && currentConfig.renderUserContentAsMarkdown}
 			<div bind:this={messageElement}>
-				<MarkdownContent class="markdown-user-content -my-4" {content} />
+				<MarkdownContent
+					class="markdown-user-content -my-4"
+					{content}
+					onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
+				/>
 			</div>
 		{:else}
 			<span bind:this={messageElement} class="text-md whitespace-pre-wrap">
