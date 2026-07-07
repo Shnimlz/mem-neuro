@@ -6518,3 +6518,60 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 15:10:45 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
 2026-07-07 15:10:47 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 15:10:47)
 2026-07-07 15:10:47 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
+2026-07-07 15:14:31 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Apagando ═══
+2026-07-07 15:14:31 | INFO     | cerebro.database | Conexión a la base de datos cerrada
+2026-07-07 15:14:31 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Iniciando ═══
+2026-07-07 15:14:31 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-07 15:14:31 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-07 15:14:31 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-07 15:14:31 | INFO     | cerebro.main | Base de datos: 21 nodos, 20 aristas
+2026-07-07 15:14:31 | INFO     | cerebro.main | Clasificador inicializado: LLM en http://127.0.0.1:8080 (timeout: 5.0s)
+2026-07-07 15:14:31 | INFO     | cerebro.main | Cliente de embeddings inicializado: Servidor en http://127.0.0.1:8081 (dimensión=384, normalización=True)
+2026-07-07 15:14:31 | INFO     | cerebro.web_scraper | Cargadas 3 reglas de extracción específicas desde sources.json
+2026-07-07 15:14:31 | INFO     | cerebro.main | Módulo de Scraping inicializado: Enabled=True (TTL=604800s, maxLength=2000)
+2026-07-07 15:14:31 | INFO     | cerebro.database | Iniciando copia de seguridad en caliente de la base de datos a: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_151431.db
+2026-07-07 15:14:31 | INFO     | cerebro.database | Copia de seguridad completada con éxito.
+2026-07-07 15:14:31 | INFO     | cerebro.database | Copia de seguridad antigua eliminada por rotación: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_144631.db
+2026-07-07 15:14:31 | INFO     | cerebro.main | Agente Cron Autónomo deshabilitado por política de seguridad del terminal.
+2026-07-07 15:14:31 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
+2026-07-07 15:14:33 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 15:14:33)
+2026-07-07 15:14:33 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
+2026-07-07 15:14:40 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 15:14:40 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 15:14:40 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 15:14:40 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 15:14:40 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 15:14:40 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 15:14:54 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 15:14:54 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 15:14:54 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'dólar a peso mexicano actual...'
+2026-07-07 15:14:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:54 | INFO     | cerebro.main | [Background Search] Invocando execute_web_search_and_scrape para query: 'dólar a peso mexicano actual'
+2026-07-07 15:14:54 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'dólar a peso mexicano actual'
+2026-07-07 15:14:55 | DEBUG    | cerebro.database | Embedding guardado para nodo 65b49ed9 (rowid=22)
+2026-07-07 15:14:55 | INFO     | cerebro.database | Nodo creado: 65b49ed9 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 15:14:55 | INFO     | cerebro.database | Arista creada: 3b3f4ae0 → 65b49ed9 (peso=1.0)
+2026-07-07 15:14:55 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 15:14:56 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://mx.investing.com/currencies/usd-mxn
+2026-07-07 15:14:56 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.westernunion.com/us/es/currency-converter/usd-to-mxn-rate.html
+2026-07-07 15:14:56 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.banxico.org.mx/portal-mercado-cambiario/
+2026-07-07 15:14:56 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://wise.com/mx/currency-converter/usd-to-mxn-rate
+2026-07-07 15:14:57 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | ERROR    | cerebro.embeddings | No se pudo obtener embedding de http://127.0.0.1:8081 tras probar todos los endpoints
+2026-07-07 15:14:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 15:14:57 | DEBUG    | cerebro.database | Embedding guardado para nodo 70e5fd82 (rowid=23)
+2026-07-07 15:14:57 | INFO     | cerebro.database | Nodo creado: 70e5fd82 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 15:14:57 | INFO     | cerebro.database | Arista creada: 65b49ed9 → 70e5fd82 (peso=1.0)
+2026-07-07 15:15:16 | INFO     | cerebro.database | Nodo creado: 9f2bb9a5 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 15:15:16 | INFO     | cerebro.database | Arista creada: 65b49ed9 → 9f2bb9a5 (peso=1.0)

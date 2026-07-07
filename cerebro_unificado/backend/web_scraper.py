@@ -23,58 +23,33 @@ SOURCES_PATH = Path(__file__).resolve().parent / "sources.json"
 
 
 async def perform_duckduckgo_search_fallback(query: str) -> list[dict]:
-    """Fallback: Realiza una búsqueda directa en DuckDuckGo HTML sin javascript ni keys."""
-    logger.info("[Web Search Fallback] Intentando búsqueda en DuckDuckGo HTML para: '%s'", query)
-    headers = {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3"
-    }
+    """Fallback: Realiza una búsqueda usando la librería ddgs (mismo enfoque que Open WebUI)."""
+    logger.info("[Web Search Fallback] Intentando búsqueda en DuckDuckGo para: '%s'", query)
     try:
-        async with httpx.AsyncClient(headers=headers, timeout=8.0, follow_redirects=True) as client:
-            response = await client.post("https://html.duckduckgo.com/html/", data={"q": query})
-            if response.status_code != 200:
-                logger.warning("[Web Search Fallback] DuckDuckGo HTML respondió con status %d", response.status_code)
+        from ddgs import DDGS
+        from ddgs.exceptions import RatelimitException
+
+        with DDGS() as ddgs:
+            try:
+                raw_results = ddgs.text(query, safesearch="moderate", max_results=4)
+                raw_results = raw_results if raw_results is not None else []
+            except RatelimitException as e:
+                logger.warning("[Web Search Fallback] DuckDuckGo rate limit: %s", e)
                 return []
-                
-            soup = BeautifulSoup(response.text, "html.parser")
-            results = []
-            
-            for a_tag in soup.find_all("a", class_="result__url"):
-                url = a_tag.get("href", "").strip()
-                if not url:
-                    continue
-                    
-                if url.startswith("//uddg="):
-                    from urllib.parse import unquote
-                    url = unquote(url.split("uddg=")[1].split("&")[0])
-                elif url.startswith("/"):
-                    continue
-                
-                parent = a_tag.find_parent("div", class_="result")
-                if not parent:
-                    continue
-                    
-                title_tag = parent.find("a", class_="result__a")
-                title = title_tag.get_text().strip() if title_tag else ""
-                
-                snippet_tag = parent.find("a", class_="result__snippet")
-                snippet = snippet_tag.get_text().strip() if snippet_tag else ""
-                
-                if not title or not url:
-                    continue
-                    
-                results.append({
-                    "title": title,
-                    "url": url,
-                    "snippet": snippet
-                })
-                
-                if len(results) >= 4:
-                    break
-                    
-            logger.info("[Web Search Fallback] DuckDuckGo HTML obtuvo %d resultados", len(results))
-            return results
+
+        results = []
+        for r in raw_results:
+            title = (r.get("title") or "").strip()
+            url = (r.get("href") or "").strip()
+            snippet = (r.get("body") or "").strip()
+            if title and url:
+                results.append({"title": title, "url": url, "snippet": snippet})
+
+        logger.info("[Web Search Fallback] DuckDuckGo obtuvo %d resultados", len(results))
+        return results
+    except ImportError:
+        logger.error("[Web Search Fallback] Librería 'ddgs' no instalada.")
+        return []
     except Exception as exc:
         logger.error("[Web Search Fallback] Error en DuckDuckGo fallback: %s", exc)
         return []
@@ -98,6 +73,9 @@ async def perform_web_search(query: str) -> list[dict]:
         if not results:
             logger.info("[Web Search] SearXNG no devolvió resultados. Activando fallback...")
             return await perform_duckduckgo_search_fallback(query)
+        
+        # Ordenar por relevancia (score) como hace Open WebUI
+        results = sorted(results, key=lambda x: x.get("score", 0), reverse=True)
             
         seen_urls = set()
         cleaned_results = []
@@ -184,7 +162,7 @@ def html_to_markdown(html_content: str, max_length: int = 2000) -> str:
     return clean_text
 
 
-async def scrape_url(url: str, max_length: int = 2000) -> str:
+async def scrape_url(url: str, max_length: int = 2000, retries: int = 3, cooldown: float = 1.0, backoff: float = 2.0) -> str:
     """Descarga el HTML de la URL y extrae el texto principal formateado como Markdown limpio."""
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -201,14 +179,24 @@ async def scrape_url(url: str, max_length: int = 2000) -> str:
         "Cache-Control": "max-age=0"
     }
     logger.info("[Web Scraper] Raspando URL: %s", url)
-    try:
-        async with httpx.AsyncClient(headers=headers, timeout=10.0, follow_redirects=True) as client:
-            response = await client.get(url)
-            response.raise_for_status()
-            return html_to_markdown(response.text, max_length)
-    except Exception as exc:
-        logger.error("[Web Scraper] Fallo al raspar la URL %s: %s", url, exc)
-        return f"[Error al cargar la URL]: {str(exc)}"
+    
+    last_exc = None
+    for attempt in range(retries):
+        try:
+            async with httpx.AsyncClient(headers=headers, timeout=10.0, follow_redirects=True) as client:
+                response = await client.get(url)
+                response.raise_for_status()
+                return html_to_markdown(response.text, max_length)
+        except Exception as exc:
+            last_exc = exc
+            if attempt < retries - 1:
+                sleep_time = cooldown * (backoff ** attempt)
+                logger.warning("[Web Scraper] Error al raspar %s (intento %d/%d): %s. Reintentando en %.1fs...", url, attempt + 1, retries, exc, sleep_time)
+                await asyncio.sleep(sleep_time)
+            else:
+                logger.error("[Web Scraper] Fallo definitivo al raspar la URL %s tras %d intentos: %s", url, retries, exc)
+                
+    return f"[Error al cargar la URL]: {str(last_exc)}"
 
 
 async def scrape_multiple_urls(urls: list[str], max_length: int = 2000) -> list[str]:
