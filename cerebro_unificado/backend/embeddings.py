@@ -54,13 +54,45 @@ class EmbeddingsClient:
     async def get_embedding(self, text: str) -> list[float] | None:
         """Obtiene el vector de embeddings para el texto dado.
 
-        Intenta primero usar el endpoint estándar /v1/embeddings de OpenAI.
-        Si este falla o no está soportado, intenta el endpoint nativo /embeddings.
-
-        Returns:
-            Lista de floats que representa el vector, o None si ocurre un error/timeout.
+        Divide el texto en fragmentos de tamaño máximo aproximado de 1500 caracteres
+        para prevenir desbordamiento de lote en llama-server, promedia los vectores de cada
+        fragmento, y normaliza el resultado final.
         """
-        # Limpiar texto de saltos de línea innecesarios
+        clean_text = text.strip()
+        if not clean_text:
+            return None
+
+        # Fragmentar texto
+        chunks = self.chunk_text(clean_text, 1500)
+        vectors = []
+        for chunk in chunks:
+            vector = await self._get_single_embedding(chunk)
+            if vector:
+                vectors.append(vector)
+
+        if not vectors:
+            return None
+
+        if len(vectors) == 1:
+            if self.normalize:
+                return self.l2_normalize(vectors[0])
+            return vectors[0]
+
+        # Promediar vectores por dimensión
+        dimension = len(vectors[0])
+        averaged_vector = [0.0] * dimension
+        for vec in vectors:
+            for i in range(dimension):
+                averaged_vector[i] += vec[i]
+
+        if self.normalize:
+            return self.l2_normalize(averaged_vector)
+        else:
+            num_vectors = len(vectors)
+            return [val / num_vectors for val in averaged_vector]
+
+    async def _get_single_embedding(self, text: str) -> list[float] | None:
+        """Obtiene el vector de embeddings para un fragmento individual de texto."""
         clean_text = text.strip()
         if not clean_text:
             return None
@@ -84,7 +116,6 @@ class EmbeddingsClient:
                     
                     if response.status_code == 200:
                         data = response.json()
-                        # Extraer vector según la estructura de respuesta
                         vector = self._parse_response(data)
                         if vector:
                             if len(vector) != self.dimension:
@@ -93,9 +124,6 @@ class EmbeddingsClient:
                                     len(vector),
                                     self.dimension,
                                 )
-                            
-                            if self.normalize:
-                                return self.l2_normalize(vector)
                             return vector
             except httpx.HTTPError as exc:
                 logger.debug("Fallo al llamar a %s: %s", url, exc)
@@ -106,6 +134,30 @@ class EmbeddingsClient:
 
         logger.error("No se pudo obtener embedding de %s tras probar todos los endpoints", self.server_url)
         return None
+
+    @staticmethod
+    def chunk_text(text: str, max_chars: int = 1500) -> list[str]:
+        """Divide el texto en fragmentos que no excedan max_chars caracteres, respetando palabras."""
+        words = text.split()
+        chunks = []
+        current_chunk = []
+        current_length = 0
+
+        for word in words:
+            word_len = len(word) + 1
+            if current_length + word_len > max_chars:
+                if current_chunk:
+                    chunks.append(" ".join(current_chunk))
+                current_chunk = [word]
+                current_length = word_len
+            else:
+                current_chunk.append(word)
+                current_length += word_len
+
+        if current_chunk:
+            chunks.append(" ".join(current_chunk))
+
+        return chunks if chunks else [text]
 
     def _parse_response(self, data: dict[str, Any]) -> list[float] | None:
         """Parsea la respuesta JSON de embeddings del servidor."""

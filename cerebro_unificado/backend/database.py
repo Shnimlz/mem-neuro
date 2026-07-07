@@ -140,37 +140,43 @@ class Database:
             logger.info("Conexión a la base de datos cerrada")
 
     async def reset_database(self) -> None:
-        """Cierra la conexión actual, elimina los archivos físicos de la base de datos y la reinicializa."""
-        logger.info("Iniciando el reinicio completo de la base de datos...")
-        await self.close()
-
-        # Intentar borrar los archivos físicos de brain.db, brain.db-wal, y brain.db-shm
-        db_files = [
-            self.db_path,
-            self.db_path.with_name(f"{self.db_path.name}-wal"),
-            self.db_path.with_name(f"{self.db_path.name}-shm")
-        ]
-
-        for file in db_files:
-            try:
-                if file.exists():
-                    file.unlink()
-                    logger.info("Archivo de base de datos eliminado: %s", file)
-            except Exception as exc:
-                logger.error("No se pudo eliminar el archivo %s: %s", file, exc)
-
-        # Reinicializar la conexión y las tablas
-        await self.connect()
-
-        # Ejecutar VACUUM
+        """Cierra la conexión, limpia todas las tablas mediante DROP TABLE, vuelve a crearlas y ejecuta VACUUM."""
+        logger.info("Iniciando el reinicio completo de la base de datos (DROP TABLE)...")
+        
+        # Si no hay conexión, conectar primero para poder ejecutar los comandos
+        if not self._conn:
+            await self.connect()
+            
         try:
+            # Desactivar claves foráneas temporalmente para poder borrar en cualquier orden
+            await self._conn.execute("PRAGMA foreign_keys = OFF;")
+            
+            # Borrar tablas existentes
+            tables = ["edges", "nodes", "web_cache", "nodes_fts", "vec_embeddings"]
+            for table in tables:
+                try:
+                    await self._conn.execute(f"DROP TABLE IF EXISTS {table};")
+                    logger.info("Tabla eliminada: %s", table)
+                except Exception as e:
+                    logger.warning("Fallo al eliminar la tabla %s: %s", table, e)
+            
+            await self._conn.commit()
+            
+            # Reactivar claves foráneas
+            await self._conn.execute("PRAGMA foreign_keys = ON;")
+            
+            # Reconectarse / Re-inicializar esquema usando connect()
+            await self.close()
+            await self.connect()
+            
+            # Ejecutar VACUUM para compactar y liberar espacio
             await self.conn.execute("VACUUM")
             await self.conn.commit()
-            logger.info("VACUUM completado con éxito.")
+            
+            logger.info("Base de datos reiniciada e inicializada con éxito (DROP TABLE + VACUUM).")
         except Exception as exc:
-            logger.warning("Fallo al ejecutar VACUUM: %s", exc)
-
-        logger.info("Base de datos reiniciada e inicializada con éxito.")
+            logger.error("Error crítico durante el reinicio de la base de datos: %s", exc)
+            raise exc
 
     @property
     def conn(self) -> aiosqlite.Connection:

@@ -3,6 +3,12 @@
 
 use_default_settings: true
 
+search:
+  formats:
+    - html
+    - json # ¡Obligatorio si usas Open WebUI u otras aplicaciones IA!
+
+
 server:
   secret_key: "wAMH0R8rqm8gZrDuPoBZJA0uvjkljQ"
-  image_proxy: true
+  image_proxy: false

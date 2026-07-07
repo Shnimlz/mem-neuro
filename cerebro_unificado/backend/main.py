@@ -640,13 +640,13 @@ async def process_message(request: ProcessRequest):
 
         await ws_broadcast({"event": "node_created", "node": new_node})
 
-    # 5. Esperar el resultado de la tarea de búsqueda/scraping asíncrona con timeout de 2.0s
+    # 5. Esperar el resultado de la tarea de búsqueda/scraping asíncrona con timeout de 6.0s
     web_context = ""
     if web_task:
         try:
-            web_context = await asyncio.wait_for(web_task, timeout=2.0)
+            web_context = await asyncio.wait_for(web_task, timeout=6.0)
         except asyncio.TimeoutError:
-            logger.warning("[Process Web Search] La búsqueda/scraping web superó el límite de 2.0s. Continuando sin contexto web.")
+            logger.warning("[Process Web Search] La búsqueda/scraping web superó el límite de 6.0s. Continuando sin contexto web.")
         except Exception as exc:
             logger.warning("[Process Web Search] Fallo al recuperar tarea asíncrona: %s", exc)
 
@@ -1183,13 +1183,13 @@ async def query_memory_and_enrich(message: str, session_id: str) -> tuple[str, s
         if len(context_nodes) >= 3:
             break
 
-    # 6. Esperar el resultado de la tarea web con timeout de 2.0s
+    # 6. Esperar el resultado de la tarea web con timeout de 6.0s
     web_context = ""
     if web_task:
         try:
-            web_context = await asyncio.wait_for(web_task, timeout=2.0)
+            web_context = await asyncio.wait_for(web_task, timeout=6.0)
         except asyncio.TimeoutError:
-            logger.warning("[Proxy Web Search] La búsqueda/scraping web superó el límite de 2.0s. Continuando sin contexto web.")
+            logger.warning("[Proxy Web Search] La búsqueda/scraping web superó el límite de 6.0s. Continuando sin contexto web.")
         except Exception as exc:
             logger.warning("[Proxy Web Search] Fallo al recuperar tarea asíncrona: %s", exc)
 

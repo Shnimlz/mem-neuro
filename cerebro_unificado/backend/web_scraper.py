@@ -22,11 +22,71 @@ logger = logging.getLogger("cerebro.web_scraper")
 SOURCES_PATH = Path(__file__).resolve().parent / "sources.json"
 
 
+async def perform_duckduckgo_search_fallback(query: str) -> list[dict]:
+    """Fallback: Realiza una búsqueda directa en DuckDuckGo HTML sin javascript ni keys."""
+    logger.info("[Web Search Fallback] Intentando búsqueda en DuckDuckGo HTML para: '%s'", query)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3"
+    }
+    try:
+        async with httpx.AsyncClient(headers=headers, timeout=8.0, follow_redirects=True) as client:
+            response = await client.post("https://html.duckduckgo.com/html/", data={"q": query})
+            if response.status_code != 200:
+                logger.warning("[Web Search Fallback] DuckDuckGo HTML respondió con status %d", response.status_code)
+                return []
+                
+            soup = BeautifulSoup(response.text, "html.parser")
+            results = []
+            
+            for a_tag in soup.find_all("a", class_="result__url"):
+                url = a_tag.get("href", "").strip()
+                if not url:
+                    continue
+                    
+                if url.startswith("//uddg="):
+                    from urllib.parse import unquote
+                    url = unquote(url.split("uddg=")[1].split("&")[0])
+                elif url.startswith("/"):
+                    continue
+                
+                parent = a_tag.find_parent("div", class_="result")
+                if not parent:
+                    continue
+                    
+                title_tag = parent.find("a", class_="result__a")
+                title = title_tag.get_text().strip() if title_tag else ""
+                
+                snippet_tag = parent.find("a", class_="result__snippet")
+                snippet = snippet_tag.get_text().strip() if snippet_tag else ""
+                
+                if not title or not url:
+                    continue
+                    
+                results.append({
+                    "title": title,
+                    "url": url,
+                    "snippet": snippet
+                })
+                
+                if len(results) >= 4:
+                    break
+                    
+            logger.info("[Web Search Fallback] DuckDuckGo HTML obtuvo %d resultados", len(results))
+            return results
+    except Exception as exc:
+        logger.error("[Web Search Fallback] Error en DuckDuckGo fallback: %s", exc)
+        return []
+
+
 async def perform_web_search(query: str) -> list[dict]:
-    """Realiza una consulta a la API local de SearXNG (puerto 8888) y devuelve los 4 enlaces más relevantes."""
+    """Realiza una consulta a la API local de SearXNG (puerto 8888) y devuelve los 4 enlaces más relevantes.
+    En caso de fallo o error (como 403 o timeout), ejecuta el plan de respaldo en DuckDuckGo.
+    """
     logger.info("[Web Search] Consultando SearXNG para: '%s'", query)
     try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
+        async with httpx.AsyncClient(timeout=6.0) as client:
             response = await client.get(
                 "http://127.0.0.1:8888/search",
                 params={"q": query, "format": "json"}
@@ -36,7 +96,8 @@ async def perform_web_search(query: str) -> list[dict]:
             
         results = data.get("results", [])
         if not results:
-            return []
+            logger.info("[Web Search] SearXNG no devolvió resultados. Activando fallback...")
+            return await perform_duckduckgo_search_fallback(query)
             
         seen_urls = set()
         cleaned_results = []
@@ -65,8 +126,8 @@ async def perform_web_search(query: str) -> list[dict]:
                 
         return cleaned_results
     except Exception as exc:
-        logger.error("[Web Search] Error consultando SearXNG: %s", exc)
-        return []
+        logger.warning("[Web Search] SearXNG falló o devolvió código de error (%s). Iniciando plan B (DuckDuckGo)...", exc)
+        return await perform_duckduckgo_search_fallback(query)
 
 
 def html_to_markdown(html_content: str, max_length: int = 2000) -> str:
@@ -126,9 +187,18 @@ def html_to_markdown(html_content: str, max_length: int = 2000) -> str:
 async def scrape_url(url: str, max_length: int = 2000) -> str:
     """Descarga el HTML de la URL y extrae el texto principal formateado como Markdown limpio."""
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3"
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Language": "es-MX,es;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Cache-Control": "max-age=0"
     }
     logger.info("[Web Scraper] Raspando URL: %s", url)
     try:
