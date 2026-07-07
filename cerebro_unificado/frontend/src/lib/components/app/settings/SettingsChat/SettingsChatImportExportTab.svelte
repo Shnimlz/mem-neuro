@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Download, Upload, Trash2 } from '@lucide/svelte';
+	import { Download, Upload, Trash2, RefreshCw } from '@lucide/svelte';
 	import {
 		DialogConversationSelection,
 		DialogConfirmation,
@@ -240,6 +240,42 @@
 	function handleDeleteAllCancel() {
 		showDeleteDialog = false;
 	}
+
+	// Database reset state
+	let showResetDialog = $state(false);
+	let isResetting = $state(false);
+
+	function handleResetDbClick() {
+		showResetDialog = true;
+	}
+
+	async function handleResetDbConfirm() {
+		if (isResetting) return;
+		isResetting = true;
+
+		try {
+			const res = await fetch('/api/database/reset', { method: 'POST' });
+			if (!res.ok) {
+				throw new Error('Fallo al restablecer la base de datos');
+			}
+			toast.success('El cerebro autónomo se ha restablecido correctamente.');
+			showResetDialog = false;
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
+		} catch (err) {
+			console.error('Error al restablecer base de datos:', err);
+			toast.error('Ocurrió un error al intentar restablecer la base de datos.');
+		} finally {
+			isResetting = false;
+		}
+	}
+
+	function handleResetDbCancel() {
+		if (!isResetting) {
+			showResetDialog = false;
+		}
+	}
 </script>
 
 <div class="space-y-12" in:fade={{ duration: 150 }}>
@@ -293,6 +329,19 @@
 			summary={{ show: showSettingsImportSummary, verb: 'Imported', items: [] }}
 		/>
 	</SettingsGroup>
+
+	<SettingsGroup title="Base de Datos">
+		<SettingsChatImportExportSection
+			title="Restablecer base de datos"
+			description="Borra permanentemente todo el historial de chat, embeddings vectoriales, clasificaciones y fuentes guardadas de la base de datos local."
+			IconComponent={RefreshCw}
+			buttonText="Restablecer Cerebro Autónomo"
+			onclick={handleResetDbClick}
+			titleClass="text-destructive font-semibold"
+			buttonVariant="destructive"
+			buttonClass="text-destructive-foreground justify-start justify-self-start bg-destructive hover:bg-destructive/80 md:w-auto"
+		/>
+	</SettingsGroup>
 </div>
 
 <DialogExportSettings
@@ -331,3 +380,22 @@
 	onConfirm={handleDeleteAllConfirm}
 	onCancel={handleDeleteAllCancel}
 />
+
+<DialogConfirmation
+	bind:open={showResetDialog}
+	title="Restablecer Cerebro Autónomo"
+	description="¿Estás seguro de que deseas restablecer el cerebro autónomo? Esta acción borrará permanentemente todo el historial de chat, embeddings vectoriales, clasificaciones y fuentes guardadas."
+	confirmText={isResetting ? 'Restableciendo...' : 'Restablecer'}
+	cancelText="Cancelar"
+	variant="destructive"
+	icon={RefreshCw}
+	onConfirm={handleResetDbConfirm}
+	onCancel={handleResetDbCancel}
+>
+	{#if isResetting}
+		<div class="flex items-center justify-center gap-2 py-4">
+			<span class="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+			<span class="text-xs text-muted-foreground">Procesando reinicio físico de base de datos...</span>
+		</div>
+	{/if}
+</DialogConfirmation>

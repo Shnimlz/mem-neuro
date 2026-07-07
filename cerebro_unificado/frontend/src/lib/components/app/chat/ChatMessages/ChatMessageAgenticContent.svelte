@@ -223,26 +223,54 @@
 
 	// ─── Parser de <web_search_results> para WebSearchStatus ───
 	const WEB_SEARCH_TAG_RE = /<web_search_results>([\s\S]*?)<\/web_search_results>/g;
+	const WEB_SEARCH_STATUS_RE = /<web_search_status>([\s\S]*?)<\/web_search_status>/g;
 
 	interface WebSearchBlock {
 		query: string;
-		results: { title: string; url: string; icon?: string; content?: string }[];
+		status?: 'analyzing' | 'searching' | 'extracting' | 'synthesizing' | 'done';
+		results?: { title: string; url: string; icon?: string; content?: string }[];
 	}
 
 	function parseWebSearchTags(text: string): { cleanText: string; searches: WebSearchBlock[] } {
 		const searches: WebSearchBlock[] = [];
-		const cleanText = text.replace(WEB_SEARCH_TAG_RE, (_match, jsonStr) => {
+		let cleanText = text.replace(WEB_SEARCH_TAG_RE, (_match, jsonStr) => {
 			try {
 				const parsed = JSON.parse(jsonStr.trim());
-				if (parsed && parsed.query && Array.isArray(parsed.results)) {
-					searches.push(parsed as WebSearchBlock);
+				if (parsed && parsed.query) {
+					searches.push({
+						query: parsed.query,
+						status: 'done',
+						results: parsed.results || []
+					});
 				}
 			} catch (e) {
-				// JSON inválido, ignorar silenciosamente
+				// JSON inválido
 			}
 			return '';
-		}).trim();
-		return { cleanText, searches };
+		});
+
+		cleanText = cleanText.replace(WEB_SEARCH_STATUS_RE, (_match, jsonStr) => {
+			try {
+				const parsed = JSON.parse(jsonStr.trim());
+				if (parsed && parsed.query) {
+					const existing = searches.find(s => s.query === parsed.query);
+					if (existing) {
+						existing.status = parsed.status;
+					} else {
+						searches.push({
+							query: parsed.query,
+							status: parsed.status,
+							results: []
+						});
+					}
+				}
+			} catch (e) {
+				// JSON inválido
+			}
+			return '';
+		});
+
+		return { cleanText: cleanText.trim(), searches };
 	}
 </script>
 
@@ -250,7 +278,12 @@
 	{#if section.type === AgenticSectionType.TEXT}
 		{@const parsed = parseWebSearchTags(section.content)}
 		{#each parsed.searches as ws}
-			<WebSearchStatus query={ws.query} results={ws.results} />
+			<WebSearchStatus
+				query={ws.query}
+				results={ws.results || []}
+				isSearching={ws.status !== 'done'}
+				status={ws.status}
+			/>
 		{/each}
 		<div class="agentic-text">
 			<MarkdownContent

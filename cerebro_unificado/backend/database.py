@@ -139,6 +139,39 @@ class Database:
             self._conn = None
             logger.info("Conexión a la base de datos cerrada")
 
+    async def reset_database(self) -> None:
+        """Cierra la conexión actual, elimina los archivos físicos de la base de datos y la reinicializa."""
+        logger.info("Iniciando el reinicio completo de la base de datos...")
+        await self.close()
+
+        # Intentar borrar los archivos físicos de brain.db, brain.db-wal, y brain.db-shm
+        db_files = [
+            self.db_path,
+            self.db_path.with_name(f"{self.db_path.name}-wal"),
+            self.db_path.with_name(f"{self.db_path.name}-shm")
+        ]
+
+        for file in db_files:
+            try:
+                if file.exists():
+                    file.unlink()
+                    logger.info("Archivo de base de datos eliminado: %s", file)
+            except Exception as exc:
+                logger.error("No se pudo eliminar el archivo %s: %s", file, exc)
+
+        # Reinicializar la conexión y las tablas
+        await self.connect()
+
+        # Ejecutar VACUUM
+        try:
+            await self.conn.execute("VACUUM")
+            await self.conn.commit()
+            logger.info("VACUUM completado con éxito.")
+        except Exception as exc:
+            logger.warning("Fallo al ejecutar VACUUM: %s", exc)
+
+        logger.info("Base de datos reiniciada e inicializada con éxito.")
+
     @property
     def conn(self) -> aiosqlite.Connection:
         """Acceso seguro a la conexión activa."""

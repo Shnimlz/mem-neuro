@@ -22,3 +22,6 @@ brain_core/.venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Reference
+references/

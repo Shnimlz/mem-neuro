@@ -33,11 +33,13 @@
 		results: SearchResult[];
 		/** If true, stepper animates through phases. If false/omitted, jumps to 'done'. */
 		isSearching?: boolean;
+		/** Optional micro-status driven by backend SSE */
+		status?: SearchPhase;
 	}
 
 	// ─── Props & State ───────────────────────────────────────────────────
 
-	let { query, results, isSearching = false }: Props = $props();
+	let { query, results, isSearching = false, status }: Props = $props();
 	let isOpen = $state(false);
 
 	// ─── Phase Stepper ───────────────────────────────────────────────────
@@ -71,7 +73,7 @@
 	}
 
 	$effect(() => {
-		if (isSearching && results.length === 0) {
+		if (isSearching && results.length === 0 && !status) {
 			// Reset and start stepper
 			currentPhaseIdx = 0;
 			phaseTimerId = setTimeout(advancePhase, PHASE_INTERVALS[0]);
@@ -83,7 +85,7 @@
 	});
 
 	const currentPhase: SearchPhase = $derived(
-		!isSearching || results.length > 0 ? 'done' : phases[currentPhaseIdx].id
+		status || (!isSearching || results.length > 0 ? 'done' : phases[currentPhaseIdx].id)
 	);
 
 	const isDone = $derived(currentPhase === 'done');

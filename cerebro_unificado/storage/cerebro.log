@@ -5440,3 +5440,205 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 13:08:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
 2026-07-07 13:08:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
 2026-07-07 13:08:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:19:47 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:19:47 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:19:58 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:19:58 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Creame un codigo de numeros aleatorios en c##...'
+2026-07-07 13:19:58 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:19:58 | INFO     | cerebro.main | [Background Search] Invocando web_search para query: 'Creame un codigo de numeros aleatorios en c##'
+2026-07-07 13:19:58 | INFO     | cerebro.main | [Web Search] Iniciando consulta para: 'Creame un codigo de numeros aleatorios en c##' (max_results=3)
+2026-07-07 13:19:58 | ERROR    | cerebro.main | [Web Search] Error en búsqueda web: Client error '403 Forbidden' for url 'http://127.0.0.1:8888/search?q=Creame+un+codigo+de+numeros+aleatorios+en+c%23%23&format=json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+2026-07-07 13:19:58 | DEBUG    | cerebro.database | Embedding guardado para nodo 141cc8aa (rowid=582)
+2026-07-07 13:19:58 | INFO     | cerebro.database | Nodo creado: 141cc8aa [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:19:58 | INFO     | cerebro.database | Arista creada: e9a81a51 → 141cc8aa (peso=1.0)
+2026-07-07 13:19:58 | INFO     | cerebro.database | Búsqueda vectorial completada: 6 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 13:19:58 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:19:58 | DEBUG    | cerebro.database | Embedding guardado para nodo d735e2f9 (rowid=583)
+2026-07-07 13:19:58 | INFO     | cerebro.database | Nodo creado: d735e2f9 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:19:58 | INFO     | cerebro.database | Arista creada: 141cc8aa → d735e2f9 (peso=1.0)
+2026-07-07 13:20:15 | INFO     | cerebro.database | Nodo creado: 53f166ff [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:20:15 | INFO     | cerebro.database | Arista creada: 141cc8aa → 53f166ff (peso=1.0)
+2026-07-07 13:20:31 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:20:31 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'y como se hace en rust?...'
+2026-07-07 13:20:31 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:20:31 | INFO     | cerebro.main | [Background Search] Invocando web_search para query: 'y como se hace en rust?'
+2026-07-07 13:20:31 | INFO     | cerebro.main | [Web Search] Iniciando consulta para: 'y como se hace en rust?' (max_results=3)
+2026-07-07 13:20:31 | ERROR    | cerebro.main | [Web Search] Error en búsqueda web: Client error '403 Forbidden' for url 'http://127.0.0.1:8888/search?q=y+como+se+hace+en+rust%3F&format=json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+2026-07-07 13:20:31 | DEBUG    | cerebro.database | Embedding guardado para nodo 2bea5b19 (rowid=585)
+2026-07-07 13:20:31 | INFO     | cerebro.database | Nodo creado: 2bea5b19 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:20:31 | INFO     | cerebro.database | Arista creada: 53f166ff → 2bea5b19 (peso=1.0)
+2026-07-07 13:20:31 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 13:20:31 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:20:31 | DEBUG    | cerebro.database | Embedding guardado para nodo 34a81d73 (rowid=586)
+2026-07-07 13:20:31 | INFO     | cerebro.database | Nodo creado: 34a81d73 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:20:31 | INFO     | cerebro.database | Arista creada: 2bea5b19 → 34a81d73 (peso=1.0)
+2026-07-07 13:20:48 | INFO     | cerebro.database | Nodo creado: b98bf3b2 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:20:48 | INFO     | cerebro.database | Arista creada: 2bea5b19 → b98bf3b2 (peso=1.0)
+2026-07-07 13:20:55 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:20:55 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'y como se hace en rust?...'
+2026-07-07 13:20:55 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:20:55 | INFO     | cerebro.main | [Background Search] Invocando web_search para query: 'y como se hace en rust?'
+2026-07-07 13:20:55 | INFO     | cerebro.main | [Web Search] Iniciando consulta para: 'y como se hace en rust?' (max_results=3)
+2026-07-07 13:20:55 | ERROR    | cerebro.main | [Web Search] Error en búsqueda web: Client error '403 Forbidden' for url 'http://127.0.0.1:8888/search?q=y+como+se+hace+en+rust%3F&format=json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+2026-07-07 13:20:55 | DEBUG    | cerebro.database | Embedding guardado para nodo bca33a70 (rowid=588)
+2026-07-07 13:20:55 | INFO     | cerebro.database | Nodo creado: bca33a70 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:20:55 | INFO     | cerebro.database | Arista creada: b98bf3b2 → bca33a70 (peso=1.0)
+2026-07-07 13:20:55 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 13:20:55 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:20:55 | DEBUG    | cerebro.database | Embedding guardado para nodo 71e60ebc (rowid=589)
+2026-07-07 13:20:55 | INFO     | cerebro.database | Nodo creado: 71e60ebc [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:20:55 | INFO     | cerebro.database | Arista creada: bca33a70 → 71e60ebc (peso=1.0)
+2026-07-07 13:21:03 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:21:13 | INFO     | cerebro.database | Nodo creado: 868385bb [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:21:13 | INFO     | cerebro.database | Arista creada: bca33a70 → 868385bb (peso=1.0)
+2026-07-07 13:21:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:21:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:22:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:22:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 13:22:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:22:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:22:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:22:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 13:22:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:22:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:35 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:35 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:46 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:22:46 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:04 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Apagando ═══
+2026-07-07 13:25:04 | INFO     | cerebro.database | Conexión a la base de datos cerrada
+2026-07-07 13:25:05 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Iniciando ═══
+2026-07-07 13:25:05 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-07 13:25:05 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-07 13:25:05 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-07 13:25:05 | INFO     | cerebro.main | Base de datos: 590 nodos, 165 aristas
+2026-07-07 13:25:05 | INFO     | cerebro.main | Clasificador inicializado: LLM en http://127.0.0.1:8080 (timeout: 5.0s)
+2026-07-07 13:25:05 | INFO     | cerebro.main | Cliente de embeddings inicializado: Servidor en http://127.0.0.1:8081 (dimensión=384, normalización=True)
+2026-07-07 13:25:05 | INFO     | cerebro.web_scraper | Cargadas 3 reglas de extracción específicas desde sources.json
+2026-07-07 13:25:05 | INFO     | cerebro.main | Módulo de Scraping inicializado: Enabled=True (TTL=604800s, maxLength=2000)
+2026-07-07 13:25:05 | INFO     | cerebro.database | Iniciando copia de seguridad en caliente de la base de datos a: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_132505.db
+2026-07-07 13:25:05 | INFO     | cerebro.database | Copia de seguridad completada con éxito.
+2026-07-07 13:25:05 | INFO     | cerebro.database | Copia de seguridad antigua eliminada por rotación: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260706_012815.db
+2026-07-07 13:25:05 | INFO     | cerebro.main | Agente Cron Autónomo deshabilitado por política de seguridad del terminal.
+2026-07-07 13:25:05 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
+2026-07-07 13:25:07 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 13:25:07)
+2026-07-07 13:25:07 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
+2026-07-07 13:25:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:25:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:25:40 | WARNING  | cerebro.main | [Database Administration] Recibida petición para resetear la base de datos.
+2026-07-07 13:25:40 | INFO     | cerebro.database | Iniciando el reinicio completo de la base de datos...
+2026-07-07 13:25:40 | INFO     | cerebro.database | Conexión a la base de datos cerrada
+2026-07-07 13:25:40 | INFO     | cerebro.database | Archivo de base de datos eliminado: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db
+2026-07-07 13:25:40 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-07 13:25:40 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-07 13:25:40 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-07 13:25:40 | INFO     | cerebro.database | VACUUM completado con éxito.
+2026-07-07 13:25:40 | INFO     | cerebro.database | Base de datos reiniciada e inicializada con éxito.
+2026-07-07 13:25:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:25:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:25:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:25:43 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 13:25:45 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 13:25:45 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 13:25:45 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 13:25:50 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:26:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:26:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:26:12 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:26:13 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:26:13 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:26:13 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Creame un codigo de numeros aleatorios en c##...'
+2026-07-07 13:26:13 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:26:13 | INFO     | cerebro.main | [Background Search] Invocando web_search para query: 'Creame un codigo de numeros aleatorios en c##'
+2026-07-07 13:26:13 | INFO     | cerebro.main | [Web Search] Iniciando consulta para: 'Creame un codigo de numeros aleatorios en c##' (max_results=3)
+2026-07-07 13:26:13 | ERROR    | cerebro.main | [Web Search] Error en búsqueda web: Client error '403 Forbidden' for url 'http://127.0.0.1:8888/search?q=Creame+un+codigo+de+numeros+aleatorios+en+c%23%23&format=json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+2026-07-07 13:26:13 | DEBUG    | cerebro.database | Embedding guardado para nodo 44f97e22 (rowid=1)
+2026-07-07 13:26:13 | INFO     | cerebro.database | Nodo creado: 44f97e22 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:26:13 | INFO     | cerebro.database | Búsqueda vectorial completada: 1 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 13:26:13 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:26:13 | DEBUG    | cerebro.database | Embedding guardado para nodo 5e12fad9 (rowid=2)
+2026-07-07 13:26:13 | INFO     | cerebro.database | Nodo creado: 5e12fad9 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:26:13 | INFO     | cerebro.database | Arista creada: 44f97e22 → 5e12fad9 (peso=1.0)
+2026-07-07 13:26:42 | INFO     | cerebro.database | Nodo creado: 2a2f8b26 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:26:42 | INFO     | cerebro.database | Arista creada: 44f97e22 → 2a2f8b26 (peso=1.0)
+2026-07-07 13:26:58 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:27:07 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:29:49 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:29:49 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:29:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:29:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:31:12 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:31:12 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:31:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 13:31:33 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Y en rust como funciona?...'
+2026-07-07 13:31:33 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:31:33 | INFO     | cerebro.main | [Background Search] Invocando web_search para query: 'Y en rust como funciona?'
+2026-07-07 13:31:33 | INFO     | cerebro.main | [Web Search] Iniciando consulta para: 'Y en rust como funciona?' (max_results=3)
+2026-07-07 13:31:33 | ERROR    | cerebro.main | [Web Search] Error en búsqueda web: Client error '403 Forbidden' for url 'http://127.0.0.1:8888/search?q=Y+en+rust+como+funciona%3F&format=json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+2026-07-07 13:31:33 | DEBUG    | cerebro.database | Embedding guardado para nodo a0fc6d24 (rowid=4)
+2026-07-07 13:31:33 | INFO     | cerebro.database | Nodo creado: a0fc6d24 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:31:33 | INFO     | cerebro.database | Arista creada: 2a2f8b26 → a0fc6d24 (peso=1.0)
+2026-07-07 13:31:33 | INFO     | cerebro.database | Búsqueda vectorial completada: 1 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 13:31:33 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 13:31:33 | DEBUG    | cerebro.database | Embedding guardado para nodo 7c37abaa (rowid=5)
+2026-07-07 13:31:33 | INFO     | cerebro.database | Nodo creado: 7c37abaa [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:31:33 | INFO     | cerebro.database | Arista creada: a0fc6d24 → 7c37abaa (peso=1.0)
+2026-07-07 13:32:08 | INFO     | cerebro.database | Nodo creado: 6e1d56fc [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 13:32:08 | INFO     | cerebro.database | Arista creada: a0fc6d24 → 6e1d56fc (peso=1.0)
+2026-07-07 13:32:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:32:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:32:48 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 13:34:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:34:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:34:43 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 13:34:43 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:34:55 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:34:55 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:35:08 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:35:08 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:35:09 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 13:35:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:36:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 13:37:22 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 13:37:22 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Apagando ═══
+2026-07-07 13:37:22 | INFO     | cerebro.database | Conexión a la base de datos cerrada
+2026-07-07 13:37:23 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Iniciando ═══
+2026-07-07 13:37:23 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-07 13:37:23 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-07 13:37:23 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-07 13:37:23 | INFO     | cerebro.main | Base de datos: 6 nodos, 5 aristas
+2026-07-07 13:37:23 | INFO     | cerebro.main | Clasificador inicializado: LLM en http://127.0.0.1:8080 (timeout: 5.0s)
+2026-07-07 13:37:23 | INFO     | cerebro.main | Cliente de embeddings inicializado: Servidor en http://127.0.0.1:8081 (dimensión=384, normalización=True)
+2026-07-07 13:37:23 | INFO     | cerebro.web_scraper | Cargadas 3 reglas de extracción específicas desde sources.json
+2026-07-07 13:37:23 | INFO     | cerebro.main | Módulo de Scraping inicializado: Enabled=True (TTL=604800s, maxLength=2000)
+2026-07-07 13:37:23 | INFO     | cerebro.database | Iniciando copia de seguridad en caliente de la base de datos a: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_133723.db
+2026-07-07 13:37:23 | INFO     | cerebro.database | Copia de seguridad completada con éxito.
+2026-07-07 13:37:23 | INFO     | cerebro.database | Copia de seguridad antigua eliminada por rotación: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260706_013314.db
+2026-07-07 13:37:23 | INFO     | cerebro.main | Agente Cron Autónomo deshabilitado por política de seguridad del terminal.
+2026-07-07 13:37:23 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
+2026-07-07 13:37:24 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 13:37:25 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 13:37:25)
+2026-07-07 13:37:25 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.

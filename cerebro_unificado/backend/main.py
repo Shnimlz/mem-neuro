@@ -477,6 +477,24 @@ async def health():
     }
 
 
+@app.post("/api/database/reset")
+async def reset_db_endpoint():
+    """Resetea y vuelve a inicializar la base de datos de forma limpia."""
+    logger.warning("[Database Administration] Recibida petición para resetear la base de datos.")
+    try:
+        await db.reset_database()
+        return {
+            "status": "success",
+            "message": "Database completely reset and reinitialized"
+        }
+    except Exception as exc:
+        logger.error("[Database Administration] Error crítico al resetear la base de datos: %s", exc)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Fallo al resetear la base de datos: {str(exc)}"
+        )
+
+
 @app.post("/process", response_model=ProcessResponse)
 async def process_message(request: ProcessRequest):
     """Procesa un mensaje del usuario.
@@ -1046,11 +1064,33 @@ async def api_ejecutar_busqueda_web(req: WebSearchToolRequest):
     return {"result": output}
 
 
+async def execute_web_search_and_scrape(query: str) -> str:
+    """Realiza la búsqueda en SearXNG, raspa los contenidos de las webs en paralelo y genera el bloque <web_context>."""
+    from web_scraper import perform_web_search, scrape_multiple_urls
+    search_links = await perform_web_search(query)
+    if not search_links:
+        return "<web_context>\nNo se encontraron resultados en la web.\n</web_context>"
+        
+    urls = [r["url"] for r in search_links]
+    scraped_contents = await scrape_multiple_urls(urls)
+    
+    output_parts = []
+    for i, r in enumerate(search_links):
+        title = r["title"]
+        url = r["url"]
+        content_clean = scraped_contents[i] if i < len(scraped_contents) else r["snippet"]
+        output_parts.append(
+            f"### Fuente: {title}\nURL: {url}\nContenido:\n{content_clean}\n---"
+        )
+        
+    return f"<web_context>\n" + "\n".join(output_parts) + "\n</web_context>"
+
+
 async def _background_web_search(query: str) -> str:
     """Invoca la función web_search de fondo e inyecta el contenido formateado."""
-    logger.info("[Background Search] Invocando web_search para query: '%s'", query)
-    results_text = await web_search(query, max_results=3)
-    return f"<contexto_web_busqueda>\n{results_text}\n</contexto_web_busqueda>"
+    logger.info("[Background Search] Invocando execute_web_search_and_scrape para query: '%s'", query)
+    scraped_data = await execute_web_search_and_scrape(query)
+    return f"<contexto_web_busqueda>\n{scraped_data}\n</contexto_web_busqueda>"
 
 
 async def execute_system_command(command: str) -> str:
@@ -1764,41 +1804,76 @@ async def proxy_openai_chat(request: Request):
                     # ─── INTERCEPTOR ACTIVO: tool_call emulada detectada ───
                     logger.info("[Interceptor Tool] Detectada tool_call emulada para: '%s'", tool_query)
                     
-                    # 2a. Ejecutar la búsqueda real contra SearXNG
-                    search_result = await ejecutar_busqueda_web(tool_query)
-                    logger.info("[Interceptor Tool] Resultados obtenidos (%d chars)", len(search_result))
+                    # 2a. Ejecutar la búsqueda real con micro-estados SSE y raspado en paralelo
+                    # Emitir estado: Analizando consulta
+                    status_chunk = {
+                        "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "analyzing"}}</web_search_status>'}, "finish_reason": None}]
+                    }
+                    yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                    await asyncio.sleep(0.5)
+
+                    # Emitir estado: Buscando en la web
+                    status_chunk = {
+                        "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "searching"}}</web_search_status>'}, "finish_reason": None}]
+                    }
+                    yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
                     
-                    # 2b. Parsear resultados en estructura JSON para WebSearchStatus.tsx
+                    from web_scraper import perform_web_search, scrape_multiple_urls
+                    search_links = await perform_web_search(tool_query)
+                    
+                    # Emitir estado: Extrayendo contenido
+                    status_chunk = {
+                        "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "extracting"}}</web_search_status>'}, "finish_reason": None}]
+                    }
+                    yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                    
+                    urls = [r["url"] for r in search_links]
+                    scraped_contents = []
+                    if urls:
+                        scraped_contents = await scrape_multiple_urls(urls)
+                        
+                    # Emitir estado: Sintetizando información
+                    status_chunk = {
+                        "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "synthesizing"}}</web_search_status>'}, "finish_reason": None}]
+                    }
+                    yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                    await asyncio.sleep(0.5)
+
+                    # Construir resultados formateados para el LLM y el frontend
                     parsed_results = []
-                    for block in search_result.split("Resultado ")[1:]:
-                        lines = block.strip().split("\n")
-                        title = ""
-                        url = ""
-                        snippet = ""
-                        for ln in lines:
-                            ln = ln.strip()
-                            if ln.startswith("- Título:"):
-                                title = ln.replace("- Título:", "").strip()
-                            elif ln.startswith("- URL:"):
-                                url = ln.replace("- URL:", "").strip()
-                            elif ln.startswith("- Contenido:"):
-                                snippet = ln.replace("- Contenido:", "").strip()
-                            elif ln.startswith("- Resumen:"):
-                                snippet = ln.replace("- Resumen:", "").strip()
-                        if title and url:
-                            # Generar icono a partir del dominio
-                            try:
-                                domain = url.split("//")[1].split("/")[0]
-                                icon = f"https://www.google.com/s2/favicons?sz=32&domain={domain}"
-                            except Exception:
-                                icon = ""
-                            parsed_results.append({
-                                "title": title,
-                                "url": url,
-                                "icon": icon,
-                                "content": snippet
-                            })
-                    
+                    output_parts = []
+                    for i, r in enumerate(search_links):
+                        title = r["title"]
+                        url = r["url"]
+                        snippet = r["snippet"]
+                        content_clean = scraped_contents[i] if i < len(scraped_contents) else snippet
+                        
+                        try:
+                            domain = url.split("//")[1].split("/")[0]
+                            icon = f"https://www.google.com/s2/favicons?sz=32&domain={domain}"
+                        except Exception:
+                            icon = ""
+                            
+                        parsed_results.append({
+                            "title": title,
+                            "url": url,
+                            "icon": icon,
+                            "content": snippet
+                        })
+                        
+                        output_parts.append(
+                            f"Resultado {i+1}:\n"
+                            f"- Título: {title}\n"
+                            f"- URL: {url}\n"
+                            f"- Contenido Completo Extraído:\n{content_clean}\n"
+                        )
+                        
+                    search_result = (
+                        f"A continuación tienes los resultados reales de la web obtenidos en tiempo real "
+                        f"para la consulta '{tool_query}'. Utilízalos para responder la duda del usuario:\n\n"
+                    ) + "\n".join(output_parts)
+                    logger.info("[Interceptor Tool] Resultados y raspado completo (%d chars)", len(search_result))
+
                     # 2c. Cerrar cualquier bloque de reasoning previo del primer turno
                     close_reasoning_chunk = {
                         "choices": [{"index": 0, "delta": {"content": ""}, "finish_reason": "stop"}]
@@ -1806,8 +1881,6 @@ async def proxy_openai_chat(request: Request):
                     yield f"data: {json.dumps(close_reasoning_chunk)}\n\n".encode("utf-8")
                     
                     # 2d. Emitir el tag <web_search_results> como chunk SSE dedicado
-                    #     El frontend intercepta este tag y lo usa como payload de hidratación
-                    #     para WebSearchStatus.tsx. NO se renderiza como texto plano.
                     web_search_payload = {
                         "query": tool_query,
                         "results": parsed_results
