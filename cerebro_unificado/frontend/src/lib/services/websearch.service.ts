@@ -79,17 +79,16 @@ export class WebSearchService {
 				const apiKey = config().browserlessApiKey;
 
 				let scrapeUrl = '';
-				if (route) {
+				if (route && (route.startsWith('http://') || route.startsWith('https://'))) {
 					const baseRoute = route.endsWith('/') ? route.slice(0, -1) : route;
 					scrapeUrl = baseRoute.includes('/scrape') ? baseRoute : `${baseRoute}/scrape`;
 					if (apiKey) {
 						scrapeUrl += `?token=${apiKey}`;
 					}
 				} else {
-					if (!apiKey) {
-						return { content: 'Browserless API token is missing in Settings. (Required for cloud connection)', isError: true };
-					}
-					scrapeUrl = `https://chrome.browserless.io/scrape?token=${apiKey}`;
+					const tokenParam = apiKey ? `?token=${apiKey}` : '';
+					const path = route ? (route.startsWith('/') ? route : `/${route}`) : '/scrape';
+					scrapeUrl = `https://chrome.browserless.io${path}${tokenParam}`;
 				}
 
 				const res = await fetch(scrapeUrl, {

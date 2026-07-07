@@ -7706,3 +7706,91 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 18:17:44 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
 2026-07-07 18:17:44 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
 2026-07-07 18:17:44 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:18:45 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:18:45 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:18:45 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:18:47 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:18:47 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:18:47 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:19:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:19:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:19:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:19:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:19:21 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:19:21 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:19:21 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:19:49 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 18:19:49 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:20:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:20:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:20:27 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Quien gano argentina o egipto?...'
+2026-07-07 18:20:27 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:27 | INFO     | cerebro.main | [Background Search] Invocando execute_web_search_and_scrape para query: 'Quien gano argentina o egipto?'
+2026-07-07 18:20:27 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'Quien gano argentina o egipto?'
+2026-07-07 18:20:27 | DEBUG    | cerebro.database | Embedding guardado para nodo d4eedd63 (rowid=5)
+2026-07-07 18:20:27 | INFO     | cerebro.database | Nodo creado: d4eedd63 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:20:27 | INFO     | cerebro.database | Arista creada: c9a993d5 → d4eedd63 (peso=1.0)
+2026-07-07 18:20:27 | INFO     | cerebro.database | Búsqueda vectorial completada: 2 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 18:20:29 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.elfinanciero.com.mx/deportes/mundial-2026/2026/07/07/argentina-vs-egipto-en-vivo-resultado-de-octavos-de-final/
+2026-07-07 18:20:29 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://cnnespanol.cnn.com/2026/07/07/deportes/live-news/resultado-argentina-egipto-mundial-2026-goles-orix
+2026-07-07 18:20:29 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.lanacion.com.ar/deportes/futbol/argentina-vs-egipto-en-vivo-asi-se-define-el-partido-de-octavos-de-final-nid07072026/
+2026-07-07 18:20:29 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://depor.com/futbol-internacional/mundial/quien-gano-el-partido-argentina-vs-egipto-en-vivo-hoy-por-el-mundial-2026-marcador-en-directo-nnda-nnrt-noticia/
+2026-07-07 18:20:29 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:29 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:30 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 18:20:30 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:30 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/embeddings con modelo all-miniLM
+2026-07-07 18:20:30 | ERROR    | cerebro.embeddings | No se pudo obtener embedding de http://127.0.0.1:8081 tras probar todos los endpoints
+2026-07-07 18:20:30 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:30 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:20:30 | DEBUG    | cerebro.database | Embedding guardado para nodo 46815726 (rowid=6)
+2026-07-07 18:20:30 | INFO     | cerebro.database | Nodo creado: 46815726 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:20:30 | INFO     | cerebro.database | Arista creada: d4eedd63 → 46815726 (peso=1.0)
+2026-07-07 18:20:54 | INFO     | cerebro.database | Nodo creado: 6c251368 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:20:54 | INFO     | cerebro.database | Arista creada: d4eedd63 → 6c251368 (peso=1.0)
+2026-07-07 18:21:09 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:21:09 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:21:23 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:21:23 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'En que version de discord.js estamos actualmente....'
+2026-07-07 18:21:28 | INFO     | cerebro.main | [Proxy Web Search] Ignorando búsqueda web de fondo por fallo en la reformulación
+2026-07-07 18:21:28 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:28 | DEBUG    | cerebro.database | Embedding guardado para nodo 9a5160c0 (rowid=8)
+2026-07-07 18:21:28 | INFO     | cerebro.database | Nodo creado: 9a5160c0 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:21:28 | INFO     | cerebro.database | Arista creada: 6c251368 → 9a5160c0 (peso=1.0)
+2026-07-07 18:21:28 | INFO     | cerebro.database | Búsqueda vectorial completada: 6 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 18:21:41 | INFO     | cerebro.main | [Interceptor Tool] Detectada tool_call emulada para: 'versión actual de discord.js julio 2026'
+2026-07-07 18:21:42 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'versión actual de discord.js julio 2026'
+2026-07-07 18:21:43 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://github.com/discordjs/discord.js/releases
+2026-07-07 18:21:43 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://space-node.net/blog/discord-js-latest-version-changes-2026
+2026-07-07 18:21:43 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://github.com/discordjs
+2026-07-07 18:21:43 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://discord.com/blog/discord-patch-notes-july-7-2026
+2026-07-07 18:21:45 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 18:21:45 | INFO     | cerebro.main | [Interceptor Tool] Resultados y raspado completo (3651 chars)
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:21:45 | DEBUG    | cerebro.database | Embedding guardado para nodo 835adcea (rowid=9)
+2026-07-07 18:21:45 | INFO     | cerebro.database | Nodo creado: 835adcea [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:21:45 | INFO     | cerebro.database | Arista creada: 9a5160c0 → 835adcea (peso=1.0)
+2026-07-07 18:21:45 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
+2026-07-07 18:22:12 | INFO     | cerebro.database | Nodo creado: 8bb6418b [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:22:12 | INFO     | cerebro.database | Arista creada: 835adcea → 8bb6418b (peso=1.0)
+2026-07-07 18:22:14 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:22:14 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
