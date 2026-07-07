@@ -7794,3 +7794,70 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 18:22:12 | INFO     | cerebro.database | Arista creada: 835adcea → 8bb6418b (peso=1.0)
 2026-07-07 18:22:14 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
 2026-07-07 18:22:14 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:29:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:29:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:29:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 18:29:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 18:29:47 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 18:29:58 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 18:31:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 18:31:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:31:18 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'En que dia se popularizo la palabra "aesthetic"?...'
+2026-07-07 18:31:18 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:18 | INFO     | cerebro.main | [Background Search] Invocando execute_web_search_and_scrape para query: 'En que dia se popularizo la palabra "aesthetic"?'
+2026-07-07 18:31:18 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'En que dia se popularizo la palabra "aesthetic"?'
+2026-07-07 18:31:18 | DEBUG    | cerebro.database | Embedding guardado para nodo 8a0ef786 (rowid=11)
+2026-07-07 18:31:18 | INFO     | cerebro.database | Nodo creado: 8a0ef786 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:31:18 | INFO     | cerebro.database | Arista creada: 8bb6418b → 8a0ef786 (peso=1.0)
+2026-07-07 18:31:18 | INFO     | cerebro.database | Búsqueda vectorial completada: 5 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 18:31:20 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://peru.universidadeuropea.com/blog/estilo-aesthetic/
+2026-07-07 18:31:20 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://creativecampus.universidadeuropea.com/blog/estilo-aesthetic/
+2026-07-07 18:31:20 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.clarin.com/viste/significa-aesthetic-llevarlo-dia-dia_0_PwFX8P6Gm3.html
+2026-07-07 18:31:20 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://quieninvento.es/quien-invento-la-palabra-aesthetic/
+2026-07-07 18:31:21 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:21 | DEBUG    | cerebro.database | Embedding guardado para nodo d1115ae3 (rowid=12)
+2026-07-07 18:31:21 | INFO     | cerebro.database | Nodo creado: d1115ae3 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:31:21 | INFO     | cerebro.database | Arista creada: 8a0ef786 → d1115ae3 (peso=1.0)
+2026-07-07 18:31:31 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:31:50 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:31:51 | INFO     | cerebro.main | [Interceptor Tool] Detectada tool_call emulada para: 'cuándo se popularizó la palabra 'aesthetic' en redes sociales'
+2026-07-07 18:31:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:31:51 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'cuándo se popularizó la palabra 'aesthetic' en redes sociales'
+2026-07-07 18:31:52 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://creativecampus.universidadeuropea.com/blog/estilo-aesthetic/
+2026-07-07 18:31:52 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.infobae.com/virales/2025/06/27/que-significa-aesthetic-el-concepto-visual-que-los-jovenes-imponen-en-las-redes-sociales/
+2026-07-07 18:31:52 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://ohmagazinerd.com/estilo-aesthetic-evolucion-de-las-esteticas/
+2026-07-07 18:31:52 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.eluniversal.com.mx/techbit/que-significa-aesthetic-palabra-viral-en-redes-sociales/
+2026-07-07 18:31:54 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 18:31:54 | INFO     | cerebro.main | [Interceptor Tool] Resultados y raspado completo (3375 chars)
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 18:31:54 | DEBUG    | cerebro.database | Embedding guardado para nodo 026387bf (rowid=13)
+2026-07-07 18:31:54 | INFO     | cerebro.database | Nodo creado: 026387bf [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:31:54 | INFO     | cerebro.database | Arista creada: 8a0ef786 → 026387bf (peso=1.0)
+2026-07-07 18:31:54 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
+2026-07-07 18:32:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 18:32:35 | INFO     | cerebro.database | Nodo creado: 4b43ef12 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 18:32:35 | INFO     | cerebro.database | Arista creada: 026387bf → 4b43ef12 (peso=1.0)
