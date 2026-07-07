@@ -75,13 +75,23 @@ export class WebSearchService {
 			}
 
 			if (provider === 'browserless') {
+				const route = config().browserlessRoute;
 				const apiKey = config().browserlessApiKey;
-				if (!apiKey) {
-					return { content: 'Browserless API token is missing in Settings.', isError: true };
+
+				let scrapeUrl = '';
+				if (route) {
+					const baseRoute = route.endsWith('/') ? route.slice(0, -1) : route;
+					scrapeUrl = baseRoute.includes('/scrape') ? baseRoute : `${baseRoute}/scrape`;
+					if (apiKey) {
+						scrapeUrl += `?token=${apiKey}`;
+					}
+				} else {
+					if (!apiKey) {
+						return { content: 'Browserless API token is missing in Settings. (Required for cloud connection)', isError: true };
+					}
+					scrapeUrl = `https://chrome.browserless.io/scrape?token=${apiKey}`;
 				}
 
-				// Simple search using browserless's scrape api
-				const scrapeUrl = `https://chrome.browserless.io/scrape?token=${apiKey}`;
 				const res = await fetch(scrapeUrl, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
