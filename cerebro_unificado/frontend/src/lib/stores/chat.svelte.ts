@@ -1214,8 +1214,12 @@ class ChatStore {
 				timings: ChatMessageTimings | undefined,
 				toolCalls: import('$lib/types/api').ApiChatCompletionToolCall[] | undefined
 			) => {
+				const cleanContent = content
+					.replace(/<web_search_status>([\s\S]*?)<\/web_search_status>/g, '')
+					.replace(/<web_search_results>([\s\S]*?)<\/web_search_results>/g, '')
+					.trim();
 				const updateData: Record<string, unknown> = {
-					content,
+					content: cleanContent,
 					reasoningContent: reasoningContent || undefined,
 					toolCalls: toolCalls ? JSON.stringify(toolCalls) : '',
 					timings
@@ -1224,7 +1228,7 @@ class ChatStore {
 				await DatabaseService.updateMessage(currentMessageId, updateData);
 				const idx = conversationsStore.findMessageIndex(currentMessageId);
 				const uiUpdate: Partial<DatabaseMessage> = {
-					content,
+					content: cleanContent,
 					reasoningContent: reasoningContent || undefined,
 					toolCalls: toolCalls ? JSON.stringify(toolCalls) : ''
 				};

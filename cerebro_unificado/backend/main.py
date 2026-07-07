@@ -75,7 +75,9 @@ SYSTEM_PROMPT_TEMPLATE = (
     "DECISION RULE & FORMAT FOR TOOL CALLS:\n"
     "- If the user asks any fact, current event, search query, version number, release, or information question: you MUST call the tool.\n"
     "- To call the tool, output ONLY the JSON block: {\"name\": \"ejecutar_busqueda_web\", \"arguments\": {\"query\": \"search query\"}}\n"
-    "- Do NOT output any other text, greetings, apologies, or warnings in your final content. Only output the JSON block when using the tool."
+    "- Do NOT output any other text, greetings, apologies, or warnings in your final content. Only output the JSON block when using the tool.\n\n"
+    "CRITICAL ANTI-HALLUCINATION RULE:\n"
+    "NUNCA generes las etiquetas <web_search_status> o <web_search_results> tú mismo — esas etiquetas son exclusivamente generadas por el sistema cuando ejecuta una búsqueda real. Si necesitas buscar, usa ÚNICAMENTE el formato de tool call JSON especificado. Nunca inventes, modifiques, o completes una URL que no te haya sido dada textualmente en un resultado de búsqueda real de este turno. Si no tienes una URL real que citar, no cites ninguna."
 )
 
 
@@ -2135,7 +2137,8 @@ async def proxy_openai_chat(request: Request):
                             f"2. NO inventes, NO supongas, NO alucines datos que no estén explícitamente en los resultados.\n"
                             f"3. NO repitas la llamada a la herramienta ejecutar_busqueda_web.\n"
                             f"4. Cita las fuentes (título y URL) cuando sea relevante.\n"
-                            f"5. Responde de forma directa, concisa y en perfecto castellano (español)."
+                            f"5. Responde de forma directa, concisa y en perfecto castellano (español).\n"
+                            f"6. NUNCA menciones tags internos como <web_search_status> o <web_search_results> en tu respuesta."
                         )
                     })
                     
@@ -2164,6 +2167,13 @@ async def proxy_openai_chat(request: Request):
                                             if choices:
                                                 content = choices[0].get("delta", {}).get("content", "")
                                                 if content:
+                                                    # Filtrar tags alucinados si aparecen
+                                                    if "<web_search_status>" in content or "<web_search_results>" in content:
+                                                        logger.warning("[Anti-hallucination] Modelo intentó fabricar tags de búsqueda, removidos.")
+                                                        content = re.sub(r'<web_search_status>[\s\S]*?<\/web_search_status>', '', content)
+                                                        content = re.sub(r'<web_search_results>[\s\S]*?<\/web_search_results>', '', content)
+                                                        data_json["choices"][0]["delta"]["content"] = content
+                                                        chunk = f"data: {json.dumps(data_json, ensure_ascii=False)}\n\n".encode("utf-8")
                                                     second_llm_chunks.append(content)
                                         except Exception:
                                             pass
@@ -2171,7 +2181,9 @@ async def proxy_openai_chat(request: Request):
                     
                     # Guardar respuesta final del segundo turno
                     second_reply = "".join(second_llm_chunks)
-                    if second_reply.strip():
+                    second_reply = re.sub(r'<web_search_status>[\s\S]*?<\/web_search_status>', '', second_reply)
+                    second_reply = re.sub(r'<web_search_results>[\s\S]*?<\/web_search_results>', '', second_reply).strip()
+                    if second_reply:
                         final_node = await db.insert_node(
                             content=second_reply,
                             session_id=session_id,
@@ -2184,13 +2196,25 @@ async def proxy_openai_chat(request: Request):
                 
                 else:
                     # ─── SIN TOOL CALL: Emitir los chunks retenidos al frontend ───
-                    for held_chunk in held_chunks:
-                        yield held_chunk
+                    clean_reply = first_reply
+                    if "<web_search_status>" in clean_reply or "<web_search_results>" in clean_reply:
+                        logger.warning("[Anti-hallucination] Modelo intentó fabricar tags de búsqueda, removidos.")
+                        clean_reply = re.sub(r'<web_search_status>[\s\S]*?<\/web_search_status>', '', clean_reply)
+                        clean_reply = re.sub(r'<web_search_results>[\s\S]*?<\/web_search_results>', '', clean_reply).strip()
+                        
+                        # Re-emitir como un chunk unificado limpio
+                        chunk_info = {
+                            "choices": [{"index": 0, "delta": {"content": clean_reply}, "finish_reason": "stop"}]
+                        }
+                        yield f"data: {json.dumps(chunk_info, ensure_ascii=False)}\n\n".encode("utf-8")
+                    else:
+                        for held_chunk in held_chunks:
+                            yield held_chunk
                     
                     # Guardar primera respuesta en base de datos
-                    if first_reply.strip():
+                    if clean_reply.strip():
                         reply_node = await db.insert_node(
-                            content=first_reply,
+                            content=clean_reply,
                             session_id=session_id,
                             parent_id=current_parent,
                             node_type="CONOCIMIENTO"
