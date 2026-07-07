@@ -143,7 +143,7 @@ class IntentionClassifier:
                             {"role": "system", "content": CLASSIFY_SYSTEM_PROMPT},
                             {"role": "user", "content": message},
                         ],
-                        "max_tokens": 20,
+                        "max_tokens": 256,
                         "temperature": 0.0,
                     },
                 )

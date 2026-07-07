@@ -1601,14 +1601,34 @@ class ChatStore {
 		}
 	}
 
+	private async markMessageAsRegeneratedInBackend(content: string): Promise<void> {
+		if (!content || content.trim() === '') return;
+		try {
+			await fetch(`./api/database/mark_error`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					content: content.trim(),
+					session_id: 'proxy-chat-session'
+				})
+			});
+		} catch (e) {
+			console.warn('[chatStore] Failed to notify backend of regenerated message:', e);
+		}
+	}
+
 	async regenerateMessage(messageId: string): Promise<void> {
 		const activeConv = conversationsStore.activeConversation;
 		if (!activeConv || this.isChatLoadingInternal(activeConv.id)) return;
 		this.cancelPreEncode();
 		const result = this.getMessageByIdWithRole(messageId, MessageRole.ASSISTANT);
 		if (!result) return;
-		const { index: messageIndex } = result;
+		const { index: messageIndex, message: assistantMsg } = result;
 		try {
+			void this.markMessageAsRegeneratedInBackend(assistantMsg.content);
+
 			const messagesToRemove = conversationsStore.activeMessages.slice(messageIndex);
 			for (const message of messagesToRemove) await DatabaseService.deleteMessage(message.id);
 			conversationsStore.sliceActiveMessages(messageIndex);
@@ -1640,6 +1660,8 @@ class ChatStore {
 			if (idx === -1) return;
 			const msg = conversationsStore.activeMessages[idx];
 			if (msg.role !== MessageRole.ASSISTANT) return;
+
+			void this.markMessageAsRegeneratedInBackend(msg.content);
 			const allMessages = await conversationsStore.getConversationMessages(activeConv.id);
 			const parentMessage = findMessageById(allMessages, msg.parent);
 			if (!parentMessage) return;

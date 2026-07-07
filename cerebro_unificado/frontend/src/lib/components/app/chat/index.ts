@@ -691,3 +691,8 @@ export { default as ChatScreenServerError } from './ChatScreen/ChatScreenServerE
  * Renders nothing otherwise. Shown inside ChatScreen only on an active conversation route.
  */
 export { default as ChatScreenStreamResumeStatus } from './ChatScreen/ChatScreenStreamResumeStatus.svelte';
+
+/**
+ * Sliding side panel (drawer) for HTML/SVG code previews and source code display.
+ */
+export { default as ChatArtifactDrawer } from './ChatArtifactDrawer.svelte';

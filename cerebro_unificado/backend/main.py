@@ -57,7 +57,7 @@ SYSTEM_PROMPT_TEMPLATE = (
     "You are the Unified Cognitive Brain of {{user}}. Your identity, personality, and name are not predefined; "
     "they adapt dynamically based on the local context memory nodes {{user}} provides. "
     "If context memories specify your name or relationship with {{user}}, assume it fully and act accordingly.\n"
-    "CURRENT TIMESTAMP: {{current_time}}.\n"
+    "CURRENT TIMESTAMP: {{current_time}}. Use this timestamp as your absolute temporal anchor. Because your internal training data only goes up to your training cutoff (which is years ago), you MUST execute 'ejecutar_busqueda_web' to retrieve accurate facts, version numbers, releases, updates, or news for any years or events from 2024, 2025, or 2026.\n"
     "HOST SYSTEM: {{os_version}}.\n"
     "LANGUAGE RULE: You MUST speak and write your response to {{user}} strictly in {{target_lang}}.\n\n"
     "AVAILABLE TOOLS (STRICT SELECTION RULES):\n\n"
@@ -72,7 +72,10 @@ SYSTEM_PROMPT_TEMPLATE = (
     "- If the user asks you to perform system tasks, administration, run commands, check disk space, start/stop services, "
     "or write scripts to be executed on their local Linux machine, you MUST NOT execute them. "
     "Instead, you must write detailed, instructional Markdown text explaining to the user how they can manually execute the tasks themselves.\n\n"
-    "DECISION RULE: If the user asks any fact, current event, search query, or information question → use ejecutar_busqueda_web."
+    "DECISION RULE & FORMAT FOR TOOL CALLS:\n"
+    "- If the user asks any fact, current event, search query, version number, release, or information question: you MUST call the tool.\n"
+    "- To call the tool, output ONLY the JSON block: {\"name\": \"ejecutar_busqueda_web\", \"arguments\": {\"query\": \"search query\"}}\n"
+    "- Do NOT output any other text, greetings, apologies, or warnings in your final content. Only output the JSON block when using the tool."
 )
 
 
@@ -493,6 +496,26 @@ async def reset_db_endpoint():
             status_code=500,
             detail=f"Fallo al resetear la base de datos: {str(exc)}"
         )
+
+
+@app.post("/api/database/mark_error")
+async def mark_error_endpoint(payload: dict):
+    """Marca un nodo como REGENERADO (error de IA) para excluirlo del contexto futuro."""
+    content = payload.get("content", "").strip()
+    session_id = payload.get("session_id", "proxy-chat-session")
+    if not content:
+        return {"ok": False, "error": "Content is required"}
+    
+    try:
+        query = "UPDATE nodes SET type = 'REGENERADO' WHERE content = ? AND session_id = ?"
+        async with db._conn.execute(query, (content, session_id)) as cursor:
+            rows_affected = cursor.rowcount
+        await db._conn.commit()
+        logger.info("[Memory DB] Marcado nodo como REGENERADO (%d filas afectadas)", rows_affected)
+        return {"ok": True, "rows_affected": rows_affected}
+    except Exception as exc:
+        logger.error("[Memory DB] Error al marcar nodo como regenerado: %s", exc)
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @app.post("/process", response_model=ProcessResponse)
@@ -1166,7 +1189,60 @@ async def execute_system_command(command: str) -> str:
         "está estrictamente deshabilitada en esta instancia del Cerebro Autónomo."
     )
 
-async def query_memory_and_enrich(message: str, session_id: str) -> tuple[str, str]:
+
+async def reformulate_search_query(history_messages: list, current_message: str) -> str:
+    """Reescribe la consulta del usuario para incluir el contexto de la conversación."""
+    if not history_messages:
+        return current_message
+    try:
+        # Usamos el LLM para reescribir la query basándonos en el contexto
+        prompt = (
+            "Dada la siguiente conversación y una nueva pregunta, "
+            "reescribe la nueva pregunta para que sea una consulta de búsqueda web efectiva en Google/SearXNG "
+            "que incluya el contexto necesario (sujeto, tecnologías, nombres).\n"
+            "Responde ÚNICAMENTE con la consulta de búsqueda reescrita, sin explicaciones ni comillas.\n\n"
+            f"Historial de conversación:\n"
+        )
+        # Añadir últimos 3 mensajes para contexto rápido
+        for msg in history_messages[-4:]:
+            role = "Usuario" if msg.get("role") == "user" else "IA"
+            content = msg.get("content", "")
+            # Limpiar posibles etiquetas XML anteriores para no confundir
+            content_clean = re.sub(r'<[^>]+>[\s\S]*?<\/[^>]+>', '', content).strip()
+            prompt += f"{role}: {content_clean[:200]}\n"
+            
+        prompt += f"Nueva pregunta: {current_message}\n"
+        prompt += "Consulta de búsqueda reescrita:"
+
+        async with httpx.AsyncClient(timeout=4.0) as client:
+            response = await client.post(
+                f"{LLM_URL_BASE}/v1/chat/completions",
+                json={
+                    "messages": [
+                        {"role": "system", "content": "Eres un experto en RAG que reescribe consultas de búsqueda web basándote en el contexto. Responde únicamente con la query reescrita."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    "max_tokens": 64,
+                    "temperature": 0.0
+                }
+            )
+            response.raise_for_status()
+            data = response.json()
+            rewritten = data["choices"][0]["message"]["content"].strip()
+            # Limpiar etiquetas de razonamiento si el modelo las incluyó
+            if "</think>" in rewritten:
+                rewritten = rewritten.split("</think>")[-1].strip()
+            # Limpiar comillas
+            rewritten = rewritten.replace('"', '').replace("'", "").strip()
+            if rewritten:
+                logger.info("[Query Reformulation] Query original: '%s' -> Reescrita: '%s'", current_message, rewritten)
+                return rewritten
+    except Exception as exc:
+        logger.warning("[Query Reformulation] Fallo al reformular query: %s", exc)
+    return current_message
+
+
+async def query_memory_and_enrich(message: str, session_id: str, history: list = None) -> tuple[str, str]:
     """Consulta la memoria neuronal semántica para enriquecer el prompt del proxy."""
     # 1. Lanzar búsqueda/scraping web en paralelo (Opción A, omnipresente)
     web_task = None
@@ -1188,7 +1264,12 @@ async def query_memory_and_enrich(message: str, session_id: str) -> tuple[str, s
                     return ""
             web_task = asyncio.create_task(scrape_task())
         else:
-            web_task = asyncio.create_task(_background_web_search(message))
+            # Reformular la query si hay historial para evitar pérdida de contexto en la búsqueda web
+            search_query = message
+            if history and len(history) > 0:
+                search_query = await reformulate_search_query(history, message)
+            
+            web_task = asyncio.create_task(_background_web_search(search_query))
 
     # 2. Obtener embedding de forma segura
     embedding = None
@@ -1238,6 +1319,9 @@ async def query_memory_and_enrich(message: str, session_id: str) -> tuple[str, s
     
     context_nodes = []
     for node in context_nodes_raw:
+        # Excluir explícitamente nodos marcados como error o regenerados
+        if node.get("type") in ("ERROR", "REGENERADO", "ALUCINACION"):
+            continue
         content = node.get("content", "").strip()
         if any(content.startswith(pref) for pref in system_prefixes):
             continue
@@ -1283,10 +1367,6 @@ async def query_memory_and_enrich(message: str, session_id: str) -> tuple[str, s
 
     enriched_parts = []
     
-    # Directiva de Identidad Evolutiva & Ejecución (Formulada en inglés para garantizar cumplimiento por el LLM)
-    identity_directive = render_system_prompt(target_lang="Spanish (Español)")
-    enriched_parts.append(identity_directive)
-
     # Inyectar el contexto web si existe
     if web_context:
         enriched_parts.append(web_context)
@@ -1749,9 +1829,22 @@ async def proxy_openai_chat(request: Request):
     # 1. Consultar recuerdos y enriquecer el prompt
     global last_user_activity_time
     last_user_activity_time = time.time()
-    enriched_prompt, question_node_id = await query_memory_and_enrich(user_message, session_id)
+    enriched_prompt, question_node_id = await query_memory_and_enrich(user_message, session_id, messages[:-1] if messages else None)
     if messages:
         messages[-1]["content"] = enriched_prompt
+        
+        # Inyectar o actualizar el system message con la directiva actual
+        identity_directive = render_system_prompt(target_lang="Spanish (Español)")
+        has_system = False
+        for msg in messages:
+            if msg.get("role") == "system":
+                # Prepend o sobreescritura limpia para guiar al modelo
+                msg["content"] = identity_directive + "\n\n" + msg["content"]
+                has_system = True
+                break
+        if not has_system:
+            messages.insert(0, {"role": "system", "content": identity_directive})
+            
         body["messages"] = messages
 
     # 2. Reenviar

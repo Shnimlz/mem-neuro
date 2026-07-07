@@ -7,7 +7,7 @@
 	import { untrack } from 'svelte';
 	import { onMount } from 'svelte';
 
-	import { SidebarNavigation, DialogConversationTitleUpdate } from '$lib/components/app';
+	import { SidebarNavigation, DialogConversationTitleUpdate, ChatArtifactDrawer } from '$lib/components/app';
 	import { DialogMcpServerRecommendations } from '$lib/components/app/dialogs';
 	import { PwaMetaTags, PwaRefreshAlert } from '$lib/components/pwa';
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
@@ -313,6 +313,8 @@
 			{@render children?.()}
 		</div>
 	</div>
+
+	<ChatArtifactDrawer />
 
 	<ModeWatcher />
 

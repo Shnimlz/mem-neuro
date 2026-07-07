@@ -84,6 +84,12 @@
 		};
 	});
 
+	$effect(() => {
+		if (isSearching && !isDone) {
+			isOpen = true;
+		}
+	});
+
 	const currentPhase: SearchPhase = $derived(
 		status || (!isSearching || results.length > 0 ? 'done' : phases[currentPhaseIdx].id)
 	);
@@ -133,8 +139,13 @@
 	<Card
 		class="gap-0 border-border/60 bg-card/45 backdrop-blur-md hover:bg-card/55
 		       transition-all duration-300 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)]
-		       py-0 overflow-hidden"
+		       py-0 overflow-hidden relative"
 	>
+		{#if !isDone}
+			<div class="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden bg-primary/10 z-10">
+				<div class="h-full w-full bg-gradient-to-r from-primary/20 via-primary to-primary/20 animate-shimmer" style="background-size: 200% 100%;"></div>
+			</div>
+		{/if}
 		<!-- ─── Trigger Header ─────────────────────────────────────── -->
 		<Collapsible.Trigger
 			class="flex w-full cursor-pointer items-center justify-between gap-3
@@ -362,3 +373,17 @@
 		</Collapsible.Content>
 	</Card>
 </Collapsible.Root>
+
+<style>
+	@keyframes shimmer {
+		0% {
+			background-position: -200% 0;
+		}
+		100% {
+			background-position: 200% 0;
+		}
+	}
+	:global(.animate-shimmer) {
+		animation: shimmer 1.8s infinite linear !important;
+	}
+</style>

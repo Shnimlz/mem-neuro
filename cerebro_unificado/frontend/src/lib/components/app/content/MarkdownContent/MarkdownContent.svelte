@@ -71,11 +71,11 @@
 	import { mode } from 'mode-watcher';
 	import {
 		CodeBlockActions,
-		DialogCodePreview,
 		DialogMermaidPreview,
 		ActionIconCopyToClipboard,
 		SyntaxHighlightedCode
 	} from '$lib/components/app';
+	import { chatStore } from '$lib/stores/chat.svelte';
 	import { createAutoScrollController } from '$lib/hooks/use-auto-scroll.svelte';
 	import type { DatabaseMessageExtra } from '$lib/types/database';
 	import { config } from '$lib/stores/settings.svelte';
@@ -116,9 +116,7 @@
 		return null;
 	});
 	const liveSvgHtml = $derived(streamingSvgCode !== null ? sanitizeSvg(streamingSvgCode) : '');
-	let previewDialogOpen = $state(false);
-	let previewCode = $state('');
-	let previewLanguage = $state('text');
+
 	let mermaidPreviewOpen = $state(false);
 	let mermaidPreviewSvgHtml = $state('');
 	let svgPreviewLive = $state(false);
@@ -294,19 +292,7 @@
 		}
 	}
 
-	/**
-	 * Handles preview dialog open state changes.
-	 * Clears preview content when dialog is closed.
-	 * @param open - Whether the dialog is being opened or closed
-	 */
-	function handlePreviewDialogOpenChange(open: boolean) {
-		previewDialogOpen = open;
 
-		if (!open) {
-			previewCode = '';
-			previewLanguage = 'text';
-		}
-	}
 
 	/**
 	 * Handles click events on preview buttons within HTML code blocks.
@@ -332,9 +318,9 @@
 		if (onMaximizeCode) {
 			onMaximizeCode(info.rawCode, info.language);
 		} else {
-			previewCode = info.rawCode;
-			previewLanguage = info.language;
-			previewDialogOpen = true;
+			chatStore.codePreviewState.code = info.rawCode;
+			chatStore.codePreviewState.language = info.language;
+			chatStore.codePreviewState.open = true;
 		}
 	}
 
@@ -1105,12 +1091,7 @@
 	{/if}
 </div>
 
-<DialogCodePreview
-	open={previewDialogOpen}
-	code={previewCode}
-	language={previewLanguage}
-	onOpenChange={handlePreviewDialogOpenChange}
-/>
+
 
 <DialogMermaidPreview
 	open={mermaidPreviewOpen}
