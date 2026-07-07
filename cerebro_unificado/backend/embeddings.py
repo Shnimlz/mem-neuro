@@ -137,27 +137,123 @@ class EmbeddingsClient:
 
     @staticmethod
     def chunk_text(text: str, max_chars: int = 1500) -> list[str]:
-        """Divide el texto en fragmentos que no excedan max_chars caracteres, respetando palabras."""
-        words = text.split()
-        chunks = []
-        current_chunk = []
-        current_length = 0
+        """Divide el texto utilizando un algoritmo divisor recursivo inteligente (estilo Open WebUI / LangChain)."""
+        separators = ["\n\n", "\n", " ", ""]
+        chunk_overlap = 200
 
-        for word in words:
-            word_len = len(word) + 1
-            if current_length + word_len > max_chars:
-                if current_chunk:
-                    chunks.append(" ".join(current_chunk))
-                current_chunk = [word]
-                current_length = word_len
-            else:
-                current_chunk.append(word)
-                current_length += word_len
+        def split_text(txt: str, separator_idx: int) -> list[str]:
+            if len(txt) <= max_chars:
+                return [txt]
 
-        if current_chunk:
-            chunks.append(" ".join(current_chunk))
+            if separator_idx >= len(separators):
+                # Caso base: sin separadores, cortar directamente
+                return [txt[i : i + max_chars] for i in range(0, len(txt), max_chars - chunk_overlap)]
 
-        return chunks if chunks else [text]
+            sep = separators[separator_idx]
+            splits = list(txt) if sep == "" else txt.split(sep)
+
+            final_chunks = []
+            current_chunk: list[str] = []
+            current_len = 0
+
+            for part in splits:
+                part_len = len(part)
+                # Si agregar esta parte excede el tamaño máximo
+                if current_len + part_len + (len(sep) if current_chunk else 0) > max_chars:
+                    if part_len > max_chars:
+                        # Si una sola parte excede el tamaño máximo, dividirla recursivamente
+                        if current_chunk:
+                            final_chunks.append(sep.join(current_chunk))
+                            current_chunk = []
+                            current_len = 0
+                        recursive_splits = split_text(part, separator_idx + 1)
+                        final_chunks.extend(recursive_splits[:-1])
+                        current_chunk = [recursive_splits[-1]]
+                        current_len = len(recursive_splits[-1])
+                    else:
+                        # Guardar el chunk actual y comenzar uno nuevo
+                        if current_chunk:
+                            final_chunks.append(sep.join(current_chunk))
+                        current_chunk = [part]
+                        current_len = part_len
+                else:
+                    current_chunk.append(part)
+                    current_len += part_len + (len(sep) if len(current_chunk) > 1 else 0)
+
+            if current_chunk:
+                final_chunks.append(sep.join(current_chunk))
+
+            return final_chunks
+
+        return split_text(text, 0)
+
+    async def rerank(
+        self,
+        query: str,
+        documents: list[str],
+        top_n: int = 3,
+        external_reranker_url: str | None = None
+    ) -> list[str]:
+        """Reordena una lista de documentos/fragmentos por relevancia respecto a una consulta.
+        
+        Intenta primero usar un servidor de reranking externo compatible (si se proporciona URL).
+        Como fallback asíncrono y resiliente, calcula la similitud de coseno
+        utilizando los embeddings de EmbeddingsClient.
+        """
+        if documents is None or not isinstance(documents, list) or not documents:
+            return []
+            
+        # 1. Intentar Reranker Externo si está configurado
+        if external_reranker_url:
+            try:
+                payload = {
+                    "model": "reranker",
+                    "query": query,
+                    "documents": documents,
+                    "top_n": top_n
+                }
+                async with httpx.AsyncClient(timeout=4.0) as client:
+                    response = await client.post(external_reranker_url, json=payload)
+                    if response.status_code == 200:
+                        data = response.json()
+                        results = data.get("results", [])
+                        results = sorted(results, key=lambda x: x.get("relevance_score", 0.0), reverse=True)
+                        reranked_docs = []
+                        for res in results[:top_n]:
+                            idx = res.get("index")
+                            if idx is not None and 0 <= idx < len(documents):
+                                reranked_docs.append(documents[idx])
+                        if reranked_docs:
+                            logger.info("[Reranker] Ordenación completada usando reordenador externo.")
+                            return reranked_docs
+            except Exception as exc:
+                logger.warning("[Reranker] Fallo en Reranker externo (%s). Usando fallback de embeddings...", exc)
+
+        # 2. Fallback: Similitud de coseno basada en embeddings bi-encoder
+        try:
+            logger.info("[Reranker] Ejecutando reordenamiento semántico por embeddings...")
+            query_vector = await self.get_embedding(query)
+            if not query_vector:
+                logger.warning("[Reranker] No se pudo obtener el embedding de la query. Retornando orden original.")
+                return documents[:top_n]
+                
+            scored_docs = []
+            for doc in documents:
+                doc_vector = await self.get_embedding(doc)
+                if doc_vector:
+                    # Similitud coseno (al estar normalizados L2, es solo el producto escalar)
+                    score = sum(q * d for q, d in zip(query_vector, doc_vector))
+                    scored_docs.append((score, doc))
+                else:
+                    scored_docs.append((0.0, doc))
+                    
+            scored_docs.sort(key=lambda x: x[0], reverse=True)
+            logger.info("[Reranker] Reordenamiento por embeddings completado.")
+            return [doc for _, doc in scored_docs[:top_n]]
+            
+        except Exception as exc:
+            logger.error("[Reranker] Error en fallback de embeddings: %s. Retornando orden original.", exc)
+            return documents[:top_n]
 
     def _parse_response(self, data: dict[str, Any]) -> list[float] | None:
         """Parsea la respuesta JSON de embeddings del servidor."""

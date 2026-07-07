@@ -1065,23 +1065,85 @@ async def api_ejecutar_busqueda_web(req: WebSearchToolRequest):
 
 
 async def execute_web_search_and_scrape(query: str) -> str:
-    """Realiza la búsqueda en SearXNG, raspa los contenidos de las webs en paralelo y genera el bloque <web_context>."""
+    """Realiza la búsqueda en SearXNG, raspa los contenidos de las webs en paralelo,
+    las segmenta de forma inteligente y realiza un reordenamiento (rerank) para inyectar
+    únicamente los 3 fragmentos más relevantes en el prompt del sistema.
+    """
     from web_scraper import perform_web_search, scrape_multiple_urls
     search_links = await perform_web_search(query)
-    if not search_links:
+    if not search_links or not isinstance(search_links, list):
         return "<web_context>\nNo se encontraron resultados en la web.\n</web_context>"
         
     urls = [r["url"] for r in search_links]
-    scraped_contents = await scrape_multiple_urls(urls)
+    scraped_contents = []
+    if urls:
+        try:
+            result = await scrape_multiple_urls(urls)
+            scraped_contents = list(result) if result is not None else []
+        except Exception as exc:
+            logger.error("[Search&Scrape] Error en scrape_multiple_urls: %s", exc)
+            scraped_contents = []
     
+    # Recolectar fragmentos de las páginas
+    all_chunks = []
+    chunk_to_source = {}
+    
+    try:
+        for i, r in enumerate(search_links):
+            content = scraped_contents[i] if i < len(scraped_contents) else ""
+            if not content or not content.strip() or content.startswith("[Error"):
+                snippet = r.get("snippet", "")
+                if snippet:
+                    all_chunks.append(snippet)
+                    chunk_to_source[snippet] = {"title": r.get("title", ""), "url": r.get("url", "")}
+                continue
+                
+            # Dividir contenido usando el splitter recursivo inteligente de embeddings_client
+            if embeddings_client:
+                page_chunks = embeddings_client.chunk_text(content, max_chars=1200)
+                for ch in page_chunks:
+                    ch_strip = ch.strip()
+                    if ch_strip:
+                        all_chunks.append(ch_strip)
+                        chunk_to_source[ch_strip] = {"title": r.get("title", ""), "url": r.get("url", "")}
+            else:
+                all_chunks.append(content)
+                chunk_to_source[content] = {"title": r.get("title", ""), "url": r.get("url", "")}
+    except Exception as exc:
+        logger.error("[Search&Scrape] Error procesando resultados: %s", exc)
+
+    # Realizar el reordenamiento (rerank) asíncrono
+    reranked_chunks = []
+    if all_chunks:
+        if embeddings_client:
+            try:
+                # Intentamos el reordenamiento
+                reranked_chunks = await embeddings_client.rerank(query, all_chunks, top_n=3)
+                # Si por error interno devuelve None, lo convertimos a lista vacía
+                reranked_chunks = reranked_chunks if reranked_chunks is not None else []
+            except Exception as e:
+                # Logueamos el error para saber qué pasó pero no rompemos el chat
+                logger.error(f"Error crítico en Reranking: {e}")
+                reranked_chunks = []
+        
+        # Cláusula de seguridad final: si está vacío, usamos los originales
+        if not reranked_chunks:
+            logger.warning("Reranking falló o devolvió vacío, usando fragmentos originales.")
+            reranked_chunks = all_chunks[:3]
+            
+    # Formatear el bloque <web_context>
     output_parts = []
-    for i, r in enumerate(search_links):
-        title = r["title"]
-        url = r["url"]
-        content_clean = scraped_contents[i] if i < len(scraped_contents) else r["snippet"]
+    for idx, chunk in enumerate(reranked_chunks):
+        source = chunk_to_source.get(chunk, {"title": "Búsqueda Web", "url": ""})
         output_parts.append(
-            f"### Fuente: {title}\nURL: {url}\nContenido:\n{content_clean}\n---"
+            f"### Fragmento de Relevancia {idx+1}:\n"
+            f"- Fuente: {source['title']}\n"
+            f"- URL: {source['url']}\n"
+            f"- Contenido:\n{chunk}\n---"
         )
+        
+    if not output_parts:
+        return "<web_context>\nNo se encontró contenido web relevante tras el análisis.\n</web_context>"
         
     return f"<web_context>\n" + "\n".join(output_parts) + "\n</web_context>"
 
@@ -1820,6 +1882,9 @@ async def proxy_openai_chat(request: Request):
                     
                     from web_scraper import perform_web_search, scrape_multiple_urls
                     search_links = await perform_web_search(tool_query)
+                    # Blindaje: si search_links es None o no es lista, forzar lista vacía
+                    if not search_links or not isinstance(search_links, list):
+                        search_links = []
                     
                     # Emitir estado: Extrayendo contenido
                     status_chunk = {
@@ -1830,7 +1895,12 @@ async def proxy_openai_chat(request: Request):
                     urls = [r["url"] for r in search_links]
                     scraped_contents = []
                     if urls:
-                        scraped_contents = await scrape_multiple_urls(urls)
+                        try:
+                            result = await scrape_multiple_urls(urls)
+                            scraped_contents = list(result) if result is not None else []
+                        except Exception as exc:
+                            logger.error("[Proxy Scraper] Error en scrape_multiple_urls: %s", exc)
+                            scraped_contents = []
                         
                     # Emitir estado: Sintetizando información
                     status_chunk = {
@@ -1841,33 +1911,75 @@ async def proxy_openai_chat(request: Request):
 
                     # Construir resultados formateados para el LLM y el frontend
                     parsed_results = []
-                    output_parts = []
-                    for i, r in enumerate(search_links):
-                        title = r["title"]
-                        url = r["url"]
-                        snippet = r["snippet"]
-                        content_clean = scraped_contents[i] if i < len(scraped_contents) else snippet
-                        
-                        try:
-                            domain = url.split("//")[1].split("/")[0]
-                            icon = f"https://www.google.com/s2/favicons?sz=32&domain={domain}"
-                        except Exception:
-                            icon = ""
+                    all_chunks = []
+                    chunk_to_source = {}
+                    
+                    try:
+                        for i, r in enumerate(search_links):
+                            title = r.get("title", "")
+                            url = r.get("url", "")
+                            snippet = r.get("snippet", "")
                             
-                        parsed_results.append({
-                            "title": title,
-                            "url": url,
-                            "icon": icon,
-                            "content": snippet
-                        })
+                            try:
+                                domain = url.split("//")[1].split("/")[0]
+                                icon = f"https://www.google.com/s2/favicons?sz=32&domain={domain}"
+                            except Exception:
+                                icon = ""
+                                
+                            parsed_results.append({
+                                "title": title,
+                                "url": url,
+                                "icon": icon,
+                                "content": snippet
+                            })
+
+                            # Segmentar contenido raspado
+                            content = scraped_contents[i] if i < len(scraped_contents) else ""
+                            if not content or not content.strip() or content.startswith("[Error"):
+                                if snippet:
+                                    all_chunks.append(snippet)
+                                    chunk_to_source[snippet] = {"title": title, "url": url}
+                                continue
+                                
+                            if embeddings_client:
+                                page_chunks = embeddings_client.chunk_text(content, max_chars=1200)
+                                for ch in page_chunks:
+                                    ch_strip = ch.strip()
+                                    if ch_strip:
+                                        all_chunks.append(ch_strip)
+                                        chunk_to_source[ch_strip] = {"title": title, "url": url}
+                            else:
+                                all_chunks.append(content)
+                                chunk_to_source[content] = {"title": title, "url": url}
+                    except Exception as exc:
+                        import traceback
+                        logger.error("[Proxy] Error procesando resultados de búsqueda: %s\n%s", exc, traceback.format_exc())
+
+                    # Reordenar fragmentos
+                    reranked_chunks = []
+                    if all_chunks:
+                        if embeddings_client:
+                            try:
+                                reranked_chunks = await embeddings_client.rerank(tool_query, all_chunks, top_n=3)
+                                reranked_chunks = reranked_chunks if reranked_chunks is not None else []
+                            except Exception as e:
+                                logger.error(f"Error crítico en Reranking en streaming: {e}")
+                                reranked_chunks = []
                         
+                        if not reranked_chunks:
+                            logger.warning("Reranking en streaming falló o devolvió vacío, usando fragmentos originales.")
+                            reranked_chunks = all_chunks[:3]
+
+                    output_parts = []
+                    for idx, chunk in enumerate(reranked_chunks):
+                        source = chunk_to_source.get(chunk, {"title": "Búsqueda Web", "url": ""})
                         output_parts.append(
-                            f"Resultado {i+1}:\n"
-                            f"- Título: {title}\n"
-                            f"- URL: {url}\n"
-                            f"- Contenido Completo Extraído:\n{content_clean}\n"
+                            f"### Fragmento de Relevancia {idx+1}:\n"
+                            f"- Fuente: {source['title']}\n"
+                            f"- URL: {source['url']}\n"
+                            f"- Contenido:\n{chunk}\n---"
                         )
-                        
+
                     search_result = (
                         f"A continuación tienes los resultados reales de la web obtenidos en tiempo real "
                         f"para la consulta '{tool_query}'. Utilízalos para responder la duda del usuario:\n\n"
