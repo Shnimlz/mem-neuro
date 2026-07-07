@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "name": "Arch Wiki",
+      "domain": "wiki.archlinux.org",
+      "selector": "#mw-content-text",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (CachyOS; Linux) CerebroAutonomo/1.0"
+      }
+    },
+    {
+      "name": "Debian Wiki",
+      "domain": "wiki.debian.org",
+      "selector": "#content",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Debian; Linux) CerebroAutonomo/1.0"
+      }
+    },
+    {
+      "name": "Python Docs",
+      "domain": "docs.python.org",
+      "selector": ".body",
+      "headers": {}
+    }
+  ]
+}

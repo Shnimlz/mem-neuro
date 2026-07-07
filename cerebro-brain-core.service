@@ -1,0 +1,16 @@
+[Unit]
+Description=Cerebro Autónomo Unificado - Brain Core (Producción)
+After=network.target cerebro-llama-server.service cerebro-embeddings.service
+Wants=cerebro-llama-server.service
+Requires=cerebro-embeddings.service
+
+[Service]
+WorkingDirectory=%h/Github/mem-neuro/cerebro_unificado/backend
+ExecStart=%h/Github/mem-neuro/cerebro_unificado/backend/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

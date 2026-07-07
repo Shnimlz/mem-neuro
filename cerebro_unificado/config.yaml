@@ -1,0 +1,37 @@
+llm:
+  server_url: "http://127.0.0.1:8080"        # DeepSeek-R1 (chat)
+  max_output_tokens: 4096
+  classify_timeout: 5
+
+embeddings:
+  server_url: "http://127.0.0.1:8081"
+  model: "all-miniLM"
+  dimension: 384
+
+database:
+  path: "./storage/brain.db"
+  similarity_threshold: 0.40
+
+
+
+scraping:                                     # Fase 5
+  enabled: true
+  cache_ttl: 604800  # 7 días en segundos
+  max_content_length: 2000
+
+
+core:
+  host: "127.0.0.1"
+  port: 8000
+
+frontend:
+  refresh_interval: 2000
+
+backup:
+  enabled: true
+  path: "./storage/backups/"
+  keep_last: 10
+
+agent_cron:
+  enabled: false
+  interval_seconds: 60  # Ejecutar bucle autónomo en background cada 60 segundos (ajustable)

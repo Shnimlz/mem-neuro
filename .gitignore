@@ -1,0 +1,24 @@
+# Storage
+storage/brain.db
+storage/brain.db-wal
+storage/brain.db-shm
+storage/cerebro.log
+storage/backups/*.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+brain_core/.venv/
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

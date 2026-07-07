@@ -1,0 +1,295 @@
+@import 'tailwindcss';
+@source '.';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+	--radius: 0.625rem;
+	--background: hsl(220, 23%, 95%);
+	--foreground: hsl(234, 16%, 35%);
+	--card: hsl(220, 22%, 92%);
+	--card-foreground: hsl(234, 16%, 35%);
+	--popover: hsl(220, 22%, 92%);
+	--popover-foreground: hsl(234, 16%, 35%);
+	--primary: hsl(231, 97%, 72%);
+	--primary-foreground: hsl(220, 23%, 95%);
+	--secondary: hsl(220, 17%, 83%);
+	--secondary-foreground: hsl(234, 16%, 35%);
+	--muted: hsl(220, 17%, 83%);
+	--muted-foreground: hsl(233, 10%, 47%);
+	--accent: hsl(220, 17%, 83%);
+	--accent-foreground: hsl(234, 16%, 35%);
+	--destructive: hsl(347, 87%, 44%);
+	--border: hsl(223, 14%, 77%);
+	--input: hsl(223, 14%, 77%);
+	--ring: hsl(231, 97%, 72%);
+	--chart-1: hsl(347, 87%, 44%);
+	--chart-2: hsl(40, 80%, 49%);
+	--chart-3: hsl(110, 50%, 40%);
+	--chart-4: hsl(25, 95%, 52%);
+	--chart-5: hsl(180, 50%, 45%);
+	--sidebar: hsl(220, 22%, 92%);
+	--sidebar-foreground: hsl(234, 16%, 35%);
+	--sidebar-primary: hsl(231, 97%, 72%);
+	--sidebar-primary-foreground: hsl(220, 23%, 95%);
+	--sidebar-accent: hsl(220, 17%, 83%);
+	--sidebar-accent-foreground: hsl(234, 16%, 35%);
+	--sidebar-border: hsl(223, 14%, 77%);
+	--sidebar-ring: hsl(231, 97%, 72%);
+	--code-background: hsl(220, 22%, 92%);
+	--code-foreground: hsl(231, 97%, 72%);
+	--font-mono:
+		ui-monospace, SFMono-Regular, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas,
+		'Liberation Mono', Menlo, monospace;
+	--layer-popover: 1000000;
+
+	--chat-form-area-height: 8rem;
+	--chat-form-area-offset: 2rem;
+	--chat-form-padding-top: 6rem;
+	--max-message-height: max(24rem, min(80dvh, calc(100dvh - var(--chat-form-area-height) - 12rem)));
+}
+
+@media (min-width: 640px) {
+	:root {
+		--chat-form-area-height: 24rem;
+		--chat-form-area-offset: 12rem;
+		--chat-form-padding-top: 6rem;
+	}
+}
+
+.dark {
+	--background: hsl(240, 21%, 15%);
+	--foreground: hsl(226, 64%, 88%);
+	--card: hsl(240, 21%, 12%);
+	--card-foreground: hsl(226, 64%, 88%);
+	--popover: hsl(240, 21%, 12%);
+	--popover-foreground: hsl(226, 64%, 88%);
+	--primary: hsl(232, 97%, 85%);
+	--primary-foreground: hsl(240, 21%, 8%);
+	--secondary: hsl(240, 16%, 23%);
+	--secondary-foreground: hsl(226, 64%, 88%);
+	--muted: hsl(240, 16%, 23%);
+	--muted-foreground: hsl(228, 24%, 72%);
+	--accent: hsl(240, 16%, 23%);
+	--accent-foreground: hsl(226, 64%, 88%);
+	--destructive: hsl(344, 84%, 74%);
+	--border: hsl(240, 16%, 23%);
+	--input: hsl(240, 16%, 23%);
+	--ring: hsl(232, 97%, 85%);
+	--chart-1: hsl(232, 97%, 85%);
+	--chart-2: hsl(180, 50%, 75%);
+	--chart-3: hsl(110, 50%, 75%);
+	--chart-4: hsl(300, 50%, 75%);
+	--chart-5: hsl(15, 80%, 75%);
+	--sidebar: hsl(240, 21%, 8%);
+	--sidebar-foreground: hsl(226, 64%, 88%);
+	--sidebar-primary: hsl(232, 97%, 85%);
+	--sidebar-primary-foreground: hsl(240, 21%, 8%);
+	--sidebar-accent: hsl(240, 16%, 23%);
+	--sidebar-accent-foreground: hsl(226, 64%, 88%);
+	--sidebar-border: rgba(49, 50, 68, 0.4);
+	--sidebar-ring: hsl(232, 97%, 85%);
+	--code-background: hsl(240, 21%, 12%);
+	--code-foreground: hsl(232, 97%, 85%);
+}
+
+@theme inline {
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-chart-1: var(--chart-1);
+	--color-chart-2: var(--chart-2);
+	--color-chart-3: var(--chart-3);
+	--color-chart-4: var(--chart-4);
+	--color-chart-5: var(--chart-5);
+	--color-sidebar: var(--sidebar);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+		scrollbar-width: thin;
+		scrollbar-gutter: stable;
+	}
+
+	/* Global scrollbar styling - visible only on hover */
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: transparent transparent;
+	}
+
+	*:hover {
+		scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+	}
+
+	*::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+	}
+
+	*::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background: transparent;
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
+
+	*:hover::-webkit-scrollbar-thumb {
+		background: hsl(var(--muted-foreground) / 0.3);
+	}
+
+	*::-webkit-scrollbar-thumb:hover {
+		background: hsl(var(--muted-foreground) / 0.5);
+	}
+
+	:where(code, pre, kbd, samp) {
+		font-family: var(--font-mono);
+	}
+}
+
+@layer utilities {
+	.scrollbar-hide {
+		/* Hide scrollbar for Chrome, Safari and Opera */
+		&::-webkit-scrollbar {
+			display: none;
+		}
+		/* Hide scrollbar for IE, Edge and Firefox */
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+}
+
+.mermaidTooltip {
+	display: none !important;
+}
+
+/* ─── Claude.ai-style Sandbox Tabs & Terminal ─── */
+
+/* Tab container (the pill group) */
+.tab-container {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	padding: 3px;
+	border-radius: 8px;
+	background: color-mix(in oklch, var(--muted) 60%, transparent);
+}
+
+.tab-btn {
+	position: relative;
+	font-family: system-ui, -apple-system, sans-serif;
+	font-size: 12px;
+	font-weight: 500;
+	padding: 4px 12px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	color: var(--muted-foreground);
+	background: transparent;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+.tab-btn:hover:not(.active-tab-btn) {
+	color: var(--foreground);
+	background: color-mix(in oklch, var(--muted) 40%, transparent);
+}
+
+.active-tab-btn {
+	background: var(--code-background) !important;
+	color: var(--foreground) !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 0 1px color-mix(in oklch, var(--border) 40%, transparent);
+}
+
+/* Terminal output box */
+.terminal-box {
+	border-top: 1px solid color-mix(in oklch, var(--border) 30%, transparent);
+	background: color-mix(in oklch, var(--code-background) 95%, #000);
+}
+
+.terminal-box pre {
+	font-family: var(--font-mono);
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+/* Status footer bar */
+.terminal-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px 16px;
+	font-family: system-ui, -apple-system, sans-serif;
+	font-size: 11px;
+	font-weight: 500;
+	color: var(--muted-foreground);
+	border-top: 1px solid color-mix(in oklch, var(--border) 20%, transparent);
+	background: color-mix(in oklch, var(--code-background) 90%, #000);
+	user-select: none;
+}
+
+.terminal-footer .status-ok { color: #a6e3a1; }
+.terminal-footer .status-err { color: #f38ba8; }
+
+/* Ensure code wrapper clips everything */
+.code-block-wrapper {
+	overflow: hidden;
+	position: relative;
+}
+
+/* Copy output button in footer */
+.copy-output-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 6px;
+	border-radius: 4px;
+	border: none;
+	background: transparent;
+	color: var(--muted-foreground);
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.copy-output-btn:hover {
+	color: var(--foreground);
+	background: color-mix(in oklch, var(--muted) 40%, transparent);
+}
