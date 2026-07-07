@@ -1244,11 +1244,11 @@ async def reformulate_search_query(history_messages: list, current_message: str)
     return None
 
 
-async def query_memory_and_enrich(message: str, session_id: str, history: list = None) -> tuple[str, str]:
+async def query_memory_and_enrich(message: str, session_id: str, history: list = None, web_search_enabled: bool = True) -> tuple[str, str]:
     """Consulta la memoria neuronal semántica para enriquecer el prompt del proxy."""
-    # 1. Lanzar búsqueda/scraping web en paralelo (Opción A, omnipresente)
+    # 1. Lanzar búsqueda/scraping web en paralelo (Opción A, omnipresente si está habilitada)
     web_task = None
-    if config["scraping"].get("enabled", True):
+    if web_search_enabled and config["scraping"].get("enabled", True):
         url_match = URL_REGEX.search(message)
         detected_url = url_match.group(0) if url_match else None
         
@@ -1835,7 +1835,15 @@ async def proxy_openai_chat(request: Request):
     # 1. Consultar recuerdos y enriquecer el prompt
     global last_user_activity_time
     last_user_activity_time = time.time()
-    enriched_prompt, question_node_id = await query_memory_and_enrich(user_message, session_id, messages[:-1] if messages else None)
+    
+    # Vincular la búsqueda de fondo al estado del toggle de búsqueda web (presencia de tools) del cliente
+    web_search_enabled = bool(body.get("tools"))
+    enriched_prompt, question_node_id = await query_memory_and_enrich(
+        user_message, 
+        session_id, 
+        messages[:-1] if messages else None,
+        web_search_enabled=web_search_enabled
+    )
     if messages:
         messages[-1]["content"] = enriched_prompt
         
