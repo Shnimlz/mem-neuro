@@ -315,3 +315,148 @@ Con cinco piezas moviéndose en paralelo (core, base de datos, scraper, fork de 
 3. **Extensión de VS Code:** conectar `llama-vscode-chat` (confirmar primero cuál es la base exacta — Sección 8) una vez que `POST /process` responde de forma confiable.
 4. **Capa visual:** conectar el fork de `claude-mem` al WebSocket.
 5. **Scraping web:** se suma al final — es la pieza menos crítica y la que más puede esperar.
+
+
+
+---
+
+# 🧠 Proyecto.md — Cerebro Autónomo Unificado v2
+
+> **Especificación Oficial de Arquitectura**
+> Versión 2.0 (Living Document)
+
+---
+
+# Prólogo
+
+## ¿Qué es este proyecto?
+
+**Cerebro Autónomo Unificado** no es un chatbot.
+
+No es un sistema RAG convencional.
+
+No es un wrapper para un LLM.
+
+Es un **Motor Cognitivo Persistente** cuyo propósito es situarse entre un Modelo de Lenguaje y el conocimiento disponible, actuando como una capa de razonamiento, memoria y recuperación de información.
+
+El LLM deja de ser el centro del sistema.
+
+El centro del sistema pasa a ser el **Motor Cognitivo**.
+
+El modelo de lenguaje se convierte únicamente en un componente especializado en comprensión y generación de lenguaje natural.
+
+Toda la adquisición, organización, recuperación y priorización del conocimiento pertenece al Cerebro Autónomo.
+
+---
+
+# Objetivo
+
+El proyecto persigue cinco objetivos fundamentales.
+
+## 1. Persistencia
+
+El conocimiento no desaparece cuando termina una conversación.
+
+Cada interacción genera conocimiento persistente dentro del Grafo Cognitivo.
+
+---
+
+## 2. Memoria
+
+El sistema debe recordar.
+
+No únicamente almacenar texto.
+
+Debe recordar relaciones.
+
+Contexto.
+
+Errores.
+
+Correcciones.
+
+Patrones.
+
+Experiencias.
+
+La memoria constituye una fuente de conocimiento tan importante como Internet.
+
+---
+
+## 3. Recuperación Inteligente
+
+Cuando el sistema necesita información, no debe preguntar inmediatamente al LLM.
+
+Debe responder primero:
+
+> ¿Ya conozco esto?
+
+Si la memoria contiene suficiente evidencia, la búsqueda web puede omitirse.
+
+Si la memoria no basta, se planifica una estrategia de recuperación de conocimiento.
+
+---
+
+## 4. Razonamiento
+
+La búsqueda nunca debe ejecutarse de forma automática.
+
+Cada recuperación de información debe ser consecuencia de una planificación.
+
+El sistema debe decidir:
+
+* si necesita buscar;
+* dónde buscar;
+* cuánto buscar;
+* cuándo detenerse;
+* qué fuentes priorizar;
+* qué evidencia descartar.
+
+---
+
+## 5. Construcción de Conocimiento
+
+El objetivo del sistema no es recuperar documentos.
+
+Es construir una representación coherente del conocimiento que posteriormente utilizará el Modelo de Lenguaje para generar la respuesta final.
+
+---
+
+# Filosofía
+
+El proyecto adopta el siguiente principio fundamental.
+
+> **El LLM nunca debe ser considerado la fuente principal del conocimiento.**
+
+El conocimiento proviene de múltiples orígenes.
+
+El LLM únicamente razona sobre dicho conocimiento y lo expresa en lenguaje natural.
+
+Las fuentes de conocimiento incluyen, entre otras:
+
+* Memoria persistente.
+* Grafo Cognitivo.
+* SQLite + sqlite-vec.
+* Browserless.
+* Documentación oficial.
+* APIs.
+* GitHub.
+* Sistemas MCP.
+* Archivos locales.
+* Bases de datos.
+* Servicios externos.
+
+Todas estas fuentes son equivalentes desde el punto de vista arquitectónico.
+
+Ninguna tiene prioridad absoluta.
+
+Será responsabilidad del Motor Cognitivo determinar cuáles consultar y cómo combinar su evidencia.
+
+---
+
+# Principio Fundamental
+
+> **El sistema no busca información.**
+>
+> **El sistema construye conocimiento.**
+
