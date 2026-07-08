@@ -94,41 +94,172 @@ mem-neuro/
 │   └── frontend/                    # Svelte 5 + Tailwind CSS v4 Chat Interface
 ```
 
----
-
 ## 🚀 Getting Started
 
-### 1. Prerequisites
-- Docker (running Browserless on port `3000`):
+Follow this step-by-step guide to configure the complete infrastructure locally.
+
+---
+
+### 1. Docker Infrastructure (Browserless & SearXNG)
+
+Run both services exclusively inside Docker containers:
+
+* **Browserless** (Headless navigation):
   ```bash
-  docker run -p 3000:3000 browserless/chrome:latest
+  docker run -d \
+    --name browserless \
+    -p 127.0.0.1:3000:3000 \
+    --restart always \
+    browserless/chrome:latest
   ```
-- Local LLM/Embeddings Servers (running on ports `8080` and `8081`).
 
-### 2. Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd cerebro_unificado/backend
-   ```
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Run the FastAPI core:
-   ```bash
-   python main.py
-   ```
+* **SearXNG** (Search engine aggregation):
+  ```bash
+  docker run -d \
+    --name searxng \
+    -p 127.0.0.1:8888:8080 \
+    --restart always \
+    searxng/searxng:latest
+  ```
 
-### 3. Frontend Setup
-1. Navigate to the frontend directory:
+> [!NOTE]
+> Bounding ports to `127.0.0.1` ensures that services are only accessible locally, keeping the development environment safe.
+
+---
+
+### 2. Firewall Settings (`ufw`)
+
+Manage access to the different ports of the cognitive engine. Bind rules to `127.0.0.1` whenever possible to prevent unauthorized network entry:
+
+```bash
+# Allow local connections to core & LLM ports
+sudo ufw allow from 127.0.0.1 to any port 8000 proto tcp comment 'FastAPI Backend'
+sudo ufw allow from 127.0.0.1 to any port 8080 proto tcp comment 'llama.cpp Chat'
+sudo ufw allow from 127.0.0.1 to any port 8081 proto tcp comment 'llama.cpp Embeddings'
+sudo ufw allow from 127.0.0.1 to any port 3000 proto tcp comment 'Browserless Docker'
+sudo ufw allow from 127.0.0.1 to any port 8888 proto tcp comment 'SearXNG Docker'
+
+# Enable firewall
+sudo ufw enable
+```
+
+---
+
+### 3. Local Model Downloader (`hf` CLI)
+
+Use the Hugging Face CLI (`hf`) to download GGUF models directly:
+
+```bash
+# 1. Download Qwen 14B Chat model weights
+hf download Bartowski/DeepSeek-R1-Distill-Qwen-14B-GGUF DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf --local-dir ./models
+
+# 2. Download mxbai embeddings model weights
+hf download mixedbread-ai/mxbai-embed-large-v1 mxbai-embed-large-v1-f16.gguf --local-dir ./models
+```
+
+---
+
+### 4. Compiling `llama.cpp` Locally
+
+Avoid package managers. Clone the repository directly and compile it:
+
+```bash
+# Clone the repository
+git clone https://github.com/ggerganov/llama.cpp.git
+cd llama.cpp
+
+# Compile (CPU support only)
+make
+
+# Or compile with NVIDIA CUDA support (GPU accelerated)
+make GGML_CUDA=1
+```
+
+---
+
+### 5. API Keys (Google YouTube v3)
+
+To fetch YouTube video results, obtain an API Key from the Google Cloud Console, enable the YouTube Data API v3, and set it in your environment:
+
+```bash
+# Temporary export
+export YOUTUBE_API_KEY="your-google-youtube-api-key"
+
+# Persistent setting
+echo 'export YOUTUBE_API_KEY="your-google-youtube-api-key"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+---
+
+### 6. Systemd User Services Configuration
+
+To run the whole core automatically, create 3 independent systemd user service files in `~/.config/systemd/user/`:
+
+#### A. `cerebro-llama-chat.service` (Reasoning LLM on Port 8080)
+```ini
+[Unit]
+Description=Cerebro llama.cpp Chat Server
+After=network.target
+
+[Service]
+ExecStart=/path/to/llama.cpp/llama-server -m /path/to/models/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf -c 4096 --port 8080 --host 127.0.0.1
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+```
+
+#### B. `cerebro-llama-embeddings.service` (Embeddings Server on Port 8081)
+```ini
+[Unit]
+Description=Cerebro llama.cpp Embeddings Server
+After=network.target
+
+[Service]
+ExecStart=/path/to/llama.cpp/llama-server -m /path/to/models/mxbai-embed-large-v1-f16.gguf --port 8081 --host 127.0.0.1 --embeddings --pooling mean
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+```
+
+#### C. `cerebro-brain-core.service` (FastAPI Core Backend)
+```ini
+[Unit]
+Description=Cerebro Autonomous Core Backend
+After=network.target
+
+[Service]
+WorkingDirectory=%h/mem-neuro/cerebro_unificado/backend
+ExecStart=/usr/bin/python3 main.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+```
+
+To enable and run all services:
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now cerebro-llama-chat.service
+systemctl --user enable --now cerebro-llama-embeddings.service
+systemctl --user enable --now cerebro-brain-core.service
+```
+
+---
+
+### 7. Frontend Deployment
+
+1. Navigate to the Svelte frontend directory:
    ```bash
    cd cerebro_unificado/frontend
    ```
-2. Install Node dependencies:
+2. Install Svelte and Node packages:
    ```bash
    npm install
    ```
-3. Run the development server:
+3. Boot the development client:
    ```bash
    npm run dev
    ```
