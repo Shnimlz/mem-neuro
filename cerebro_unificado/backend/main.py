@@ -67,10 +67,17 @@ SYSTEM_PROMPT_TEMPLATE = (
     "LANGUAGE RULE: You MUST speak and write your response to {{user}} strictly in {{target_lang}}.\n\n"
     "AVAILABLE TOOLS (STRICT SELECTION RULES):\n\n"
     "TOOL 1 — ejecutar_busqueda_web:\n"
-    "  USE FOR: Any question about current events, news, sports, weather, dates, people, places, "
-    "prices, releases, updates, or ANY factual information from the year 2024-2026. "
+    "  This is your ONLY tool. The backend routes your query intelligently:\n"
+    "  - Weather queries (clima, tiempo, pronóstico, temperatura) → Open-Meteo API (real-time forecast data).\n"
+    "  - Video/music queries (youtube, video, música, canción, reproducir) → YouTube Data API v3 (real results with URLs).\n"
+    "  - All other queries → Web search engine + intelligent scraping and reranking.\n\n"
+    "  USE FOR: Current events, news, sports, weather, dates, people, places, "
+    "prices, releases, updates, music, videos, or ANY factual information from 2024-2026. "
     "Also use for any question where you are unsure of the answer or lack internal knowledge.\n"
     "  FORMAT: Output a JSON block: {\"name\": \"ejecutar_busqueda_web\", \"arguments\": {\"query\": \"search keywords\"}}\n"
+    "  QUERY TIPS: For weather, include the city name (e.g., 'clima en Reynosa'). "
+    "For music/videos, include 'video' or 'música' in the query. "
+    "For general searches, write concise, targeted keywords.\n"
     "  NEVER USE: Terminal commands (curl, wget, etc.) as a substitute for this tool.\n\n"
     "SYSTEM TASK RESTRICTIONS:\n"
     "- You are STRICTLY FORBIDDEN from executing terminal/bash commands, running scripts, or interacting with the operating system.\n"
@@ -82,7 +89,7 @@ SYSTEM_PROMPT_TEMPLATE = (
     "- To call the tool, output ONLY the JSON block: {\"name\": \"ejecutar_busqueda_web\", \"arguments\": {\"query\": \"search query\"}}\n"
     "- Do NOT output any other text, greetings, apologies, or warnings in your final content. Only output the JSON block when using the tool.\n\n"
     "CRITICAL ANTI-HALLUCINATION RULE:\n"
-    "NUNCA generes las etiquetas <web_search_status> o <web_search_results> tú mismo — esas etiquetas son exclusivamente generadas por el sistema cuando ejecuta una búsqueda real. Si necesitas buscar, usa ÚNICAMENTE el formato de tool call JSON especificado. Nunca inventes, modifiques, o completes una URL que no te haya sido dada textualmente en un resultado de búsqueda real de este turno. Si no tienes una URL real que citar, no cites ninguna."
+    "NUNCA generes las etiquetas <web_search_status>, <web_search_results> o <weather_data> tú mismo — esas etiquetas son exclusivamente generadas por el sistema cuando ejecuta una búsqueda real. Si necesitas buscar, usa ÚNICAMENTE el formato de tool call JSON especificado. Nunca inventes, modifiques, o completes una URL que no te haya sido dada textualmente en un resultado de búsqueda real de este turno. Si no tienes una URL real que citar, no cites ninguna."
 )
 
 
@@ -973,7 +980,7 @@ LLM_URL_BASE = "http://127.0.0.1:8080"
 
 
 async def web_search(query: str, max_results: int = 3) -> str:
-    """Realiza una consulta a la API local de SearXNG (puerto 8888), filtra y limpia los resultados."""
+    """Realiza una consulta al motor de búsqueda local configurado, filtra y limpia los resultados."""
     logger.info("[Web Search] Iniciando consulta para: '%s' (max_results=%d)", query, max_results)
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -1016,7 +1023,7 @@ async def web_search(query: str, max_results: int = 3) -> str:
 
 @app.get("/api/web_search")
 async def api_web_search(q: str, max_results: int = 3):
-    """Endpoint HTTP para realizar búsquedas web directamente a través de SearXNG."""
+    """Endpoint HTTP para realizar búsquedas web directamente a través del motor configurado."""
     results = await web_search(q, max_results)
     return {"query": q, "results": results}
 
@@ -1156,7 +1163,7 @@ async def ejecutar_busqueda_web(query: str) -> str:
             snippet = r.get("content", "").strip()
             snippet_clean = re.sub(r'<[^>]+>', '', snippet).strip()
             score = r.get("score", "N/A")
-            # Campos extra opcionales de SearXNG
+            # Campos extra opcionales del motor de búsqueda
             published = r.get("publishedDate", "")
             engine = r.get("engine", "")
             
@@ -1192,8 +1199,8 @@ async def api_ejecutar_busqueda_web(req: WebSearchToolRequest):
 
 
 async def execute_web_search_and_scrape(query: str) -> str:
-    """Realiza la búsqueda en SearXNG, raspa los contenidos de las webs en paralelo,
-    las segmenta de forma inteligente y realiza un reordenamiento (rerank) para inyectar
+    """Realiza la búsqueda web (vía el motor configurado), raspa los contenidos en paralelo,
+    los segmenta de forma inteligente y realiza un reordenamiento (rerank) para inyectar
     únicamente los 3 fragmentos más relevantes en el prompt del sistema.
     """
     from web_scraper import perform_web_search, scrape_multiple_urls
@@ -1302,7 +1309,7 @@ async def reformulate_search_query(history_messages: list, current_message: str)
         # Usamos el LLM para reescribir la query basándonos en el contexto
         prompt = (
             "Dada la siguiente conversación y una nueva pregunta, "
-            "reescribe la nueva pregunta para que sea una consulta de búsqueda web efectiva en Google/SearXNG "
+            "reescribe la nueva pregunta para que sea una consulta de búsqueda web efectiva "
             "que incluya el contexto necesario (sujeto, tecnologías, nombres).\n"
             "Responde ÚNICAMENTE con la consulta de búsqueda reescrita, sin explicaciones ni comillas.\n\n"
             f"Historial de conversación:\n"
@@ -2557,7 +2564,7 @@ async def proxy_openai_chat(request: Request):
                         "role": "system",
                         "content": (
                             f"[SYSTEM: RESULTADO DE HERRAMIENTA ejecutar_busqueda_web]\n"
-                            f"Se ejecutó la búsqueda web para '{tool_query}' en tiempo real contra SearXNG. "
+                            f"Se ejecutó la búsqueda web para '{tool_query}' en tiempo real. "
                             f"Los datos que aparecen a continuación son REALES, VERIFICADOS y provienen de internet ahora mismo. "
                             f"NO son inventados ni aproximados.\n\n"
                             f"{search_result}\n\n"
