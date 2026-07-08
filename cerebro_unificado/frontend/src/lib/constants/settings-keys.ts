@@ -85,6 +85,7 @@ export const SETTINGS_KEYS = {
 	BROWSERLESS_TIMEZONE: 'browserlessTimezone',
 	BROWSERLESS_USER_AGENT: 'browserlessUserAgent',
 	BROWSERLESS_ROUTE: 'browserlessRoute',
+	YOUTUBE_API_KEY: 'youtubeApiKey',
 	CUSTOM_JSON: 'customJson',
 	CUSTOM_CSS: 'customCss'
 } as const;

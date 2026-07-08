@@ -24,7 +24,80 @@ export class WebSearchService {
 
 		const provider = config().webSearchProvider || 'searxng';
 
+		// ─── Interceptar consultas de Clima (Nominatim + Open-Meteo) ───
+		const isWeatherQuery = /clima|tiempo|pronostico|weather|temperatura/i.test(query);
+		if (isWeatherQuery) {
+			try {
+				// Extraer la ciudad de la consulta (o usar "Reynosa, Tamaulipas" por defecto)
+				const match = query.match(/(?:clima|tiempo|pronostico|temperatura)\s+(?:en|de|para|de\s+estos\s+dias\s+en)?\s*([^?.,\n]+)/i);
+				const city = match ? match[1].trim() : 'Reynosa, Tamaulipas';
+
+				// 1. Geocodificación
+				const geoUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`;
+				const geoRes = await fetch(geoUrl, {
+					headers: { 'User-Agent': 'CerebroAutonomo/1.0' },
+					signal
+				});
+
+				if (geoRes.ok) {
+					const geoData = await geoRes.json();
+					if (geoData.length > 0) {
+						const { lat, lon, display_name } = geoData[0];
+
+						// 2. Consultar clima en Open-Meteo
+						const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`;
+						const weatherRes = await fetch(weatherUrl, { signal });
+
+						if (weatherRes.ok) {
+							const weatherData = await weatherRes.json();
+							
+							// Estructura consolidada
+							const weatherPayload = {
+								location: display_name.split(',')[0] + ', ' + display_name.split(',').slice(-1)[0].trim(),
+								current: weatherData.current_weather,
+								daily: weatherData.daily
+							};
+
+							// Formato resumen en texto para la lectura del LLM
+							const summaryText = `Resultados del clima en ${weatherPayload.location}: Temperatura actual de ${weatherPayload.current.temperature}°C, estado del tiempo: código WMO ${weatherPayload.current.weathercode}. Máxima prevista hoy: ${weatherData.daily.temperature_2m_max[0]}°C, Mínima: ${weatherData.daily.temperature_2m_min[0]}°C, Probabilidad de lluvia: ${weatherData.daily.precipitation_probability_max[0]}%.`;
+
+							return {
+								content: `<weather_data>${JSON.stringify(weatherPayload)}</weather_data>\n\n${summaryText}`,
+								isError: false
+							};
+						}
+					}
+				}
+			} catch (weatherErr) {
+				console.warn('Weather API query failed, falling back to default web search:', weatherErr);
+			}
+		}
+
 		try {
+			const youtubeApiKey = config().youtubeApiKey;
+			const isYoutubeQuery = /youtube|video|musica|music|song|cancion|reproducir|videoclip/i.test(query);
+
+			if (youtubeApiKey && isYoutubeQuery) {
+				try {
+					const ytUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=4&key=${youtubeApiKey}`;
+					const res = await fetch(ytUrl, { signal });
+					if (res.ok) {
+						const data = await res.json();
+						const items = data.items || [];
+						if (items.length > 0) {
+							const lines = items.map((item: any, idx: number) => {
+								const videoId = item.id?.videoId;
+								const videoUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : '';
+								return `[${idx + 1}] Title: ${item.snippet?.title || 'Video'}\n    URL: ${videoUrl}\n    Summary: ${item.snippet?.description || '[No description]'}`;
+							});
+							return { content: lines.join('\n\n'), isError: false };
+						}
+					}
+				} catch (ytError) {
+					console.warn('YouTube API query failed, falling back to default web search:', ytError);
+				}
+			}
+
 			if (provider === 'searxng') {
 				const serverUrl = config().searxngUrl || 'http://127.0.0.1:8888';
 				const searchUrl = `${serverUrl}/search?q=${encodeURIComponent(query)}&format=json`;

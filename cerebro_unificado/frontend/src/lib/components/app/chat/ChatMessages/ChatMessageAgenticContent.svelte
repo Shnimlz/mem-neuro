@@ -6,7 +6,8 @@
 		MarkdownContent,
 		SyntaxHighlightedCode,
 		ChatMessageActionCardPermissionRequest,
-		ChatMessageActionCardContinueRequest
+		ChatMessageActionCardContinueRequest,
+		WeatherWidget
 	} from '$lib/components/app';
 	import WebSearchStatus from './WebSearchStatus.svelte';
 	import { animate, stagger } from 'animejs';
@@ -183,7 +184,8 @@
 		for (const section of sectionsParsed) {
 			if (section.type === AgenticSectionType.TEXT && section.content) {
 				const parsed = parseWebSearchTags(section.content);
-				const extracted = extractSourcesFromText(parsed.cleanText);
+				const weatherCleaned = parseWeatherDataTag(parsed.cleanText);
+				const extracted = extractSourcesFromText(weatherCleaned.cleanText);
 				for (const src of extracted.sources) {
 					if (!seenUrls.has(src.url)) {
 						seenUrls.add(src.url);
@@ -386,6 +388,21 @@
 			}
 		});
 	}
+	const WEATHER_DATA_TAG_RE = /<weather_data>([\s\S]*?)<\/weather_data>/g;
+
+	function parseWeatherDataTag(text: string): { cleanText: string; weather: any | null } {
+		if (!text) return { cleanText: '', weather: null };
+		let weather: any | null = null;
+		const cleanText = text.replace(WEATHER_DATA_TAG_RE, (_match, jsonStr) => {
+			try {
+				weather = JSON.parse(jsonStr.trim());
+			} catch (e) {
+				// JSON inválido
+			}
+			return '';
+		});
+		return { cleanText: cleanText.trim(), weather };
+	}
 </script>
 
 {#snippet renderSection(section: (typeof sectionsParsed)[number], index: number)}
@@ -400,15 +417,18 @@
 			/>
 		{/each}
 		{@const sourceData = extractSourcesFromText(parsed.cleanText)}
+		{@const weatherParsed = parseWeatherDataTag(sourceData.cleanText)}
 		<div class="agentic-text">
 			<MarkdownContent
-				content={sourceData.cleanText}
+				content={weatherParsed.cleanText}
 				attachments={message?.extra}
 				onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
 			/>
 		</div>
 
-
+		{#if weatherParsed.weather}
+			<WeatherWidget data={weatherParsed.weather} />
+		{/if}
 	{:else if section.type === AgenticSectionType.TOOL_CALL_STREAMING}
 		{@const streamingIcon = isStreaming ? Loader2 : Loader2}
 		{@const streamingIconClass = isStreaming ? 'h-4 w-4 animate-spin' : 'h-4 w-4'}

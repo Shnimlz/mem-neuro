@@ -27,6 +27,7 @@
 		if (localConfig.googleApiKey === undefined) handleConfigChange('googleApiKey', '');
 		if (localConfig.googleEngineId === undefined) handleConfigChange('googleEngineId', '');
 		if (localConfig.searxngUrl === undefined) handleConfigChange('searxngUrl', 'http://127.0.0.1:8888');
+		if (localConfig.youtubeApiKey === undefined) handleConfigChange('youtubeApiKey', '');
 	});
 </script>
 
@@ -234,4 +235,23 @@
 			</div>
 		{/if}
 	{/if}
+
+	<!-- YOUTUBE Search Settings -->
+	<div class="space-y-4 rounded-xl border border-border/30 p-5 bg-card/30 mt-4">
+		<h4 class="text-sm font-semibold text-foreground/90 border-b border-border/20 pb-2">YouTube Search Settings</h4>
+		
+		<div class="space-y-2">
+			<Label class="text-xs font-medium">YouTube API Key</Label>
+			<Input
+				type="password"
+				placeholder="AIzaSy..."
+				value={localConfig.youtubeApiKey || ''}
+				oninput={(e) => handleConfigChange('youtubeApiKey', e.currentTarget.value)}
+				class="font-mono text-xs"
+			/>
+			<p class="text-[11px] text-muted-foreground">
+				Your API Key for YouTube Data API v3 (used for precise music/video searches).
+			</p>
+		</div>
+	</div>
 </div>
