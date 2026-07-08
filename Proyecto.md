@@ -1,4 +1,68 @@
-# 🧠 Proyecto.md: Cerebro Autónomo Unificado
+# 🧠 Proyecto.md — Cerebro Autónomo Unificado (mem-neuro)
+
+> **Especificación Oficial de Arquitectura**
+> Versión 3.0 (Living Document)
+
+---
+
+# 📖 PRÓLOGO
+
+## ¿Qué es este proyecto?
+
+**Cerebro Autónomo Unificado** no es un chatbot. No es un sistema RAG convencional. No es un wrapper para un LLM.
+
+Es un **Motor Cognitivo Persistente** cuyo propósito es situarse entre un Modelo de Lenguaje y el conocimiento disponible, actuando como una capa de razonamiento, memoria y recuperación de información.
+
+El LLM deja de ser el centro del sistema. El centro del sistema pasa a ser el **Motor Cognitivo**. El modelo de lenguaje se convierte únicamente en un componente especializado en comprensión y generación de lenguaje natural.
+
+Toda la adquisición, organización, recuperación y priorización del conocimiento pertenece al Cerebro Autónomo.
+
+---
+
+# 🎯 OBJETIVOS
+
+El proyecto persigue cinco objetivos fundamentales:
+
+### 1. Persistencia
+El conocimiento no desaparece cuando termina una conversación. Cada interacción genera conocimiento persistente dentro del Grafo Cognitivo.
+
+### 2. Memoria
+El sistema debe recordar. No únicamente almacenar texto; debe recordar relaciones, contexto, errores, correcciones, patrones y experiencias. La memoria constituye una fuente de conocimiento tan importante como Internet.
+
+### 3. Recuperación Inteligente
+Cuando el sistema necesita información, no debe preguntar inmediatamente al LLM. Debe responder primero: *¿Ya conozco esto?*. Si la memoria contiene suficiente evidencia, la búsqueda web puede omitirse. Si la memoria no basta, se planifica una estrategia de recuperación de conocimiento.
+
+### 4. Razonamiento
+La búsqueda nunca debe ejecutarse de forma automática. Cada recuperación de información debe ser consecuencia de una planificación. El sistema debe decidir si necesita buscar, dónde buscar, cuánto buscar, cuándo detenerse, qué fuentes priorizar y qué evidencia descartar.
+
+### 5. Construcción de Conocimiento
+El objetivo del sistema no es recuperar documentos, sino construir una representación coherente del conocimiento que posteriormente utilizará el Modelo de Lenguaje para generar la respuesta final.
+
+---
+
+# 💡 FILOSOFÍA Y PRINCIPIO FUNDAMENTAL
+
+> [!IMPORTANT]
+> **El LLM nunca debe ser considerado la fuente principal del conocimiento.**
+> El conocimiento proviene de múltiples orígenes. El LLM únicamente razona sobre dicho conocimiento y lo expresa en lenguaje natural.
+
+Las fuentes de conocimiento incluyen, entre otras:
+* Memoria persistente y Grafo Cognitivo.
+* SQLite + `sqlite-vec`.
+* Browserless.
+* Documentación oficial y APIs.
+* GitHub.
+* Sistemas MCP.
+* Archivos locales, bases de datos y servicios externos.
+
+Todas estas fuentes son equivalentes desde el punto de vista arquitectónico. Ninguna tiene prioridad absoluta. Será responsabilidad del Motor Cognitivo determinar cuáles consultar y cómo combinar su evidencia.
+
+> [!TIP]
+> **El sistema no busca información. El sistema construye conocimiento.**
+
+---
+
+# 🏛️ ESPECIFICACIÓN TÉCNICA Y SECCIONES DE ARQUITECTURA
 
 ## 1. Arquitectura del Sistema e IPC
 
@@ -14,26 +78,19 @@ El sistema opera como un único hilo cognitivo local a través de una arquitectu
   [claude-mem] (Visualizador)
 ```
 
-*(Ver Sección 9 para el servidor de embeddings dedicado, que corre en paralelo al servidor de chat.)*
-
 ### Mecanismo de Comunicación (IPC)
-
-El componente `brain_core/main.py` levanta un servidor **FastAPI / Uvicorn** expuesto únicamente en entorno local. La comunicación se realiza mediante peticiones HTTP asíncronas para el procesamiento de texto y **WebSockets** para la actualización del grafo visual en tiempo real sin saturar el disco con lecturas repetitivas.
+El componente `brain_core/main.py` levanta un servidor **FastAPI / Uvicorn** expuesto únicamente en entorno local. La comunicación se realiza mediante peticiones HTTP asíncronas para el procesamiento de texto y **WebSockets** para la actualización del grafo visual en tiempo real.
 
 #### Endpoints Principales del Core:
-
-* `POST /process`: Recibe el mensaje del usuario, el `session_id` y el ID del nodo anterior. Devuelve el prompt enriquecido con contexto histórico y el nuevo ID de tarea.
+* `POST /process`: Recibe el mensaje del usuario, el `session_id` y el ID del nodo anterior. Devuelve el prompt enriquecido.
 * `GET /graph`: Devuelve el estado actual de la red neuronal (nodos y aristas) en formato JSON para el renderizado.
-* `POST /scrape`: Endpoint manual u opcional para forzar la indexación de una URL específica.
-* Ver Sección 13 para los endpoints de corrección manual del grafo.
+* `POST /scrape`: Ingesta manual/sincrónica de una URL en el almacén de caché.
 
 ---
 
 ## 2. Base de Datos Unificada y Persistencia (0% RAM Permanente)
 
-Se elimina el uso de archivos JSON redundantes para el almacenamiento del grafo. Toda la persistencia (vectores, texto, relaciones y metadatos) se centraliza en **SQLite**, aprovechando la extensión **`sqlite-vec`** para búsquedas vectoriales nativas mediante mapeo de memoria virtual (`mmap`), garantizando un consumo de memoria RAM cercano a cero.
-
-> `sqlite-vec` reemplaza a `sqlite-vss` en este diseño: su propio creador dejó de desarrollarlo activamente en favor de `sqlite-vec`, que además está escrito en C puro sin dependencias (a diferencia de `sqlite-vss`, que depende de Faiss), por lo que compila sin complicaciones en CachyOS.
+Toda la persistencia (vectores, texto, relaciones y metadatos) se centraliza en **SQLite**, aprovechando la extensión **`sqlite-vec`** para búsquedas vectoriales nativas mediante mapeo de memoria virtual (`mmap`), garantizando un consumo de memoria RAM cercano a cero.
 
 ### Esquema de Base de Datos (`storage/brain.db`)
 
@@ -42,7 +99,7 @@ Se elimina el uso de archivos JSON redundantes para el almacenamiento del grafo.
 CREATE TABLE nodes (
     id TEXT PRIMARY KEY,
     parent_id TEXT,              -- Mantiene la estructura del árbol de conversación
-    session_id TEXT,             -- Identifica el hilo/ventana de origen (Sección 10)
+    session_id TEXT,             -- Identifica el hilo/ventana de origen
     content TEXT,                -- Contenido limpio del prompt + respuesta
     type TEXT,                   -- 'CONOCIMIENTO', 'ERROR_APRENDIDO', 'BIFURCACION_FIX'
     created_at INTEGER,          -- Timestamp epoch
@@ -61,86 +118,85 @@ CREATE TABLE edges (
 
 -- Tabla virtual para indexación y búsqueda vectorial
 CREATE VIRTUAL TABLE vec_embeddings USING vec0(
-    embedding float[1024]         -- Ejemplo con bge-m3; ajustar a la dimensión real del modelo elegido (Sección 9)
+    embedding float[1024]        -- Dimensión del modelo bge-m3
 );
 ```
-
-Ver Sección 10 para la configuración de concurrencia (modo WAL) necesaria dado que `brain_core` lee y escribe esta base de forma asíncrona.
 
 ---
 
 ## 3. Manejo del Hilo de Conversación y Mecanismo de *Split*
 
-El flujo de datos no es lineal; se comporta como un **árbol de conversación dinámico** capaz de gestionar múltiples ramificaciones si el usuario reabre un debate pasado. Cada hilo queda delimitado por `session_id` (Sección 10) para que ventanas o paneles concurrentes no se crucen entre sí.
+El flujo de datos se comporta como un **árbol de conversación dinámico** capaz de gestionar múltiples ramificaciones si el usuario reabre un debate pasado. Cada hilo queda delimitado por `session_id`.
 
-* **Trazabilidad Temporal:** El campo `parent_id` en la tabla de nodos preserva la jerarquía exacta de la sesión actual del desarrollador.
-* **Asociaciones Semánticas:** La tabla `edges` se utiliza para conectar nodos que, aunque pertenezcan a chats o momentos distintos, comparten una alta similitud vectorial.
+* **Trazabilidad Temporal:** El campo `parent_id` en la tabla de nodos preserva la jerarquía exacta de la sesión actual.
+* **Asociaciones Semánticas:** La tabla `edges` conecta nodos que comparten alta similitud semántica.
 
 ### El Mecanismo de Bifurcación ante Errores
-
-Cuando el sistema detecta que una solución previa falló, ejecuta una cirugía en caliente sobre el disco duro:
-
-1. El nodo original que contiene el código o la instrucción errónea muta su estado a `type = 'ERROR_APRENDIDO'`.
+Cuando el sistema detecta que una solución previa falló, ejecuta una cirugía en caliente sobre la base de datos:
+1. El nodo original que contiene la instrucción errónea muta su estado a `type = 'ERROR_APRENDIDO'`.
 2. Se genera un nuevo nodo hijo de tipo `BIFURCACION_FIX` con la corrección.
-3. Se crea una arista (`edge`) entre ambos con un peso (`weight`) prioritario. La próxima vez que el buscador vectorial apunte al nodo erróneo, el core interceptará la lectura y redirigirá el contexto directamente hacia la solución válida.
-
-Si esta bifurcación se dispara por una clasificación incorrecta, puede corregirse manualmente (Sección 13).
+3. Se crea una arista (`edge`) entre ambos con un peso prioritario. La próxima vez que la búsqueda apunte al nodo erróneo, el core redirigirá el contexto directamente hacia la solución válida.
 
 ---
 
 ## 4. Metacognición y Clasificación de Intenciones
 
-Para evitar la fragilidad del filtrado por palabras clave rígidas, el sistema utiliza el propio **DeepSeek-R1** en un modo de inferencia rápido y de bajo consumo de tokens para clasificar la intención del usuario. Ver Sección 12 para el manejo de fallos de esta clasificación y una optimización de latencia mediante un pre-filtro híbrido.
+El sistema utiliza **DeepSeek-R1** en un modo de inferencia rápido y de bajo consumo de tokens para clasificar la intención del usuario.
 
-Antes de procesar la búsqueda, el core realiza una llamada ligera al LLM con un prompt del sistema estructurado:
-
+Antes de procesar la búsqueda, el core realiza una llamada ligera al LLM:
 ```
 Clasifica el siguiente mensaje del usuario en una de estas categorías exclusivas:
 ['consulta', 'corrección_de_error', 'ingesta_web'].
 Responde únicamente con la palabra de la categoría.
 ```
 
-Si el mensaje se clasifica como `corrección_de_error`, el sistema activa de forma automatizada el **Mecanismo de Split** sobre el último ID registrado en el hilo de la conversación actual (dentro de la misma `session_id`).
+Si el mensaje se clasifica como `corrección_de_error`, el sistema activa de forma automatizada el **Mecanismo de Split** sobre el último ID registrado en el hilo de la conversación actual.
 
 ---
 
 ## 5. Estrategia de Scraping e Ingesta Web Inteligente
 
-El módulo `web_scraper.py` implementa una estrategia modular y resiliente para expandir el conocimiento de la IA cuando los recuerdos locales no ofrecen una solución con suficiente confianza semántica.
+El módulo `web_scraper.py` implementa una estrategia modular para expandir el conocimiento cuando los recuerdos locales no ofrecen suficiente confianza semántica.
 
-* **Configuración por Orígenes:** Un archivo `sources.json` mapea las reglas de extracción, selectores CSS/XPath y cabeceras para portales críticos como Arch Wiki o documentaciones oficiales.
-* **Caché de Ingesta:** Para proteger el ancho de banda y evitar penalizaciones de red, las URLs raspadas se almacenan en una tabla de caché local dentro de SQLite con un tiempo de vida (TTL) predeterminado de 7 días.
-* **Optimización de Espacio (Anti-Saturación):** El contenido de texto plano extraído de la web se trunca a un máximo de 2000 caracteres o se pre-resume utilizando el LLM antes de ser vectorizado e insertado en el SSD, evitando el crecimiento desmedido de la base de datos.
+* **Configuración por Orígenes:** Un archivo `sources.json` mapea las reglas de extracción, selectores CSS/XPath y cabeceras para portales críticos.
+* **Caché de Ingesta:** Las URLs raspadas se almacenan en una tabla de caché local dentro de SQLite con un tiempo de vida (TTL) de 7 días.
+* **Anti-Saturación:** El texto extraído de la web se limpia de elementos innecesarios (scripts, navs, footers), se convierte a markdown y se trunca a 2000 caracteres antes de insertarse.
 
 ---
 
 ## 6. Configuración Centralizada (`config.yaml`)
 
-Todos los parámetros operativos del sistema se gestionan desde un único archivo de configuración en la raíz del espacio de trabajo. Tanto el núcleo de Python como los subproyectos de Node.js se alinean bajo estas variables:
+Todos los parámetros operativos del sistema se gestionan desde un único archivo de configuración:
 
 ```yaml
 llm:
   server_url: "http://127.0.0.1:8080"        # DeepSeek-R1 (chat)
   max_output_tokens: 4096
 
-embeddings:                                   # Sección 9
-  server_url: "http://127.0.0.1:8081"        # Instancia dedicada, modelo liviano
-  model: "bge-m3"                             # Ajustar según el modelo elegido
-  dimension: 1024                             # Debe coincidir con vec_embeddings (Sección 2)
+embeddings:
+  server_url: "http://127.0.0.1:8081"        # Instancia dedicada
+  model: "bge-m3"
+  dimension: 1024
 
 database:
   path: "./storage/brain.db"
-  similarity_threshold: 0.40                  # Recalibrar empíricamente según el modelo de embeddings (Sección 9)
+  similarity_threshold: 0.40
 
 scraping:
   enabled: true
-  cache_ttl: 604800  # 7 días en segundos
+  cache_ttl: 604800  # 7 días
   max_content_length: 2000
 
-frontend:
-  refresh_interval: 2000  # Poll de respaldo — la actualización primaria es vía push por WebSocket (Sección 13)
+search:
+  provider: "bing"                           # bing, duckduckgo, searxng
+  browserless_url: "http://127.0.0.1:3000"
+  max_queries: 2
+  max_results_per_query: 5
 
-backup:                                       # Sección 11
+frontend:
+  refresh_interval: 2000
+
+backup:
   enabled: true
   path: "./storage/backups/"
   keep_last: 10
@@ -150,12 +206,9 @@ backup:                                       # Sección 11
 
 ## 7. Resiliencia y Gestión de Fallos
 
-El sistema está diseñado para fallar de manera elegante sin degradar por completo la experiencia de desarrollo en VS Code:
-
-* **Timeouts Estrictos:** Todas las conexiones con el servidor local de inferencia y las peticiones de red externa cuentan con límites de tiempo dedicados.
-* **Fallback Semántico:** Si el servidor de embeddings local (Sección 9) no responde o queda inaccesible, el sistema desactiva temporalmente la búsqueda vectorial en el SSD y conmuta automáticamente a un algoritmo de búsqueda de texto clásico (TF-IDF sobre SQLite FTS5).
-* **Trazabilidad de Errores:** Se habilita un archivo persistente `storage/cerebro.log` que registra de forma detallada cualquier fallo de comunicación o excepción del sistema de archivos para su depuración técnica.
-* **Continuidad de Datos:** Ver Sección 11 para la política de poda y respaldo de `storage/brain.db`.
+* **Timeouts Estrictos:** Conexiones al servidor local de inferencia y peticiones de red externa con límites de tiempo.
+* **Fallback Semántico:** Si el servidor de embeddings local no responde, el sistema conmuta automáticamente a una búsqueda clásica por palabras clave (TF-IDF sobre SQLite FTS5).
+* **Trazabilidad de Errores:** Archivo persistente `storage/cerebro.log` que registra de forma detallada excepciones y fallos de comunicación.
 
 ---
 
@@ -164,52 +217,43 @@ El sistema está diseñado para fallar de manera elegante sin degradar por compl
 ```text
 cerebro-unico-ia/
 ├── config.yaml                      # Configuración global del sistema
-├── storage/                         # Archivos persistentes en el SSD
+├── Proyecto.md                      # Especificación arquitectónica (este archivo)
+├── storage/                         # Archivos persistentes
 │   ├── brain.db                     # SQLite unificado (Nodos, Aristas, Vectores)
-│   ├── backups/                     # Copias periódicas de brain.db (Sección 11)
-│   └── cerebro.log                  # Registro de depuración del sistema
+│   ├── backups/                     # Copias periódicas de brain.db
+│   └── cerebro.log                  # Registro de depuración
 │
-├── brain_core/                      # El núcleo cognitivo (Motor en Python)
-│   ├── main.py                      # API FastAPI y orquestador del ciclo de pensamiento
-│   ├── database.py                  # Consultas SQL, inserciones y lógica de sqlite-vec
-│   ├── web_scraper.py               # Ingesta, limpieza y caché de fuentes web
-│   ├── sources.json                 # Reglas de extracción por origen (Sección 5)
-│   └── requirements.txt             # Dependencias de Python (fastapi, uvicorn, requests, bs4)
-│
-├── claude-mem/                      # Capa visual — basada en thedotmack/claude-mem (Apache 2.0)
-│   ├── package.json                 # Ver Sección 15: decisión sobre forkear solo el frontend o también el worker
-│   └── src/
-│       └── index.ts                 # Renderizador alimentado por el WebSocket del core
-│
-└── llama-vscode-chat/                # Receptor nativo — confirmar si la base es mbeps/llama-vscode-chat
-    ├── package.json                  # o la extensión completa ggml-org/llama.vscode (alcance muy distinto)
-    └── src/
-        └── llama-provider.ts        # Interceptor del prompt que conecta con FastAPI (/process)
+├── cerebro_unificado/
+│   ├── backend/                     # Motor Cognitivo (Python)
+│   │   ├── main.py                  # API y orquestador del ciclo de pensamiento
+│   │   ├── search_orchestrator.py   # Orquestación de Fuentes de Conocimiento
+│   │   ├── knowledge_planner.py     # Planificación Cognitiva
+│   │   ├── database.py              # Operaciones de persistencia WAL
+│   │   └── web_scraper.py           # Ingesta, limpieza y caché
+│   │
+│   └── frontend/                    # Visualizador Premium (Svelte 5 Kit)
 ```
 
 ---
 
 ## 9. Aislamiento de Instancias de Inferencia (Chat vs. Embeddings)
 
-DeepSeek-R1 es un modelo conversacional/de razonamiento, no un modelo de embeddings: los vectores obtenidos por pooling sobre un modelo de chat rinden peor en búsqueda semántica que los de un modelo entrenado específicamente para ese fin. Además, `llama-server` solo expone el endpoint de embeddings si se levanta explícitamente con `--embeddings` y un `--pooling` definido — no alcanza con pegarle al endpoint del servidor de chat existente.
-
-### Arquitectura de Dos Servidores
+Para garantizar un rendimiento y precisión óptimos, se configuran dos instancias independientes del backend de inferencia:
 
 | Instancia | Puerto | Modelo | Flags relevantes |
 |---|---|---|---|
-| Chat | `8080` | DeepSeek-R1 (el actual) | — |
+| Chat / Razonamiento | `8080` | DeepSeek-R1 (el actual) | — |
 | Embeddings | `8081` | Modelo dedicado y liviano | `--embeddings --pooling mean` |
 
-* **Elección de modelo:** dado que el contenido mezcla español (mensajes del usuario) e inglés (logs, errores, documentación técnica), se prioriza un modelo **multilingüe** (ej. `bge-m3`, `multilingual-e5`) sobre uno centrado solo en inglés.
-* **Costo en VRAM:** los modelos de embeddings decentes pesan entre 100MB y 1GB — conviven sin problema junto a DeepSeek-R1 en una GPU de 8GB.
-* **Dimensión del vector:** `vec_embeddings` (Sección 2) debe declarar la dimensión exacta de salida del modelo elegido, no un número arbitrario.
-* **`similarity_threshold`:** el valor de `config.yaml` (Sección 6) depende enteramente del modelo — se recalibra empíricamente una vez elegido, no se asume en 0.40.
+* **Elección de modelo:** Se prioriza un modelo multilingüe (`bge-m3`, `multilingual-e5`) para cubrir la mezcla de lenguajes técnico y conversacional.
+* **Costo en VRAM:** El modelo de embeddings liviano consume menos de 1GB de VRAM, permitiendo la convivencia en hardware común.
+* **`similarity_threshold`:** Se calibra empíricamente una vez elegido el modelo de embeddings.
 
 ---
 
 ## 10. Concurrencia y Manejo de Sesiones
 
-SQLite con múltiples escritores concurrentes (chat, scraping y lecturas del WebSocket ocurriendo a la vez sobre `brain_core`) requiere modo **WAL** explícito para evitar errores de "database is locked":
+SQLite con múltiples escritores concurrentes requiere modo **WAL** explícito para evitar errores de "database is locked":
 
 ```sql
 PRAGMA journal_mode=WAL;
@@ -217,66 +261,51 @@ PRAGMA synchronous=NORMAL;
 ```
 
 ### Identificador de Sesión (`session_id`)
-
-El diseño original asumía un único hilo de conversación lineal. Si se abren varias ventanas de VS Code (o varios paneles de chat) al mismo tiempo, sus respectivos `idNodoAnterior` pueden cruzarse entre sí. Se agrega un `session_id` (UUID generado por `llama-vscode-chat` al abrir cada panel) que viaja junto con cada llamada a `POST /process`, de forma que cada hilo mantenga su propia cadena de `parent_id` sin interferir con las demás.
+Un UUID generado al abrir cada panel del visualizador viaja con cada petición para evitar la superposición de jerarquías de conversación entre ventanas concurrentes.
 
 ---
 
 ## 11. Ciclo de Vida de los Datos: Poda y Respaldo
 
 ### Consolidación y Olvido
-
-Sin un mecanismo de poda, `brain.db` crece sin límite. En línea con la metáfora del sistema, se incorpora una tarea periódica (semanal, vía cron o al arranque de `main.py`) que:
-
-1. Identifica nodos `CONOCIMIENTO` antiguos con baja centralidad (pocas o ninguna arista entrante) y baja recurrencia de acceso.
-2. Los consolida en un único nodo de nivel superior en lugar de eliminarlos, preservando la trazabilidad sin dejar crecer la base indefinidamente.
-3. Nunca poda nodos `ERROR_APRENDIDO` ni `BIFURCACION_FIX`, dado que son el conocimiento de mayor valor del sistema.
+El sistema ejecuta periódicamente una tarea en segundo plano que:
+1. Identifica nodos `CONOCIMIENTO` antiguos con baja centralidad (sin conexiones entrantes) y baja recurrencia de acceso.
+2. Los consolida en un único nodo superior en lugar de eliminarlos, preservando la trazabilidad.
+3. **Nunca poda** nodos `ERROR_APRENDIDO` o `BIFURCACION_FIX`, al ser el conocimiento de mayor valor adaptativo del sistema.
 
 ### Respaldo
-
-`storage/brain.db` es un punto único de fallo para meses de conocimiento acumulado. Se agrega una copia periódica (`storage/backups/brain-YYYYMMDD.db`, rotando las últimas `keep_last` copias definidas en `config.yaml`) antes de cada sesión de poda.
+Copia periódica en caliente (`storage/backups/brain-YYYYMMDD.db`), rotando las últimas `keep_last` copias antes de cada sesión de poda.
 
 ---
 
 ## 12. Robustez del Clasificador de Intención
 
 ### Manejo de Fallos de Clasificación
-
-Si la llamada de clasificación (Sección 4) hace timeout o el LLM responde algo fuera de `['consulta', 'corrección_de_error', 'ingesta_web']`, el sistema asume por defecto `consulta` — nunca bloquea la respuesta al usuario esperando una clasificación válida.
+Si la llamada al clasificador hace timeout o el LLM responde con datos corruptos, el core asume por defecto la categoría `consulta` para no bloquear el chat.
 
 ### Pre-filtro Híbrido (Latencia)
-
-Clasificar con DeepSeek-R1 en **cada mensaje** agrega una llamada extra al LLM grande antes de poder responder, costosa en hardware local. Se antepone un filtro rápido por palabras clave ("error", "no funcionó", "rompió", "fallo", etc.) como primera pasada; solo cuando el resultado es ambiguo se escala la clasificación al LLM. Esto reduce la latencia percibida en el caso común sin perder la robustez semántica en los casos difíciles.
+Se antepone un filtro rápido por palabras clave (ej. "error", "rompió", "fallo", "no funcionó") antes de delegar la clasificación al modelo grande, reduciendo significativamente la latencia percibida.
 
 ---
 
 ## 13. Capa Visual: Actualización y Edición Manual
 
 ### Mecanismo de Actualización
-
-La actualización del grafo es **push, no poll**: `brain_core` emite un evento por WebSocket inmediatamente después de cada escritura en `nodes`/`edges`, y `claude-mem` repinta solo ante ese evento. El `refresh_interval` de `config.yaml` (Sección 6) queda como mecanismo de respaldo (reconexión/resincronización), no como disparador principal.
+La sincronización es reactiva (push, no poll): `brain_core` emite un evento WebSocket inmediatamente después de escribir en `nodes` o `edges`, y el frontend repinta solo ante ese evento.
 
 ### Edición y Corrección Manual
-
-Dado que el Mecanismo de Split (Sección 3) puede dispararse por una clasificación incorrecta, se agrega un endpoint mínimo de corrección:
-
-* `PATCH /graph/node/{id}`: permite cambiar el `type` de un nodo o fusionarlo con otro manualmente.
-* `DELETE /graph/edge/{source_id}/{target_id}`: permite eliminar una arista creada por error.
-
-Sin esto, un error del clasificador queda grabado permanentemente en la estructura del grafo sin forma de corregirlo.
+* `PATCH /graph/node/{id}`: Permite modificar el `type` de un nodo o fusionarlo.
+* `DELETE /graph/edge/{source_id}/{target_id}`: Permite eliminar conexiones erróneas.
 
 ---
 
 ## 14. Instalación, Servicio Persistente y Seguridad de Red
 
 ### Instalación de `sqlite-vec`
-
-Al estar escrito en C puro sin dependencias, compila directamente en CachyOS sin la complejidad de build de Faiss que tenía `sqlite-vss`. Se descarga o compila el binario `vec0` y se carga vía `.load ./vec0` (o su equivalente en `database.py` mediante `sqlite3.enable_load_extension`).
+Carga del módulo dinámico compiled `vec0` usando `sqlite3.enable_load_extension` en Python.
 
 ### Servicio Persistente (`systemd --user`)
-
-Para que `brain_core` esté siempre disponible cuando se abre VS Code (y no falle silenciosamente si no se arrancó a mano), se define como servicio de usuario:
-
+Para garantizar la persistencia del backend al arrancar el entorno:
 ```ini
 # ~/.config/systemd/user/cerebro-brain-core.service
 [Unit]
@@ -284,179 +313,28 @@ Description=Cerebro Autónomo Unificado - Brain Core
 After=network.target
 
 [Service]
-WorkingDirectory=%h/cerebro-unico-ia/brain_core
+WorkingDirectory=%h/mem-neuro/cerebro_unificado/backend
 ExecStart=/usr/bin/python3 main.py
 Restart=on-failure
 
 [Install]
 WantedBy=default.target
 ```
-
 Activación: `systemctl --user enable --now cerebro-brain-core.service`
 
 ### Seguridad de Red
-
-Tanto `brain_core` (FastAPI/Uvicorn) como ambas instancias de `llama-server` (Sección 9) deben enlazar explícitamente a `127.0.0.1`, nunca a `0.0.0.0`, para evitar exponer el entorno de desarrollo local a la red LAN sin querer.
+El core y las instancias de inferencia se enlazan explícitamente a `127.0.0.1` para evitar su exposición a la red externa.
 
 ---
 
 ## 15. Orden de Implementación Sugerido
 
 ### Decisión Previa: ¿Backend propio o fork del worker de `claude-mem`?
-
-Antes de escribir `brain_core` desde cero, vale la pena evaluar si conviene forkear también el *worker* real de `claude-mem` (no solo su frontend visual) y agregarle un proveedor de IA tipo "openai-compatible" apuntando al `llama-server` de chat — hoy `claude-mem` solo soporta Claude, Gemini y OpenRouter como proveedores nativamente, así que esto requeriría un parche propio, pero ahorraría reimplementar el sistema de tres niveles, el esquema SQLite y la interfaz web que ese proyecto ya trae resueltos. Si se opta por seguir con el backend propio en Python (Secciones 1-8), esta decisión queda documentada aquí como descartada intencionalmente, no por omisión.
+Se optó por el desarrollo del backend propio en Python para proteger la flexibilidad del esquema SQLite, el aislamiento de procesos y el orquestador unificado de scraping y embeddings.
 
 ### Fases de Construcción
-
-Con cinco piezas moviéndose en paralelo (core, base de datos, scraper, fork de `claude-mem`, fork de `llama-vscode-chat`), se recomienda un despliegue incremental:
-
-1. **`brain_core` + SQLite base:** nodos y aristas, búsqueda por palabras clave (FTS5), sin vectores todavía. Probado manualmente vía `curl`, sin tocar la extensión de VS Code ni la capa visual.
-2. **Embeddings:** sumar la segunda instancia de `llama-server` (Sección 9) y `sqlite-vec` una vez que el paso 1 esté estable.
-3. **Extensión de VS Code:** conectar `llama-vscode-chat` (confirmar primero cuál es la base exacta — Sección 8) una vez que `POST /process` responde de forma confiable.
-4. **Capa visual:** conectar el fork de `claude-mem` al WebSocket.
-5. **Scraping web:** se suma al final — es la pieza menos crítica y la que más puede esperar.
-
-
-
----
-
-# 🧠 Proyecto.md — Cerebro Autónomo Unificado v2
-
-> **Especificación Oficial de Arquitectura**
-> Versión 2.0 (Living Document)
-
----
-
-# Prólogo
-
-## ¿Qué es este proyecto?
-
-**Cerebro Autónomo Unificado** no es un chatbot.
-
-No es un sistema RAG convencional.
-
-No es un wrapper para un LLM.
-
-Es un **Motor Cognitivo Persistente** cuyo propósito es situarse entre un Modelo de Lenguaje y el conocimiento disponible, actuando como una capa de razonamiento, memoria y recuperación de información.
-
-El LLM deja de ser el centro del sistema.
-
-El centro del sistema pasa a ser el **Motor Cognitivo**.
-
-El modelo de lenguaje se convierte únicamente en un componente especializado en comprensión y generación de lenguaje natural.
-
-Toda la adquisición, organización, recuperación y priorización del conocimiento pertenece al Cerebro Autónomo.
-
----
-
-# Objetivo
-
-El proyecto persigue cinco objetivos fundamentales.
-
-## 1. Persistencia
-
-El conocimiento no desaparece cuando termina una conversación.
-
-Cada interacción genera conocimiento persistente dentro del Grafo Cognitivo.
-
----
-
-## 2. Memoria
-
-El sistema debe recordar.
-
-No únicamente almacenar texto.
-
-Debe recordar relaciones.
-
-Contexto.
-
-Errores.
-
-Correcciones.
-
-Patrones.
-
-Experiencias.
-
-La memoria constituye una fuente de conocimiento tan importante como Internet.
-
----
-
-## 3. Recuperación Inteligente
-
-Cuando el sistema necesita información, no debe preguntar inmediatamente al LLM.
-
-Debe responder primero:
-
-> ¿Ya conozco esto?
-
-Si la memoria contiene suficiente evidencia, la búsqueda web puede omitirse.
-
-Si la memoria no basta, se planifica una estrategia de recuperación de conocimiento.
-
----
-
-## 4. Razonamiento
-
-La búsqueda nunca debe ejecutarse de forma automática.
-
-Cada recuperación de información debe ser consecuencia de una planificación.
-
-El sistema debe decidir:
-
-* si necesita buscar;
-* dónde buscar;
-* cuánto buscar;
-* cuándo detenerse;
-* qué fuentes priorizar;
-* qué evidencia descartar.
-
----
-
-## 5. Construcción de Conocimiento
-
-El objetivo del sistema no es recuperar documentos.
-
-Es construir una representación coherente del conocimiento que posteriormente utilizará el Modelo de Lenguaje para generar la respuesta final.
-
----
-
-# Filosofía
-
-El proyecto adopta el siguiente principio fundamental.
-
-> **El LLM nunca debe ser considerado la fuente principal del conocimiento.**
-
-El conocimiento proviene de múltiples orígenes.
-
-El LLM únicamente razona sobre dicho conocimiento y lo expresa en lenguaje natural.
-
-Las fuentes de conocimiento incluyen, entre otras:
-
-* Memoria persistente.
-* Grafo Cognitivo.
-* SQLite + sqlite-vec.
-* Browserless.
-* Documentación oficial.
-* APIs.
-* GitHub.
-* Sistemas MCP.
-* Archivos locales.
-* Bases de datos.
-* Servicios externos.
-
-Todas estas fuentes son equivalentes desde el punto de vista arquitectónico.
-
-Ninguna tiene prioridad absoluta.
-
-Será responsabilidad del Motor Cognitivo determinar cuáles consultar y cómo combinar su evidencia.
-
----
-
-# Principio Fundamental
-
-> **El sistema no busca información.**
->
-> **El sistema construye conocimiento.**
-
+1. **`brain_core` + SQLite base**: Estructura CRUD inicial de nodos y aristas con FTS5.
+2. **Embeddings**: Integración de la instancia dedicada de embeddings y la extensión `sqlite-vec`.
+3. **Extensión de VS Code**: Interceptor del chat del desarrollador en el proxy HTTP.
+4. **Capa visual**: Comunicación reactiva vía WebSockets con el frontend.
+5. **Scraping e Ingesta Avanzada**: Pipeline modular de adquisición cognitiva de conocimiento.

@@ -23,5 +23,7 @@ brain_core/.venv/
 .DS_Store
 Thumbs.db
 
-# Reference
+# Reference & Customizations
+.agents/
+reference/
 references/
