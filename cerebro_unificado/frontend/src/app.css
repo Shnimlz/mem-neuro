@@ -309,3 +309,14 @@
 	background-clip: text;
 	animation: gradient-rgb 4s linear infinite;
 }
+
+/* Ocultar scrollbar física de menús contextuales y submenús */
+[data-slot="dropdown-menu-content"],
+[data-slot="dropdown-menu-sub-content"] {
+	scrollbar-width: none !important;
+}
+
+[data-slot="dropdown-menu-content"]::-webkit-scrollbar,
+[data-slot="dropdown-menu-sub-content"]::-webkit-scrollbar {
+	display: none !important;
+}

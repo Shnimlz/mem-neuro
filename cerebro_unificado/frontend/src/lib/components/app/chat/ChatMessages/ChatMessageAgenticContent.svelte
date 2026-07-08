@@ -153,6 +153,49 @@
 		return turns;
 	});
 
+	// ─── Fuentes consolidadas (herramienta + markdown) al pie de la respuesta ───
+	const consolidatedSources = $derived.by(() => {
+		const sourcesList: Array<{ title: string; url: string; domain: string }> = [];
+		const seenUrls = new Set<string>();
+
+		// 1. Añadir fuentes reales del toolResult
+		for (const section of sectionsParsed) {
+			if (
+				section.type === AgenticSectionType.TOOL_CALL &&
+				section.toolName === 'web_search' &&
+				section.toolResult
+			) {
+				const results = parseWebSearchResults(section.toolResult);
+				for (const item of results) {
+					if (!seenUrls.has(item.url)) {
+						seenUrls.add(item.url);
+						sourcesList.push({
+							title: item.title,
+							url: item.url,
+							domain: item.domain
+						});
+					}
+				}
+			}
+		}
+
+		// 2. Extraer fuentes descritas en el markdown
+		for (const section of sectionsParsed) {
+			if (section.type === AgenticSectionType.TEXT && section.content) {
+				const parsed = parseWebSearchTags(section.content);
+				const extracted = extractSourcesFromText(parsed.cleanText);
+				for (const src of extracted.sources) {
+					if (!seenUrls.has(src.url)) {
+						seenUrls.add(src.url);
+						sourcesList.push(src);
+					}
+				}
+			}
+		}
+
+		return sourcesList;
+	});
+
 	function getDefaultExpanded(section: AgenticSection): boolean {
 		if (
 			section.type === AgenticSectionType.TOOL_CALL_PENDING ||
@@ -365,40 +408,7 @@
 			/>
 		</div>
 
-		{#if sourceData.sources.length > 0}
-			<div
-				use:animateSources
-				class="sources-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 mt-4 pt-3 border-t border-border/10 w-full max-w-3xl"
-			>
-				{#each sourceData.sources as source, i (i)}
-					{@const favicon = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=32`}
-					<a
-						href={source.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="source-card group flex items-start gap-2.5 rounded-lg border border-border/10 hover:border-primary/30 bg-muted/20 hover:bg-primary/5 p-2.5 transition-all duration-300 shadow-sm opacity-0 hover:shadow-md"
-					>
-						<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-background shadow-sm border border-border/10 group-hover:border-primary/20 transition-colors">
-							<img
-								src={favicon}
-								class="h-3.5 w-3.5"
-								alt=""
-								loading="lazy"
-								onerror={(e) => { e.currentTarget.style.display = 'none'; }}
-							/>
-						</div>
-						<div class="flex flex-col min-w-0 leading-tight">
-							<span class="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider group-hover:text-primary transition-colors">
-								{source.domain}
-							</span>
-							<span class="text-xs text-foreground/80 line-clamp-1 font-medium mt-0.5 group-hover:text-foreground transition-colors">
-								{source.title}
-							</span>
-						</div>
-					</a>
-				{/each}
-			</div>
-		{/if}
+
 	{:else if section.type === AgenticSectionType.TOOL_CALL_STREAMING}
 		{@const streamingIcon = isStreaming ? Loader2 : Loader2}
 		{@const streamingIconClass = isStreaming ? 'h-4 w-4 animate-spin' : 'h-4 w-4'}
@@ -677,6 +687,41 @@
 		{#each sectionsParsed as section, index (index)}
 			{@render renderSection(section, index)}
 		{/each}
+	{/if}
+
+	{#if consolidatedSources.length > 0}
+		<div
+			use:animateSources
+			class="sources-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 mt-4 pt-3 border-t border-border/10 w-full max-w-3xl"
+		>
+			{#each consolidatedSources as source, i (i)}
+				{@const favicon = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=32`}
+				<a
+					href={source.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="source-card group flex items-start gap-2.5 rounded-lg border border-border/10 hover:border-primary/30 bg-muted/20 hover:bg-primary/5 p-2.5 transition-all duration-300 shadow-sm opacity-0 hover:shadow-md"
+				>
+					<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-background shadow-sm border border-border/10 group-hover:border-primary/20 transition-colors">
+						<img
+							src={favicon}
+							class="h-3.5 w-3.5"
+							alt=""
+							loading="lazy"
+							onerror={(e) => { e.currentTarget.style.display = 'none'; }}
+						/>
+					</div>
+					<div class="flex flex-col min-w-0 leading-tight">
+						<span class="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider group-hover:text-primary transition-colors">
+							{source.domain}
+						</span>
+						<span class="text-xs text-foreground/80 line-clamp-1 font-medium mt-0.5 group-hover:text-foreground transition-colors">
+							{source.title}
+						</span>
+					</div>
+				</a>
+			{/each}
+		</div>
 	{/if}
 
 	{#if pendingPermission && !permissionDismissed}
