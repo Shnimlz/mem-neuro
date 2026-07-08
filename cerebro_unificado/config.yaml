@@ -19,6 +19,12 @@ scraping:                                     # Fase 5
   cache_ttl: 604800  # 7 días en segundos
   max_content_length: 2000
 
+search:
+  provider: "bing"                    # "bing", "searxng", "duckduckgo", "google", "brave"
+  browserless_url: "http://127.0.0.1:3000"
+  max_queries: 2
+  max_results_per_query: 5
+
 
 core:
   host: "127.0.0.1"

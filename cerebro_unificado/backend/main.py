@@ -41,6 +41,7 @@ from database import Database
 from classifier import IntentionClassifier, Intention
 from embeddings import EmbeddingsClient
 from web_scraper import WebScraper
+from search_orchestrator import SearchOrchestrator
 
 # ─── Configuración ──────────────────────────────────────────────────────────────
 
@@ -199,6 +200,7 @@ db: Database | None = None
 classifier: IntentionClassifier | None = None
 embeddings_client: EmbeddingsClient | None = None
 web_scraper: WebScraper | None = None
+search_orchestrator: SearchOrchestrator | None = None
 
 # Conexiones WebSocket activas (Sección 13)
 ws_connections: set[WebSocket] = set()
@@ -270,7 +272,7 @@ async def ws_broadcast(event: dict) -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Gestiona startup y shutdown del servidor."""
-    global config, db, classifier, embeddings_client, web_scraper
+    global config, db, classifier, embeddings_client, web_scraper, search_orchestrator
 
     # Startup
     config = load_config()
@@ -319,6 +321,14 @@ async def lifespan(app: FastAPI):
         config["scraping"].get("enabled", True),
         config["scraping"].get("cache_ttl", 604800),
         config["scraping"].get("max_content_length", 2000),
+    )
+
+    # Inicializar orquestador de búsqueda
+    search_orchestrator = SearchOrchestrator(config, embeddings_client, db)
+    logger.info(
+        "Orquestador de Búsqueda (SearchOrchestrator) inicializado: Provider=%s, Browserless=%s",
+        search_orchestrator.provider_name,
+        search_orchestrator.browserless_url,
     )
 
     # ─── Respaldo y Poda (Sección 11) ─────────────────────────────
@@ -896,44 +906,10 @@ LLM_URL_BASE = "http://127.0.0.1:8080"
 
 async def web_search(query: str, max_results: int = 3) -> str:
     """Realiza una consulta al motor de búsqueda local configurado, filtra y limpia los resultados."""
-    logger.info("[Web Search] Iniciando consulta para: '%s' (max_results=%d)", query, max_results)
-    try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            response = await client.get(
-                "http://127.0.0.1:8888/search",
-                params={"q": query, "format": "json"}
-            )
-            response.raise_for_status()
-            data = response.json()
-        
-        results = data.get("results", [])
-        if not results:
-            return f"No se encontraron resultados en la web para la consulta: '{query}'."
-        
-        # Filtro de relevancia básico: Excluir resultados vacíos, duplicados o sin url
-        seen_urls = set()
-        cleaned_parts = []
-        
-        for r in results:
-            title = r.get("title", "").strip()
-            url = r.get("url", "").strip()
-            snippet = r.get("content", "").strip()
-            
-            if not title or not url or url in seen_urls:
-                continue
-                
-            seen_urls.add(url)
-            # Saneamiento de etiquetas HTML en el snippet
-            snippet_clean = re.sub(r'<[^>]+>', '', snippet).strip()
-            
-            cleaned_parts.append(f"### Fuente: {title}\nURL: {url}\nResumen: {snippet_clean}\n---")
-            if len(cleaned_parts) >= max_results:
-                break
-                
-        return "\n".join(cleaned_parts) if cleaned_parts else "No se encontraron resultados relevantes."
-    except Exception as exc:
-        logger.error("[Web Search] Error en búsqueda web: %s", exc)
-        return f"[Error de Búsqueda Web]: {str(exc)}"
+    logger.info("[Web Search] Redirigiendo a SearchOrchestrator: '%s'", query)
+    if search_orchestrator:
+        return await search_orchestrator.search(query)
+    return "El orquestador de búsqueda no está disponible."
 
 
 @app.get("/api/web_search")
@@ -1286,133 +1262,10 @@ async def ejecutar_busqueda_web(query: str) -> str:
     El contenido devuelto debe utilizarse como fuente principal para elaborar
     la respuesta al usuario.
     """
-    logger.info("[Tool: ejecutar_busqueda_web] Iniciando búsqueda estructurada: '%s'", query)
-    
-    # 1. Normalización y detección de intención
-    query_norm = _normalize_query(query)
-    intent = _detect_search_type(query_norm)
-    logger.info("[Tool: ejecutar_busqueda_web] Consulta normalizada: '%s', Intención detectada: '%s'", query_norm, intent)
-
-    # ─── Interceptar Clima (Nominatim + Open-Meteo) ───
-    if intent == "clima":
-        try:
-            # Extraer ciudad usando regex
-            match = re.search(r"(?:clima|tiempo|pronostico|temperatura)\s+(?:en|de|para|de\s+estos\s+dias\s+en)?\s*([^?.,\n]+)", query, re.IGNORECASE)
-            city = match.group(1).strip() if match else "Reynosa, Tamaulipas"
-
-            # 1. Geocodificación Nominatim
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                headers = {"User-Agent": "CerebroAutonomo/1.0"}
-                geo_resp = await client.get(
-                    f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(city)}&format=json&limit=1",
-                    headers=headers
-                )
-                if geo_resp.status_code == 200:
-                    geo_data = geo_resp.json()
-                    if geo_data:
-                        lat = geo_data[0]["lat"]
-                        lon = geo_data[0]["lon"]
-                        display_name = geo_data[0]["display_name"]
-
-                        # 2. Consultar clima en Open-Meteo
-                        weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto"
-                        weather_resp = await client.get(weather_url)
-                        if weather_resp.status_code == 200:
-                            weather_data = weather_resp.json()
-                            
-                            loc_parts = display_name.split(",")
-                            location = loc_parts[0] + ", " + loc_parts[-1].strip()
-
-                            weather_payload = {
-                                "location": location,
-                                "current": weather_data["current_weather"],
-                                "daily": weather_data["daily"]
-                            }
-
-                            summary = (
-                                f"Resultados del clima en {location}: Temperatura actual de {weather_payload['current']['temperature']}°C, "
-                                f"máxima prevista hoy: {weather_data['daily']['temperature_2m_max'][0]}°C, "
-                                f"mínima: {weather_data['daily']['temperature_2m_min'][0]}°C, "
-                                f"probabilidad de lluvia: {weather_data['daily']['precipitation_probability_max'][0]}%."
-                            )
-
-                            return f"<weather_data>{json.dumps(weather_payload)}</weather_data>\n\n{summary}"
-        except Exception as weather_err:
-            logger.warning("[Tool: ejecutar_busqueda_web] Fallo en API de clima: %s", weather_err)
-
-    # ─── Interceptar YouTube (YouTube Data API v3) ───
-    youtube_api_key = os.getenv("YOUTUBE_API_KEY")
-    if youtube_api_key and intent == "youtube":
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                yt_url = "https://www.googleapis.com/youtube/v3/search"
-                yt_resp = await client.get(
-                    yt_url,
-                    params={
-                        "part": "snippet",
-                        "q": query,
-                        "type": "video",
-                        "maxResults": 4,
-                        "key": youtube_api_key
-                    }
-                )
-                if yt_resp.status_code == 200:
-                    yt_data = yt_resp.json()
-                    items = yt_data.get("items", [])
-                    if items:
-                        output_parts = []
-                        for i, item in enumerate(items):
-                            video_id = item.get("id", {}).get("videoId")
-                            video_url = f"https://www.youtube.com/watch?v={video_id}" if video_id else ""
-                            snippet = item.get("snippet", {})
-                            title = snippet.get("title", "")
-                            description = snippet.get("description", "[No description]")
-                            
-                            entry = (
-                                f"Resultado {i+1}:\n"
-                                f"- Título: {title}\n"
-                                f"- URL: {video_url}\n"
-                                f"- Contenido: {description}\n"
-                            )
-                            output_parts.append(entry)
-
-                        header = (
-                            f"Resultados de YouTube obtenidos en tiempo real para '{query}':\n\n"
-                        )
-                        return header + "\n".join(output_parts)
-        except Exception as yt_err:
-            logger.warning("[Tool: ejecutar_busqueda_web] Fallo en API de YouTube: %s", yt_err)
-
-    # ─── Búsqueda Web Estándar (RAG) ───
-    try:
-        # Reescritura para consultas cortas
-        search_query = _rewrite_query(query_norm, intent)
-        logger.info("[Tool: ejecutar_busqueda_web] Buscando con query reformulada: '%s'", search_query)
-
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            response = await client.get(
-                "http://127.0.0.1:8888/search",
-                params={"q": search_query, "format": "json"}
-            )
-            response.raise_for_status()
-            data = response.json()
-        
-        results = data.get("results", [])
-        if not results:
-            return "No se encontraron resultados en la web para esta consulta."
-            
-        # Pipeline de recuperación e información (IR)
-        filtered = _filter_results(results)
-        diversified = _remove_duplicates_and_diversify(filtered)
-        prioritized = _prioritize_results(diversified, intent)
-        
-        # Devolver los 5 resultados con mayor calidad y relevancia
-        formatted = _format_results(prioritized[:5], query)
-        return formatted
-        
-    except Exception as exc:
-        logger.error("[Tool: ejecutar_busqueda_web] Fallo general en la búsqueda: %s", exc)
-        return f"[Error en la búsqueda estructurada]: {str(exc)}"
+    logger.info("[Tool: ejecutar_busqueda_web] Redirigiendo a SearchOrchestrator: '%s'", query)
+    if search_orchestrator:
+        return await search_orchestrator.search(query)
+    return "El orquestador de búsqueda no está disponible."
 
 
 @app.post("/api/tools/ejecutar_busqueda_web")
@@ -1425,92 +1278,21 @@ async def api_ejecutar_busqueda_web(req: WebSearchToolRequest):
 async def execute_web_search_and_scrape(query: str) -> str:
     """Realiza la búsqueda web (vía el motor configurado), raspa los contenidos en paralelo,
     los segmenta de forma inteligente y realiza un reordenamiento (rerank) para inyectar
-    únicamente los 3 fragmentos más relevantes en el prompt del sistema.
+    únicamente los fragmentos más relevantes en el prompt del sistema.
     """
-    from web_scraper import perform_web_search, scrape_multiple_urls
-    search_links = await perform_web_search(query)
-    if not search_links or not isinstance(search_links, list):
-        return "<web_context>\nNo se encontraron resultados en la web.\n</web_context>"
-        
-    urls = [r["url"] for r in search_links]
-    scraped_contents = []
-    if urls:
-        try:
-            result = await scrape_multiple_urls(urls)
-            scraped_contents = list(result) if result is not None else []
-        except Exception as exc:
-            logger.error("[Search&Scrape] Error en scrape_multiple_urls: %s", exc)
-            scraped_contents = []
-    
-    # Recolectar fragmentos de las páginas
-    all_chunks = []
-    chunk_to_source = {}
-    
-    try:
-        for i, r in enumerate(search_links):
-            content = scraped_contents[i] if i < len(scraped_contents) else ""
-            if not content or not content.strip() or content.startswith("[Error"):
-                snippet = r.get("snippet", "")
-                if snippet:
-                    all_chunks.append(snippet)
-                    chunk_to_source[snippet] = {"title": r.get("title", ""), "url": r.get("url", "")}
-                continue
-                
-            # Dividir contenido usando el splitter recursivo inteligente de embeddings_client
-            if embeddings_client:
-                page_chunks = embeddings_client.chunk_text(content, max_chars=1200)
-                for ch in page_chunks:
-                    ch_strip = ch.strip()
-                    if ch_strip:
-                        all_chunks.append(ch_strip)
-                        chunk_to_source[ch_strip] = {"title": r.get("title", ""), "url": r.get("url", "")}
-            else:
-                all_chunks.append(content)
-                chunk_to_source[content] = {"title": r.get("title", ""), "url": r.get("url", "")}
-    except Exception as exc:
-        logger.error("[Search&Scrape] Error procesando resultados: %s", exc)
-
-    # Realizar el reordenamiento (rerank) asíncrono
-    reranked_chunks = []
-    if all_chunks:
-        if embeddings_client:
-            try:
-                # Intentamos el reordenamiento
-                reranked_chunks = await embeddings_client.rerank(query, all_chunks, top_n=3)
-                # Si por error interno devuelve None, lo convertimos a lista vacía
-                reranked_chunks = reranked_chunks if reranked_chunks is not None else []
-            except Exception as e:
-                # Logueamos el error para saber qué pasó pero no rompemos el chat
-                logger.error(f"Error crítico en Reranking: {e}")
-                reranked_chunks = []
-        
-        # Cláusula de seguridad final: si está vacío, usamos los originales
-        if not reranked_chunks:
-            logger.warning("Reranking falló o devolvió vacío, usando fragmentos originales.")
-            reranked_chunks = all_chunks[:3]
-            
-    # Formatear el bloque <web_context>
-    output_parts = []
-    for idx, chunk in enumerate(reranked_chunks):
-        source = chunk_to_source.get(chunk, {"title": "Búsqueda Web", "url": ""})
-        output_parts.append(
-            f"### Fragmento de Relevancia {idx+1}:\n"
-            f"- Fuente: {source['title']}\n"
-            f"- URL: {source['url']}\n"
-            f"- Contenido:\n{chunk}\n---"
-        )
-        
-    if not output_parts:
-        return "<web_context>\nNo se encontró contenido web relevante tras el análisis.\n</web_context>"
-        
-    return f"<web_context>\n" + "\n".join(output_parts) + "\n</web_context>"
+    logger.info("[Search&Scrape] Redirigiendo a SearchOrchestrator: '%s'", query)
+    if search_orchestrator:
+        return await search_orchestrator.search(query)
+    return "<web_context>\nNo se encontraron resultados en la web.\n</web_context>"
 
 
 async def _background_web_search(query: str) -> str:
     """Invoca la función web_search de fondo e inyecta el contenido formateado."""
-    logger.info("[Background Search] Invocando execute_web_search_and_scrape para query: '%s'", query)
-    scraped_data = await execute_web_search_and_scrape(query)
-    return f"<contexto_web_busqueda>\n{scraped_data}\n</contexto_web_busqueda>"
+    logger.info("[Background Search] Redirigiendo a SearchOrchestrator para query: '%s'", query)
+    if search_orchestrator:
+        scraped_data = await search_orchestrator.search(query)
+        return f"<contexto_web_busqueda>\n{scraped_data}\n</contexto_web_busqueda>"
+    return ""
 
 
 async def reformulate_search_query(history_messages: list, current_message: str) -> str:
@@ -1518,7 +1300,6 @@ async def reformulate_search_query(history_messages: list, current_message: str)
     if not history_messages:
         return current_message
     try:
-        # Usamos el LLM para reescribir la query basándonos en el contexto
         prompt = (
             "Dada la siguiente conversación y una nueva pregunta, "
             "reescribe la nueva pregunta para que sea una consulta de búsqueda web efectiva "
@@ -1526,11 +1307,9 @@ async def reformulate_search_query(history_messages: list, current_message: str)
             "Responde ÚNICAMENTE con la consulta de búsqueda reescrita, sin explicaciones ni comillas.\n\n"
             f"Historial de conversación:\n"
         )
-        # Añadir últimos 3 mensajes para contexto rápido
         for msg in history_messages[-4:]:
             role = "Usuario" if msg.get("role") == "user" else "IA"
             content = msg.get("content", "")
-            # Limpiar posibles etiquetas XML anteriores para no confundir
             content_clean = re.sub(r'<[^>]+>[\s\S]*?<\/[^>]+>', '', content).strip()
             prompt += f"{role}: {content_clean[:200]}\n"
             
@@ -1552,10 +1331,8 @@ async def reformulate_search_query(history_messages: list, current_message: str)
             response.raise_for_status()
             data = response.json()
             rewritten = data["choices"][0]["message"]["content"].strip()
-            # Limpiar etiquetas de razonamiento si el modelo las incluyó
             if "</think>" in rewritten:
                 rewritten = rewritten.split("</think>")[-1].strip()
-            # Limpiar comillas
             rewritten = rewritten.replace('"', '').replace("'", "").strip()
             if rewritten:
                 logger.info("[Query Reformulation] Query original: '%s' -> Reescrita: '%s'", current_message, rewritten)
