@@ -515,6 +515,30 @@ app.add_middleware(
 
 # ─── Endpoints Nativos ──────────────────────────────────────────────────────────
 
+_USER_INSTRUCTIONS_PATH = Path(__file__).parent / "user_instructions.md"
+
+
+@app.get("/api/user_instructions")
+async def get_user_instructions():
+    """Devuelve las instrucciones personalizadas del usuario."""
+    try:
+        if _USER_INSTRUCTIONS_PATH.exists():
+            return {"content": _USER_INSTRUCTIONS_PATH.read_text(encoding="utf-8")}
+    except Exception:
+        pass
+    return {"content": ""}
+
+
+@app.put("/api/user_instructions")
+async def put_user_instructions(req: dict):
+    """Guarda las instrucciones personalizadas del usuario."""
+    content = req.get("content", "")
+    try:
+        _USER_INSTRUCTIONS_PATH.write_text(content, encoding="utf-8")
+        return {"status": "ok"}
+    except Exception as exc:
+        return {"status": "error", "detail": str(exc)}
+
 @app.get("/health")
 async def health():
     """Health check básico del Cerebro."""

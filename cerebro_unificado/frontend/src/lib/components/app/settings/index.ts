@@ -79,3 +79,8 @@ export { default as SettingsChatToolsTab } from './SettingsChat/SettingsChatTool
  * **SettingsChatWebSearchTab** - Web search configuration tab for settings
  */
 export { default as SettingsChatWebSearchTab } from './SettingsChat/SettingsChatWebSearchTab.svelte';
+
+/**
+ * **SettingsChatUserInstructionsTab** - User instructions configuration tab
+ */
+export { default as SettingsChatUserInstructionsTab } from './SettingsChat/SettingsChatUserInstructionsTab.svelte';

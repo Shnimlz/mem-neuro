@@ -5,6 +5,7 @@
 		SettingsChatImportExportTab,
 		SettingsChatMobileHeader,
 		SettingsChatToolsTab,
+		SettingsChatUserInstructionsTab,
 		SettingsChatWebSearchTab,
 		SettingsFooter
 	} from '$lib/components/app/settings';
@@ -158,6 +159,8 @@
 						<SettingsChatImportExportTab />
 					{:else if currentSection.title === SETTINGS_SECTION_TITLES.WEB_SEARCH}
 						<SettingsChatWebSearchTab />
+					{:else if currentSection.title === SETTINGS_SECTION_TITLES.USER_INSTRUCTIONS}
+						<SettingsChatUserInstructionsTab />
 					{:else if currentSection.fields}
 						<div class="space-y-6">
 							<SettingsChatFields

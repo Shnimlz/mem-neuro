@@ -11,7 +11,8 @@ export const SETTINGS_SECTION_SLUGS = {
 	MCP: 'mcp',
 	TOOLS: 'tools',
 	IMPORT_EXPORT: 'import-export',
-	WEB_SEARCH: 'web-search'
+	WEB_SEARCH: 'web-search',
+	USER_INSTRUCTIONS: 'user-instructions'
 } as const;
 
 export const ROUTES = {

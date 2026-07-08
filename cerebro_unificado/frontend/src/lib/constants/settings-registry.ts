@@ -13,7 +13,8 @@ import {
 	Monitor as MonitorIcon,
 	Sun,
 	Moon,
-	Globe
+	Globe,
+	User
 } from '@lucide/svelte';
 import type { Component } from 'svelte';
 import type {
@@ -41,7 +42,8 @@ export const SETTINGS_SECTION_TITLES = {
 	MCP: 'MCP',
 	IMPORT_EXPORT: 'Import/Export',
 	DEVELOPER: 'Developer',
-	WEB_SEARCH: 'Web Search'
+	WEB_SEARCH: 'Web Search',
+	USER_INSTRUCTIONS: 'User Instructions'
 } as const;
 
 const STANDALONE_SECTIONS: { title: SettingsSectionTitle; slug: string; icon: Component }[] = [
@@ -55,6 +57,11 @@ const STANDALONE_SECTIONS: { title: SettingsSectionTitle; slug: string; icon: Co
 		title: SETTINGS_SECTION_TITLES.WEB_SEARCH,
 		slug: SETTINGS_SECTION_SLUGS.WEB_SEARCH,
 		icon: Globe
+	},
+	{
+		title: SETTINGS_SECTION_TITLES.USER_INSTRUCTIONS,
+		slug: SETTINGS_SECTION_SLUGS.USER_INSTRUCTIONS,
+		icon: User
 	}
 ];
 
