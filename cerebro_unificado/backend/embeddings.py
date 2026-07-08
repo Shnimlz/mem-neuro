@@ -229,31 +229,35 @@ class EmbeddingsClient:
             except Exception as exc:
                 logger.warning("[Reranker] Fallo en Reranker externo (%s). Usando fallback de embeddings...", exc)
 
-        # 2. Fallback: Similitud de coseno basada en embeddings bi-encoder
-        try:
-            logger.info("[Reranker] Ejecutando reordenamiento semántico por embeddings...")
-            query_vector = await self.get_embedding(query)
-            if not query_vector:
-                logger.warning("[Reranker] No se pudo obtener el embedding de la query. Retornando orden original.")
-                return documents[:top_n]
-                
-            scored_docs = []
-            for doc in documents:
-                doc_vector = await self.get_embedding(doc)
-                if doc_vector:
-                    # Similitud coseno (al estar normalizados L2, es solo el producto escalar)
-                    score = sum(q * d for q, d in zip(query_vector, doc_vector))
-                    scored_docs.append((score, doc))
-                else:
-                    scored_docs.append((0.0, doc))
+            # 2. Fallback: Similitud de coseno basada en embeddings bi-encoder
+            import asyncio
+            try:
+                logger.info("[Reranker] Ejecutando reordenamiento semántico por embeddings en paralelo...")
+                query_vector = await self.get_embedding(query)
+                if not query_vector:
+                    logger.warning("[Reranker] No se pudo obtener el embedding de la query. Retornando orden original.")
+                    return documents[:top_n]
                     
-            scored_docs.sort(key=lambda x: x[0], reverse=True)
-            logger.info("[Reranker] Reordenamiento por embeddings completado.")
-            return [doc for _, doc in scored_docs[:top_n]]
-            
-        except Exception as exc:
-            logger.error("[Reranker] Error en fallback de embeddings: %s. Retornando orden original.", exc)
-            return documents[:top_n]
+                # Lanzar todas las peticiones de embeddings en paralelo
+                tasks = [self.get_embedding(doc) for doc in documents]
+                doc_vectors = await asyncio.gather(*tasks)
+                
+                scored_docs = []
+                for doc, doc_vector in zip(documents, doc_vectors):
+                    if doc_vector:
+                        # Similitud coseno (al estar normalizados L2, es solo el producto escalar)
+                        score = sum(q * d for q, d in zip(query_vector, doc_vector))
+                        scored_docs.append((score, doc))
+                    else:
+                        scored_docs.append((0.0, doc))
+                        
+                scored_docs.sort(key=lambda x: x[0], reverse=True)
+                logger.info("[Reranker] Reordenamiento por embeddings completado.")
+                return [doc for _, doc in scored_docs[:top_n]]
+                
+            except Exception as exc:
+                logger.error("[Reranker] Error en fallback de embeddings: %s. Retornando orden original.", exc)
+                return documents[:top_n]
 
     def _parse_response(self, data: dict[str, Any]) -> list[float] | None:
         """Parsea la respuesta JSON de embeddings del servidor."""
