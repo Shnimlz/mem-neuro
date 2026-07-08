@@ -13,9 +13,13 @@
 
 ---
 
-## 📸 Interface Visual
+## 📸 Visual Interface
 
-![mem-neuro Premium UI mockup](assets/ui_mockup.png)
+### 💬 Chat Interface
+![mem-neuro Chat Interface](assets/chat_interface.png)
+
+### 🌐 Neuronal Cognitive Graph Viewer
+![mem-neuro Neuronal Viewer](assets/neuronal_viewer.png)
 
 ---
 
