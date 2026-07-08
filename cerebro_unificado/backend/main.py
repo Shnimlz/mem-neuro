@@ -110,10 +110,13 @@ SYSTEM_PROMPT_TEMPLATE = (
 )
 
 
-def render_system_prompt(target_lang: str = "Spanish (Español)", user: str = "Antonio") -> str:
+def render_system_prompt(target_lang: str = "Spanish (Español)", user: str | None = None) -> str:
     """Resuelve los tags dinámicos de SYSTEM_PROMPT_TEMPLATE en tiempo de ejecución.
     Carga user_instructions.md (si existe) y lo anexa como preferencias del usuario.
     """
+    if user is None:
+        user = config.get("core", {}).get("user_name", "User")
+        
     now = datetime.now()
     _DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
     _MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
@@ -132,7 +135,7 @@ def render_system_prompt(target_lang: str = "Spanish (Español)", user: str = "A
         .replace("{{target_lang}}", target_lang)
     )
     # Cargar instrucciones personalizadas del usuario (si existen)
-    _instructions_path = Path(__file__).parent / "user_instructions.md"
+    _instructions_path = _USER_INSTRUCTIONS_PATH
     try:
         if _instructions_path.exists():
             _user_text = _instructions_path.read_text(encoding="utf-8").strip()
@@ -145,13 +148,6 @@ def render_system_prompt(target_lang: str = "Spanish (Español)", user: str = "A
     except Exception:
         pass  # Si falla la lectura, no romper el sistema
     return base
-
-def extract_commands(text: str) -> list[str]:
-    """Extrae comandos localizados en la respuesta de forma ultra robusta y a prueba de markdown.
-    [DESHABILITADO] Retorna siempre una lista vacía para evitar ejecución de comandos de terminal.
-    """
-    return []
-
 
 def load_config() -> dict:
     """Carga la configuración desde config.yaml (Sección 6)."""
@@ -266,144 +262,6 @@ async def ws_broadcast(event: dict) -> None:
 
     # Limpiar conexiones muertas
     ws_connections.difference_update(dead)
-
-
-async def run_agent_cron_loop() -> None:
-    """Bucle cognitivo autónomo en segundo plano (Agente Cron).
-    
-    Despierta periódicamente, consulta al LLM sobre el estado del sistema,
-    ejecuta comandos autónomos si es necesario (con un bucle de hasta 3 iteraciones/pasos)
-    e indexa todas las actividades en el grafo de neuronas.
-    """
-    logger.info("[Agente Cron] Iniciando bucle autónomo en segundo plano...")
-    await asyncio.sleep(8.0)  # dar tiempo a que cargue el LLM y la base de datos
-
-    session_id = "agent-cron-session"
-
-    while True:
-        try:
-            # Obtener intervalo actual
-            interval = config.get("agent_cron", {}).get("interval_seconds", 60)
-            
-            # Verificar si está habilitado
-            if not config.get("agent_cron", {}).get("enabled", True):
-                await asyncio.sleep(5.0)
-                continue
-                
-            # Evitar colisión de recursos del LLM si el usuario está chateando activamente (últimos 5 minutos)
-            global last_user_activity_time
-            time_since_activity = time.time() - last_user_activity_time
-            if time_since_activity < 300.0:
-                logger.info("[Agente Cron] Pospuesto ciclo de monitoreo autónomo debido a actividad reciente del usuario (hace %.1fs, límite 300s)", time_since_activity)
-                await asyncio.sleep(60.0)
-                continue
-                
-            logger.info("[Agente Cron] Iniciando ciclo de monitoreo autónomo...")
-            
-            # Bucle de ReAct autónomo de hasta 3 pasos
-            steps_limit = 3
-            current_parent = None
-            
-            # Contexto inicial (Formulado en inglés para obediencia de DeepSeek-R1)
-            system_prompt = (
-                "[SYSTEM DIRECTIVE: AUTONOMOUS BACKGROUND MONITORING AGENT - DESHABILITADO]\n"
-                "Autonomous background monitoring and terminal execution are disabled."
-            )
-            
-            messages = [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": "Realiza la comprobación rutinaria del sistema en este ciclo cron."}
-            ]
-            
-            for step in range(steps_limit):
-                # Llamar al LLM mediante httpx al endpoint local
-                client = httpx.AsyncClient(timeout=45.0)
-                try:
-                    resp = await client.post(
-                        f"{LLM_URL_BASE}/v1/chat/completions",
-                        json={"messages": messages, "stream": False}
-                    )
-                    resp.raise_for_status()
-                    resp_data = resp.json()
-                except Exception as exc:
-                    logger.warning("[Agente Cron] Fallo al conectar con LLM: %s", exc)
-                    break
-                finally:
-                    await client.aclose()
-                    
-                choices = resp_data.get("choices", [])
-                if not choices:
-                    break
-                    
-                llm_reply = choices[0].get("message", {}).get("content", "").strip()
-                logger.info("[Agente Cron] Turno %d - Respuesta del Agente: %s...", step + 1, llm_reply[:80])
-                
-                # Buscar comandos en la respuesta
-                commands = extract_commands(llm_reply)
-                
-                # Si responde SYSTEM OK o no hay comandos, terminar ciclo
-                if "SYSTEM OK" in llm_reply or not commands:
-                    # Si el LLM reportó que todo está bien, podemos guardar el log de salud en la DB
-                    if "SYSTEM OK" in llm_reply and step == 0:
-                        node_content = f"[Agente Cron] Chequeo de sistema rutinario completado. Todo en orden (SYSTEM OK)."
-                        embedding = None
-                        try:
-                            embedding = await embeddings_client.get_embedding(node_content)
-                        except Exception:
-                            pass
-                        health_node = await db.insert_node(
-                            content=node_content,
-                            session_id=session_id,
-                            parent_id=None,
-                            node_type="CONOCIMIENTO",
-                            embedding=embedding
-                        )
-                        await ws_broadcast({"event": "node_created", "node": health_node})
-                    break
-                    
-                # Ejecutar el comando (normalmente uno por paso en ReAct)
-                cmd_str = commands[0].strip()
-                output = await execute_system_command(cmd_str)
-                
-                # Guardar el nodo de comando + salida en el grafo de SQLite
-                node_content = f"[CONSOLA AGENTE CRON] Comando: {cmd_str}\n\nResultado:\n{output}"
-                embedding = None
-                try:
-                    embedding = await embeddings_client.get_embedding(node_content)
-                except Exception:
-                    pass
-                    
-                cmd_node = await db.insert_node(
-                    content=node_content,
-                    session_id=session_id,
-                    parent_id=current_parent,
-                    node_type="CONOCIMIENTO",
-                    embedding=embedding
-                )
-                await ws_broadcast({"event": "node_created", "node": cmd_node})
-                
-                if current_parent:
-                    edge = await db.insert_edge(current_parent, cmd_node["id"], 1.0)
-                    await ws_broadcast({"event": "edge_created", "edge": edge})
-                    
-                current_parent = cmd_node["id"]
-                
-                # Alimentar el resultado al siguiente paso del bucle
-                messages.append({"role": "assistant", "content": llm_reply})
-                messages.append({"role": "user", "content": f"Resultado de la consola del paso anterior:\n{output}"})
-                
-                # Si el comando falló por denegación de sudo, evitar seguir intentando
-                if "[Error de Seguridad]" in output:
-                    break
-            
-            logger.info("[Agente Cron] Ciclo de monitoreo autónomo finalizado. Esperando al siguiente intervalo.")
-            
-        except Exception as exc:
-            logger.error("[Agente Cron] Error crítico en el ciclo de fondo: %s", exc)
-            
-        # Esperar hasta el próximo ciclo
-        interval = config.get("agent_cron", {}).get("interval_seconds", 60)
-        await asyncio.sleep(interval)
 
 
 # ─── Ciclo de vida de la aplicación ─────────────────────────────────────────────
@@ -998,7 +856,6 @@ async def websocket_terminal(ws: WebSocket):
             await ws.send_json({"event": "running", "command": command})
 
             # Ejecutar con la misma función segura (bloquea sudo, intercepta search)
-            output = await execute_system_command(command)
 
             # Guardar como nodo neuronal
             session_id = "terminal-web-session"
@@ -1346,18 +1203,6 @@ async def _background_web_search(query: str) -> str:
     return f"<contexto_web_busqueda>\n{scraped_data}\n</contexto_web_busqueda>"
 
 
-async def execute_system_command(command: str) -> str:
-    """Solo usar para tareas administrativas del sistema local Linux, configuración de servidores
-    o monitoreo de hardware. NUNCA usar para consultas informativas generales o eventos externos.
-    [DESHABILITADO] Retorna error de ejecución indicando que la terminal está deshabilitada.
-    """
-    logger.warning("[Agente Terminal] Intento de ejecución de comando bloqueado: '%s'", command.strip())
-    return (
-        "[Error de Seguridad] La ejecución autónoma de comandos del sistema mediante la terminal "
-        "está estrictamente deshabilitada en esta instancia del Cerebro Autónomo."
-    )
-
-
 async def reformulate_search_query(history_messages: list, current_message: str) -> str:
     """Reescribe la consulta del usuario para incluir el contexto de la conversación."""
     if not history_messages:
@@ -1555,71 +1400,7 @@ async def query_memory_and_enrich(message: str, session_id: str, history: list =
     return enriched_prompt, new_node["id"]
 
 
-async def handle_post_response_commands(full_reply: str, parent_node_id: str, session_id: str) -> None:
-    """Escanea la respuesta del LLM en busca de comandos CMD: <comando> y los ejecuta en caliente."""
-    commands = extract_commands(full_reply)
-    if not commands:
-        return
-        
-    # Ejecutar comandos de forma secuencial y registrarlos en el grafo
-    current_parent = parent_node_id
-    for cmd in commands:
-        cmd_str = cmd.strip()
-        # Limpiar residuos comunes de bloques de markdown si el LLM los incluyó en la línea
-        cmd_str = cmd_str.replace("`", "").strip()
-        if not cmd_str:
-            continue
-            
-        # Ejecutar el comando
-        output = await execute_system_command(cmd_str)
-        
-        # Guardar en base de datos como un nodo de conocimiento de terminal
-        node_content = f"[CONSOLA BASH] Comando: {cmd_str}\n\nResultado:\n{output}"
-        
-        embedding = None
-        try:
-            embedding = await embeddings_client.get_embedding(node_content)
-        except Exception:
-            pass
-            
-        cmd_node = await db.insert_node(
-            content=node_content,
-            session_id=session_id,
-            parent_id=current_parent,
-            node_type="CONOCIMIENTO",
-            embedding=embedding
-        )
-        await ws_broadcast({"event": "node_created", "node": cmd_node})
-        
-        # Enlazar arista
-        edge = await db.insert_edge(current_parent, cmd_node["id"], 1.0)
-        await ws_broadcast({"event": "edge_created", "edge": edge})
-        
-        # El resultado pasa a ser el padre de cualquier comando subsecuente
-        current_parent = cmd_node["id"]
-
-
 # ─── FUNCIONES DE ORQUESTACIÓN REACT EN EL PROXY (Fase Ampliación) ─────────────
-
-async def stream_text_openai(text: str) -> AsyncGenerator[bytes, None]:
-    """Generador SSE para simular streaming en formato OpenAI."""
-    words = re.split(r"(\s+)", text)
-    for word in words:
-        if not word:
-            continue
-        chunk_data = {
-            "choices": [{
-                "index": 0,
-                "delta": {
-                    "content": word
-                },
-                "finish_reason": None
-            }]
-        }
-        yield f"data: {json.dumps(chunk_data)}\n\n".encode("utf-8")
-        await asyncio.sleep(0.012)  # Animación fluida de 12ms
-    yield b"data: [DONE]\n\n"
-
 
 async def stream_text_completion(text: str) -> AsyncGenerator[bytes, None]:
     """Generador SSE para simular streaming en formato propietario llama.cpp."""
@@ -1661,10 +1442,6 @@ async def run_react_loop_openai(messages: list, body: dict, session_id: str, par
             if not llm_text.strip():
                 break
                 
-            commands = extract_commands(llm_text)
-            if not commands:
-                return llm_text, current_parent
-                
             logger.info("[ReAct OpenAI] Comandos detectados en paso %d: %s", step + 1, commands)
             
             # Guardar nodo del bot con la intención
@@ -1685,7 +1462,6 @@ async def run_react_loop_openai(messages: list, body: dict, session_id: str, par
                 cmd_str = cmd.strip().replace("`", "").strip()
                 if not cmd_str:
                     continue
-                output = await execute_system_command(cmd_str)
                 cmd_outputs.append(f"[Terminal] $ {cmd_str}\n{output}")
                 
                 # Guardar nodo de consola
@@ -1742,10 +1518,6 @@ async def run_react_loop_completion(prompt: str, body: dict, session_id: str, pa
             if not llm_text.strip():
                 break
                 
-            commands = extract_commands(llm_text)
-            if not commands:
-                return llm_text, current_parent
-                
             logger.info("[ReAct Completion] Comandos detectados en paso %d: %s", step + 1, commands)
             
             # Guardar nodo del bot
@@ -1766,7 +1538,6 @@ async def run_react_loop_completion(prompt: str, body: dict, session_id: str, pa
                 cmd_str = cmd.strip().replace("`", "").strip()
                 if not cmd_str:
                     continue
-                output = await execute_system_command(cmd_str)
                 cmd_outputs.append(f"[Terminal] $ {cmd_str}\n{output}")
                 
                 # Guardar nodo de consola
@@ -1831,7 +1602,6 @@ async def proxy_completion(request: Request):
         logger.error("[Proxy] Error en llamada inicial /completion: %s", exc)
         raise HTTPException(status_code=500, detail=str(exc))
 
-    commands = extract_commands(llm_text)
 
     if commands:
         logger.info("[Proxy] Comandos detectados en /completion: %s. Ejecutando y haciendo stream de interpretación...", commands)
@@ -1854,7 +1624,6 @@ async def proxy_completion(request: Request):
             cmd_str = cmd.strip().replace("`", "").strip()
             if not cmd_str:
                 continue
-            output = await execute_system_command(cmd_str)
             cmd_outputs.append(f"[Terminal] $ {cmd_str}\n{output}")
             
             # Registrar nodo de consola
@@ -2044,7 +1813,6 @@ async def proxy_openai_chat(request: Request):
             if choices:
                 llm_text = choices[0].get("message", {}).get("content", "")
                 
-            commands = extract_commands(llm_text)
             if commands:
                 logger.info("[Proxy REST /v1/chat/completions] Comandos detectados: %s. Ejecutando ReAct...", commands)
                 final_text, final_parent = await run_react_loop_openai(messages, body, session_id, question_node_id)
@@ -2717,8 +2485,6 @@ async def proxy_openai_chat(request: Request):
                         await ws_broadcast({"event": "edge_created", "edge": edge})
                         current_parent = reply_node["id"]
                         
-                        # Detectar comandos CMD:
-                        commands = extract_commands(first_reply)
                         if commands:
                             logger.info("[Proxy Stream /v1/chat/completions] Comandos detectados: %s", commands)
                             
@@ -2734,7 +2500,6 @@ async def proxy_openai_chat(request: Request):
                                 cmd_str = cmd.strip().replace("`", "").strip()
                                 if not cmd_str:
                                     continue
-                                output = await execute_system_command(cmd_str)
                                 cmd_outputs.append(f"[Terminal] $ {cmd_str}\n{output}")
                                 
                                 # Registrar nodo de consola

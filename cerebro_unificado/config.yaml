@@ -23,6 +23,7 @@ scraping:                                     # Fase 5
 core:
   host: "127.0.0.1"
   port: 8000
+  user_name: "Antonio"
 
 frontend:
   refresh_interval: 2000
