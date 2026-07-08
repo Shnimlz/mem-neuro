@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+		import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { Card } from '$lib/components/ui/card';
@@ -9,6 +9,7 @@
 	import { config } from '$lib/stores/settings.svelte';
 	import type { Snippet } from 'svelte';
 	import type { Component } from 'svelte';
+	import { animate } from 'animejs';
 
 	interface Props {
 		open?: boolean;
@@ -39,6 +40,8 @@
 	}: Props = $props();
 
 	let contentContainer: HTMLDivElement | undefined = $state();
+	let iconWrapperEl: HTMLDivElement | undefined = $state();
+	let cardEl: HTMLElement | undefined = $state();
 
 	const showThoughtInProgress = $derived(config().showThoughtInProgress as boolean);
 
@@ -65,6 +68,50 @@
 		autoScroll.updateInterval(open && isStreaming);
 	});
 
+	// Animación visual loca "PZ Fusion" con animejs cuando el cerebro está razonando
+	$effect(() => {
+		if (isStreaming && iconWrapperEl) {
+			const anim = animate(iconWrapperEl, {
+				scale: [
+					{ value: 1.35, duration: 250, easing: 'easeOutElastic(1, .6)' },
+					{ value: 0.85, duration: 200, easing: 'easeInQuad' },
+					{ value: 1.15, duration: 200, easing: 'easeOutQuad' },
+					{ value: 1.0, duration: 300, easing: 'easeOutElastic(1, .8)' }
+				],
+				rotate: [
+					{ value: -15, duration: 200, easing: 'easeInOutSine' },
+					{ value: 15, duration: 200, easing: 'easeInOutSine' },
+					{ value: 0, duration: 300, easing: 'easeOutElastic(1, .6)' }
+				],
+				filter: [
+					{ value: 'drop-shadow(0 0 8px rgba(139, 92, 246, 0.9))', duration: 200 },
+					{ value: 'drop-shadow(0 0 2px rgba(139, 92, 246, 0.3))', duration: 500 }
+				],
+				loop: true,
+				delay: 300
+			});
+			return () => anim.pause();
+		}
+	});
+
+	// Animación de destello / border-glow en el Card cuando está razonando
+	$effect(() => {
+		if (isStreaming && cardEl) {
+			const borderAnim = animate(cardEl, {
+				boxShadow: [
+					{ value: '0 0 15px 2px rgba(139, 92, 246, 0.25)', duration: 400, easing: 'easeInOutQuad' },
+					{ value: '0 0 5px 0px rgba(139, 92, 246, 0.05)', duration: 600, easing: 'easeInOutQuad' }
+				],
+				borderColor: [
+					{ value: 'rgba(139, 92, 246, 0.4)', duration: 400, easing: 'easeInOutQuad' },
+					{ value: 'rgba(139, 92, 246, 0.1)', duration: 600, easing: 'easeInOutQuad' }
+				],
+				loop: true
+			});
+			return () => borderAnim.pause();
+		}
+	});
+
 	function handleScroll() {
 		autoScroll.handleScroll();
 	}
@@ -78,12 +125,14 @@
 	}}
 	class={className}
 >
-	<Card class="gap-0 border-border/60 bg-card/45 backdrop-blur-md hover:bg-card/65 transition-all duration-300 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] py-0 overflow-hidden">
+	<Card bind:this={cardEl} class="gap-0 border-border/60 bg-card/45 backdrop-blur-md hover:bg-card/65 transition-all duration-300 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] py-0 overflow-hidden">
 		<Collapsible.Trigger class="flex w-full cursor-pointer items-center justify-between gap-3 p-3.5 hover:text-foreground text-muted-foreground transition-colors duration-150">
 			<div class="flex min-w-0 items-center gap-2.5">
 				<div class="flex items-center gap-2">
 					{#if IconComponent}
-						<IconComponent class="{iconClass} {isStreaming ? 'text-primary animate-pulse' : 'text-muted-foreground'}" />
+						<div bind:this={iconWrapperEl} class="flex items-center justify-center shrink-0">
+							<IconComponent class="{iconClass} {isStreaming ? 'text-primary' : 'text-muted-foreground'}" />
+						</div>
 					{/if}
 
 					<span class="font-sans text-xs font-semibold uppercase tracking-wider text-foreground/80">{title}</span>

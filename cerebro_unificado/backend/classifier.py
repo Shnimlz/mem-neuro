@@ -129,7 +129,7 @@ class IntentionClassifier:
         return None
 
     async def llm_classify(self, message: str) -> Intention:
-        """Clasifica usando el LLM (DeepSeek-R1) con timeout estricto.
+        """Clasifica usando el LLM con timeout estricto.
 
         Returns:
             La intención clasificada, o CONSULTA si falla/timeout.

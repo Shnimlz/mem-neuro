@@ -8270,3 +8270,103 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 20:42:43 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
 2026-07-07 20:42:45 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 20:42:45)
 2026-07-07 20:42:45 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
+2026-07-07 20:51:16 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Apagando ═══
+2026-07-07 20:51:16 | INFO     | cerebro.database | Conexión a la base de datos cerrada
+2026-07-07 20:51:17 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Iniciando ═══
+2026-07-07 20:51:17 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-07 20:51:17 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-07 20:51:17 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-07 20:51:17 | INFO     | cerebro.main | Base de datos: 41 nodos, 40 aristas
+2026-07-07 20:51:17 | INFO     | cerebro.main | Clasificador inicializado: LLM en http://127.0.0.1:8080 (timeout: 5.0s)
+2026-07-07 20:51:17 | INFO     | cerebro.main | Cliente de embeddings inicializado: Servidor en http://127.0.0.1:8081 (dimensión=384, normalización=True)
+2026-07-07 20:51:17 | INFO     | cerebro.web_scraper | Cargadas 3 reglas de extracción específicas desde sources.json
+2026-07-07 20:51:17 | INFO     | cerebro.main | Módulo de Scraping inicializado: Enabled=True (TTL=604800s, maxLength=2000)
+2026-07-07 20:51:17 | INFO     | cerebro.database | Iniciando copia de seguridad en caliente de la base de datos a: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_205117.db
+2026-07-07 20:51:17 | INFO     | cerebro.database | Copia de seguridad completada con éxito.
+2026-07-07 20:51:17 | INFO     | cerebro.database | Copia de seguridad antigua eliminada por rotación: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_174632.db
+2026-07-07 20:51:17 | INFO     | cerebro.main | Agente Cron Autónomo deshabilitado por política de seguridad del terminal.
+2026-07-07 20:51:17 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
+2026-07-07 20:51:19 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 20:51:19)
+2026-07-07 20:51:19 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
+2026-07-07 20:54:53 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Apagando ═══
+2026-07-07 20:54:53 | INFO     | cerebro.database | Conexión a la base de datos cerrada
+2026-07-07 20:54:53 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Iniciando ═══
+2026-07-07 20:54:53 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-07 20:54:53 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-07 20:54:53 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-07 20:54:53 | INFO     | cerebro.main | Base de datos: 41 nodos, 40 aristas
+2026-07-07 20:54:53 | INFO     | cerebro.main | Clasificador inicializado: LLM en http://127.0.0.1:8080 (timeout: 5.0s)
+2026-07-07 20:54:53 | INFO     | cerebro.main | Cliente de embeddings inicializado: Servidor en http://127.0.0.1:8081 (dimensión=384, normalización=True)
+2026-07-07 20:54:53 | INFO     | cerebro.web_scraper | Cargadas 3 reglas de extracción específicas desde sources.json
+2026-07-07 20:54:53 | INFO     | cerebro.main | Módulo de Scraping inicializado: Enabled=True (TTL=604800s, maxLength=2000)
+2026-07-07 20:54:53 | INFO     | cerebro.database | Iniciando copia de seguridad en caliente de la base de datos a: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_205453.db
+2026-07-07 20:54:53 | INFO     | cerebro.database | Copia de seguridad completada con éxito.
+2026-07-07 20:54:53 | INFO     | cerebro.database | Copia de seguridad antigua eliminada por rotación: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_180014.db
+2026-07-07 20:54:53 | INFO     | cerebro.main | Agente Cron Autónomo deshabilitado por política de seguridad del terminal.
+2026-07-07 20:54:53 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
+2026-07-07 20:54:55 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-06-30 20:54:55)
+2026-07-07 20:54:55 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
+2026-07-07 20:56:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 20:56:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 20:56:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 20:56:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:56:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:56:51 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 20:56:58 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 20:57:06 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 20:57:27 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 20:57:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:57:30 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 20:57:30 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Hazme un resumen de lo que te he estado preguntando....'
+2026-07-07 20:57:30 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 20:57:30 | DEBUG    | cerebro.database | Embedding guardado para nodo 892c482c (rowid=42)
+2026-07-07 20:57:30 | INFO     | cerebro.database | Nodo creado: 892c482c [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 20:57:30 | INFO     | cerebro.database | Arista creada: d6f8cbdc → 892c482c (peso=1.0)
+2026-07-07 20:57:30 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 20:58:25 | INFO     | cerebro.database | Nodo creado: b148d932 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 20:58:25 | INFO     | cerebro.database | Arista creada: 892c482c → b148d932 (peso=1.0)
+2026-07-07 20:58:25 | ERROR    | cerebro.main | [Proxy] Error en streaming /v1/chat/completions: name 'commands' is not defined
+2026-07-07 20:59:25 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 20:59:36 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 20:59:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:59:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:59:46 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:59:54 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:59:55 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:59:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 20:59:58 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 21:00:00 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 21:00:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 21:00:08 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 21:00:09 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 21:01:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 21:01:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 21:01:33 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Cuanto es la raiz cuadrada de 28390...'
+2026-07-07 21:01:33 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 21:01:33 | DEBUG    | cerebro.database | Embedding guardado para nodo b71b3b9f (rowid=44)
+2026-07-07 21:01:33 | INFO     | cerebro.database | Nodo creado: b71b3b9f [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 21:01:33 | INFO     | cerebro.database | Arista creada: b148d932 → b71b3b9f (peso=1.0)
+2026-07-07 21:01:33 | INFO     | cerebro.database | Búsqueda vectorial completada: 15 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 21:01:45 | INFO     | cerebro.database | Nodo creado: 2e15db8b [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 21:01:45 | INFO     | cerebro.database | Arista creada: b71b3b9f → 2e15db8b (peso=1.0)
+2026-07-07 21:01:45 | ERROR    | cerebro.main | [Proxy] Error en streaming /v1/chat/completions: name 'commands' is not defined
+2026-07-07 21:03:31 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 21:05:20 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 21:05:28 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 21:05:31 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 21:05:31 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 21:05:31 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Tengo esta función en Python para fusionar intervalos de reu...'
+2026-07-07 21:05:31 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 21:05:31 | DEBUG    | cerebro.database | Embedding guardado para nodo 091bdab9 (rowid=46)
+2026-07-07 21:05:31 | INFO     | cerebro.database | Nodo creado: 091bdab9 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 21:05:31 | INFO     | cerebro.database | Arista creada: 2e15db8b → 091bdab9 (peso=1.0)
+2026-07-07 21:05:31 | INFO     | cerebro.database | Búsqueda vectorial completada: 1 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 21:07:34 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 21:08:00 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 21:08:00 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 21:08:02 | INFO     | cerebro.database | Nodo creado: 8d36ea96 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 21:08:02 | INFO     | cerebro.database | Arista creada: 091bdab9 → 8d36ea96 (peso=1.0)
+2026-07-07 21:08:02 | ERROR    | cerebro.main | [Proxy] Error en streaming /v1/chat/completions: name 'commands' is not defined
+2026-07-07 21:08:46 | INFO     | cerebro.main | [Sandbox Python] Petición para ejecutar script Python de 365 caracteres
+2026-07-07 21:08:49 | INFO     | cerebro.main | [Sandbox Python] Petición para ejecutar script Python de 365 caracteres
+2026-07-07 21:08:54 | INFO     | cerebro.main | [Sandbox Python] Petición para ejecutar script Python de 60 caracteres
