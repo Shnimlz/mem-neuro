@@ -1026,9 +1026,8 @@ class WebSearchToolRequest(BaseModel):
 
 
 async def ejecutar_busqueda_web(query: str) -> str:
-    """Usar obligatoriamente para cualquier duda sobre eventos actuales, noticias, deportes,
-    clima, búsquedas en internet y datos del año 2024-2026. NUNCA usar la terminal para estas consultas.
-    Realiza una consulta a SearXNG, filtra por score de relevancia y devuelve títulos, URLs y snippets completos.
+    """Usar obligatoriamente para cualquier duda sobre eventos actuales, noticias, deportes, Youtube, clima, búsquedas en internet y datos del año 2024-2026. NUNCA usar la terminal para estas consultas.
+    Realiza una consulta a X Web Scraper, filtra por score de relevancia y devuelve títulos, URLs y snippets completos.
     """
     logger.info("[Tool: ejecutar_busqueda_web] Iniciando búsqueda estructurada: '%s'", query)
     
@@ -2075,6 +2074,161 @@ async def proxy_openai_chat(request: Request):
                 if tool_query:
                     # ─── INTERCEPTOR ACTIVO: tool_call emulada detectada ───
                     logger.info("[Interceptor Tool] Detectada tool_call emulada para: '%s'", tool_query)
+                    
+                    # ─── INTERCEPTOR CLIMA (Nominatim + Open-Meteo) ───
+                    tq_norm = tool_query.lower()
+                    for _t, _o in [("a","á"),("e","é"),("i","í"),("o","ó"),("u","ú")]:
+                        tq_norm = tq_norm.replace(_o, _t)
+                    _is_weather = any(w in tq_norm for w in ["clima","tiempo","pronostico","weather","temperatura"])
+                    
+                    if _is_weather:
+                        try:
+                            _match = re.search(
+                                r"(?:clima|tiempo|pronostico|pronóstico|temperatura)\s+(?:en|de|para)?\s*([^?.,\n]+)",
+                                tool_query, re.IGNORECASE
+                            )
+                            _city = _match.group(1).strip() if _match else "Reynosa, Tamaulipas"
+                            
+                            # Emitir estado: Buscando clima
+                            status_chunk = {
+                                "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "searching"}}</web_search_status>'}, "finish_reason": None}]
+                            }
+                            yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                            
+                            async with httpx.AsyncClient(timeout=10.0) as _wc:
+                                _geo = await _wc.get(
+                                    f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(_city)}&format=json&limit=1",
+                                    headers={"User-Agent": "CerebroAutonomo/1.0"}
+                                )
+                                if _geo.status_code == 200 and _geo.json():
+                                    _gd = _geo.json()[0]
+                                    _lat, _lon, _dn = _gd["lat"], _gd["lon"], _gd["display_name"]
+                                    
+                                    _wr = await _wc.get(
+                                        f"https://api.open-meteo.com/v1/forecast?latitude={_lat}&longitude={_lon}"
+                                        f"&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto"
+                                    )
+                                    if _wr.status_code == 200:
+                                        _wd = _wr.json()
+                                        _loc_parts = _dn.split(",")
+                                        _location = _loc_parts[0] + ", " + _loc_parts[-1].strip()
+                                        
+                                        _weather_payload = {
+                                            "location": _location,
+                                            "current": _wd["current_weather"],
+                                            "daily": _wd["daily"]
+                                        }
+                                        
+                                        _summary = (
+                                            f"Resultados del clima en {_location}: Temp actual {_wd['current_weather']['temperature']}°C, "
+                                            f"máxima hoy: {_wd['daily']['temperature_2m_max'][0]}°C, "
+                                            f"mínima: {_wd['daily']['temperature_2m_min'][0]}°C, "
+                                            f"prob lluvia: {_wd['daily']['precipitation_probability_max'][0]}%."
+                                        )
+                                        search_result = f"<weather_data>{json.dumps(_weather_payload)}</weather_data>\n\n{_summary}"
+                                        logger.info("[Interceptor Tool] Clima interceptado con éxito para '%s'", _city)
+                                        
+                                        # Emitir tag done
+                                        status_chunk = {
+                                            "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "done"}}</web_search_status>'}, "finish_reason": None}]
+                                        }
+                                        yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                                        
+                                        # Cerrar reasoning del primer turno
+                                        close_reasoning_chunk = {
+                                            "choices": [{"index": 0, "delta": {"content": ""}, "finish_reason": "stop"}]
+                                        }
+                                        yield f"data: {json.dumps(close_reasoning_chunk)}\n\n".encode("utf-8")
+                                        
+                                        # Guardar nodo en DB
+                                        web_node_content = f"[CONSULTA CLIMA]\n\n{search_result}"
+                                        web_embedding = None
+                                        try:
+                                            web_embedding = await embeddings_client.get_embedding(web_node_content)
+                                        except Exception:
+                                            pass
+                                        web_node = await db.insert_node(
+                                            content=web_node_content,
+                                            session_id=session_id,
+                                            parent_id=question_node_id,
+                                            node_type="CONOCIMIENTO",
+                                            embedding=web_embedding
+                                        )
+                                        await ws_broadcast({"event": "node_created", "node": web_node})
+                                        edge = await db.insert_edge(question_node_id, web_node["id"], 1.0)
+                                        await ws_broadcast({"event": "edge_created", "edge": edge})
+                                        current_parent = web_node["id"]
+                                        
+                                        # Segundo turno con datos del clima
+                                        local_messages = list(messages)
+                                        local_messages.append({"role": "assistant", "content": first_reply})
+                                        local_messages.append({
+                                            "role": "system",
+                                            "content": (
+                                                f"[SYSTEM: RESULTADO DE CONSULTA DE CLIMA]\n"
+                                                f"Se obtuvo el pronóstico del clima para '{_city}' en tiempo real desde Open-Meteo.\n"
+                                                f"Los datos son REALES y VERIFICADOS.\n\n"
+                                                f"{search_result}\n\n"
+                                                f"INSTRUCCIÓN OBLIGATORIA:\n"
+                                                f"1. Usa EXCLUSIVAMENTE los datos anteriores para responder al usuario.\n"
+                                                f"2. Incluye la etiqueta <weather_data> tal cual en tu respuesta para que el frontend renderice el widget.\n"
+                                                f"3. NO repitas la llamada a la herramienta ejecutar_busqueda_web.\n"
+                                                f"4. Responde de forma directa en español.\n"
+                                                f"5. NUNCA menciones tags internos como <web_search_status> o <web_search_results> en tu respuesta."
+                                            )
+                                        })
+                                        
+                                        second_body = dict(body)
+                                        second_body["messages"] = local_messages
+                                        second_body["stream"] = True
+                                        
+                                        logger.info("[Interceptor Tool] Lanzando segundo turno con datos de clima...")
+                                        
+                                        second_llm_chunks = []
+                                        async with httpx.AsyncClient(timeout=60.0) as second_client:
+                                            async with second_client.stream("POST", f"{LLM_URL_BASE}/v1/chat/completions", json=second_body) as r2:
+                                                buffer2 = ""
+                                                async for chunk in r2.aiter_bytes():
+                                                    buffer2 += chunk.decode("utf-8", errors="ignore")
+                                                    while "\n" in buffer2:
+                                                        line, buffer2 = buffer2.split("\n", 1)
+                                                        line = line.strip()
+                                                        if line.startswith("data:"):
+                                                            payload = line[5:].strip()
+                                                            if payload == "[DONE]":
+                                                                yield b"data: [DONE]\n\n"
+                                                            else:
+                                                                yield f"data: {payload}\n\n".encode("utf-8")
+                                                                try:
+                                                                    d = json.loads(payload)
+                                                                    delta = d.get("choices", [{}])[0].get("delta", {})
+                                                                    if "content" in delta and delta["content"]:
+                                                                        second_llm_chunks.append(delta["content"])
+                                                                except Exception:
+                                                                    pass
+                                        
+                                        # Guardar respuesta del segundo turno
+                                        second_full = "".join(second_llm_chunks)
+                                        if second_full.strip():
+                                            resp_embedding = None
+                                            try:
+                                                resp_embedding = await embeddings_client.get_embedding(second_full)
+                                            except Exception:
+                                                pass
+                                            resp_node = await db.insert_node(
+                                                content=second_full,
+                                                session_id=session_id,
+                                                parent_id=current_parent,
+                                                node_type="CONOCIMIENTO",
+                                                embedding=resp_embedding
+                                            )
+                                            await ws_broadcast({"event": "node_created", "node": resp_node})
+                                            edge2 = await db.insert_edge(current_parent, resp_node["id"], 1.0)
+                                            await ws_broadcast({"event": "edge_created", "edge": edge2})
+                                        
+                                        return  # Fin del flujo de clima
+                        except Exception as _weather_exc:
+                            logger.warning("[Interceptor Tool] Fallo en API de clima, cayendo a búsqueda web normal: %s", _weather_exc)
                     
                     # 2a. Ejecutar la búsqueda real con micro-estados SSE y raspado en paralelo
                     # Emitir estado: Analizando consulta
