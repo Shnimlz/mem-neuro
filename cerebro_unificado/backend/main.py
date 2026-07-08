@@ -13,7 +13,9 @@ Ejecutar: python main.py
 from __future__ import annotations
 
 import asyncio
+import os
 import logging
+from dotenv import load_dotenv
 import sys
 import re
 import json
@@ -43,6 +45,9 @@ from web_scraper import WebScraper
 
 CONFIG_PATH = Path(__file__).resolve().parent.parent / "config.yaml"
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Cargar variables de entorno del archivo .env
+load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 # Regex para detectar URLs
 URL_REGEX = re.compile(r"https?://[^\s\"']+")
@@ -1026,6 +1031,104 @@ async def ejecutar_busqueda_web(query: str) -> str:
     Realiza una consulta a SearXNG, filtra por score de relevancia y devuelve títulos, URLs y snippets completos.
     """
     logger.info("[Tool: ejecutar_busqueda_web] Iniciando búsqueda estructurada: '%s'", query)
+    
+    # ─── Interceptar Clima (Nominatim + Open-Meteo) ───
+    query_norm = query.lower()
+    for t, original in [("a", "á"), ("e", "é"), ("i", "í"), ("o", "ó"), ("u", "ú")]:
+        query_norm = query_norm.replace(original, t)
+
+    is_weather = any(w in query_norm for w in ["clima", "tiempo", "pronostico", "weather", "temperatura"])
+    if is_weather:
+        try:
+            # Extraer ciudad usando regex
+            match = re.search(r"(?:clima|tiempo|pronostico|temperatura)\s+(?:en|de|para|de\s+estos\s+dias\s+en)?\s*([^?.,\n]+)", query, re.IGNORECASE)
+            city = match.group(1).strip() if match else "Reynosa, Tamaulipas"
+
+            # 1. Geocodificación Nominatim
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                headers = {"User-Agent": "CerebroAutonomo/1.0"}
+                geo_resp = await client.get(
+                    f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(city)}&format=json&limit=1",
+                    headers=headers
+                )
+                if geo_resp.status_code == 200:
+                    geo_data = geo_resp.json()
+                    if geo_data:
+                        lat = geo_data[0]["lat"]
+                        lon = geo_data[0]["lon"]
+                        display_name = geo_data[0]["display_name"]
+
+                        # 2. Consultar clima en Open-Meteo
+                        weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto"
+                        weather_resp = await client.get(weather_url)
+                        if weather_resp.status_code == 200:
+                            weather_data = weather_resp.json()
+                            
+                            # Extraer nombres legibles
+                            loc_parts = display_name.split(",")
+                            location = loc_parts[0] + ", " + loc_parts[-1].strip()
+
+                            weather_payload = {
+                                "location": location,
+                                "current": weather_data["current_weather"],
+                                "daily": weather_data["daily"]
+                            }
+
+                            summary = (
+                                f"Resultados del clima en {location}: Temperatura actual de {weather_payload['current']['temperature']}°C, "
+                                f"máxima prevista hoy: {weather_data['daily']['temperature_2m_max'][0]}°C, "
+                                f"mínima: {weather_data['daily']['temperature_2m_min'][0]}°C, "
+                                f"probabilidad de lluvia: {weather_data['daily']['precipitation_probability_max'][0]}%."
+                            )
+
+                            return f"<weather_data>{json.dumps(weather_payload)}</weather_data>\n\n{summary}"
+        except Exception as weather_err:
+            logger.warning("[Tool: ejecutar_busqueda_web] Fallo en API de clima: %s", weather_err)
+
+    # ─── Interceptar YouTube (YouTube Data API v3) ───
+    youtube_api_key = os.getenv("YOUTUBE_API_KEY")
+    is_youtube = any(w in query_norm for w in ["youtube", "video", "musica", "music", "song", "cancion", "reproducir", "videoclip"])
+    if youtube_api_key and is_youtube:
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                yt_url = "https://www.googleapis.com/youtube/v3/search"
+                yt_resp = await client.get(
+                    yt_url,
+                    params={
+                        "part": "snippet",
+                        "q": query,
+                        "type": "video",
+                        "maxResults": 4,
+                        "key": youtube_api_key
+                    }
+                )
+                if yt_resp.status_code == 200:
+                    yt_data = yt_resp.json()
+                    items = yt_data.get("items", [])
+                    if items:
+                        output_parts = []
+                        for i, item in enumerate(items):
+                            video_id = item.get("id", {}).get("videoId")
+                            video_url = f"https://www.youtube.com/watch?v={video_id}" if video_id else ""
+                            snippet = item.get("snippet", {})
+                            title = snippet.get("title", "")
+                            description = snippet.get("description", "[No description]")
+                            
+                            entry = (
+                                f"Resultado {i+1}:\n"
+                                f"- Título: {title}\n"
+                                f"- URL: {video_url}\n"
+                                f"- Contenido: {description}\n"
+                            )
+                            output_parts.append(entry)
+
+                        header = (
+                            f"Resultados de YouTube obtenidos en tiempo real para '{query}':\n\n"
+                        )
+                        return header + "\n".join(output_parts)
+        except Exception as yt_err:
+            logger.warning("[Tool: ejecutar_busqueda_web] Fallo en API de YouTube: %s", yt_err)
+
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.get(
