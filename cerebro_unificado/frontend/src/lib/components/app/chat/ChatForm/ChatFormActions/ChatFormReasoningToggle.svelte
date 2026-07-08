@@ -258,9 +258,6 @@
 			<Tooltip.Content>
 				<p class="capitalize">
 					{tooltipText}
-					{#if thinkingEnabled && currentEffort === 'max'}
-						🔥
-					{/if}
 				</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
@@ -277,7 +274,6 @@
 					type="button"
 					class="flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-all duration-150 hover:bg-accent relative overflow-hidden"
 					class:bg-accent={isSelected(level)}
-					class:border-orange-500-glow={isMax && isSelected(level)}
 					onclick={() => handleSelection(level)}
 				>
 					{#if isSelected(level)}
@@ -289,26 +285,28 @@
 					<span class={[
 						'flex-1 font-medium transition-colors',
 						isMax 
-							? 'bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent font-bold animate-pulse'
+							? 'bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent font-bold'
 							: 'text-foreground'
 					]}>
 						{level.label}
-						{#if isMax}
-							🔥
-						{/if}
 					</span>
 
 					{#if !level.isOff}
-						<span class={[
-							'text-[10px] tabular-nums',
-							isMax
-								? 'text-orange-500/80 font-semibold'
-								: 'text-muted-foreground opacity-60'
-						]}>
-							{REASONING_EFFORT_TOKENS[level.value] === -1
-								? 'Unlimited'
-								: `Max ${REASONING_EFFORT_TOKENS[level.value].toLocaleString()} tokens`}
-						</span>
+						<!-- Si es Max, vinculamos el elemento para animarlo con animejs -->
+						{#if isMax}
+							<span
+								bind:this={unlimitedTextEl}
+								class="text-[10px] tabular-nums font-semibold"
+							>
+								Unlimited
+							</span>
+						{:else}
+							<span class="text-[11px] text-muted-foreground opacity-60">
+								{REASONING_EFFORT_TOKENS[level.value] === -1
+									? 'Unlimited'
+									: `Max ${REASONING_EFFORT_TOKENS[level.value].toLocaleString()} tokens`}
+							</span>
+						{/if}
 					{/if}
 
 					{#if level.hasInfo}
@@ -328,37 +326,5 @@
 {/if}
 
 <style>
-	@keyframes fire-pulse {
-		0%, 100% {
-			box-shadow: 0 0 10px 1px rgba(249, 115, 22, 0.4), inset 0 0 4px rgba(239, 68, 68, 0.2);
-			border-color: rgba(249, 115, 22, 0.4);
-		}
-		50% {
-			box-shadow: 0 0 20px 4px rgba(239, 68, 68, 0.65), inset 0 0 8px rgba(249, 115, 22, 0.4);
-			border-color: rgba(239, 68, 68, 0.7);
-		}
-	}
-	@keyframes flame-flicker {
-		0%, 100% { opacity: 0.8; transform: translateY(0) scaleY(1); }
-		50% { opacity: 1; transform: translateY(-1px) scaleY(1.15); }
-	}
-	@keyframes wiggle {
-		0%, 100% { transform: rotate(0); }
-		25% { transform: rotate(-5deg); }
-		75% { transform: rotate(5deg); }
-	}
-	:global(.animate-fire-pulse) {
-		animation: fire-pulse 1.5s infinite ease-in-out !important;
-	}
-	:global(.animate-flame-flicker) {
-		animation: flame-flicker 0.2s infinite ease-in-out !important;
-		transform-origin: bottom center;
-	}
-	:global(.animate-wiggle) {
-		animation: wiggle 0.6s infinite ease-in-out !important;
-	}
-	.border-orange-500-glow {
-		box-shadow: 0 0 8px rgba(249, 115, 22, 0.25) !important;
-		border: 1px solid rgba(249, 115, 22, 0.4) !important;
-	}
+	/* Animaciones manejadas 100% por anime.js de forma imperativa. Estilos CSS limpios y estáticos. */
 </style>
