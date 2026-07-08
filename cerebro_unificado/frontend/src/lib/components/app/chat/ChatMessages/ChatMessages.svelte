@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { animate, stagger, createScope } from 'animejs';
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
 	import { ChatMessage, ChatMessageUserPending } from '$lib/components/app';
 	import { setChatActionsContext } from '$lib/contexts';
@@ -38,6 +39,8 @@
 	let isVisible = $state(false);
 	let previousConversationId = $state<string | null>(null);
 	let previousRouteId = $state<string | null>(null);
+	let messagesContainerEl = $state<HTMLElement>();
+	let staggerScope: ReturnType<typeof createScope> | null = null;
 
 	const currentConfig = config();
 
@@ -169,6 +172,40 @@
 		});
 	});
 
+	// Stagger animation when conversation switches
+	$effect(() => {
+		if (!isVisible || !messagesContainerEl || displayMessages.length === 0) return;
+
+		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (prefersReduced) return;
+
+		// Cleanup previous stagger scope
+		if (staggerScope) {
+			staggerScope.revert();
+			staggerScope = null;
+		}
+
+		const chatMessages = messagesContainerEl.querySelectorAll(':scope > .chat-message');
+		if (chatMessages.length === 0) return;
+
+		staggerScope = createScope({ root: messagesContainerEl }).add(() => {
+			animate(chatMessages, {
+				opacity: [0, 1],
+				translateY: [16, 0],
+				ease: 'outCubic',
+				duration: 450,
+				delay: stagger(50, { from: 'first' })
+			});
+		});
+
+		return () => {
+			if (staggerScope) {
+				staggerScope.revert();
+				staggerScope = null;
+			}
+		};
+	});
+
 	let siblingInfoByMessageId = $derived(buildSiblingInfoMap(allConversationMessages));
 
 	let displayMessages = $derived.by(() => {
@@ -253,6 +290,7 @@
 </script>
 
 <div
+	bind:this={messagesContainerEl}
 	class="transition-opacity duration-500 ease-out
 		{isVisible ? 'opacity-100' : 'opacity-0'}
 		{previousRouteId === '/(chat)/chat/[id]' ? '' : 'delay-300'}"

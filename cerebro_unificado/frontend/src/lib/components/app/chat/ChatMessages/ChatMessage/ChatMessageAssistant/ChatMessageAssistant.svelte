@@ -278,10 +278,10 @@
 				</span>
 			</div>
 			<!-- Skeleton Loader Premium -->
-			<div class="flex flex-col gap-2.5 max-w-[85%] animate-pulse mt-4">
-				<div class="h-4 bg-muted/40 rounded-full w-full"></div>
-				<div class="h-4 bg-muted/40 rounded-full w-[90%]"></div>
-				<div class="h-4 bg-muted/40 rounded-full w-[65%]"></div>
+			<div class="flex flex-col gap-2.5 max-w-[85%] mt-4">
+				<div class="skeleton-shimmer-bar h-4 rounded-full w-full"></div>
+				<div class="skeleton-shimmer-bar h-4 rounded-full w-[90%]" style="animation-delay: 150ms"></div>
+				<div class="skeleton-shimmer-bar h-4 rounded-full w-[65%]" style="animation-delay: 300ms"></div>
 			</div>
 		</div>
 	{/if}
@@ -465,5 +465,16 @@
 		line-height: 1.6;
 		white-space: pre-wrap;
 		word-break: break-word;
+	}
+
+	.skeleton-shimmer-bar {
+		background: linear-gradient(
+			90deg,
+			var(--muted) 0%,
+			color-mix(in oklch, var(--muted-foreground) 20%, var(--muted)) 40%,
+			var(--muted) 80%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 1.8s ease-in-out infinite;
 	}
 </style>

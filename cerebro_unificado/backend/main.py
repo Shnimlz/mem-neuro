@@ -18,6 +18,7 @@ import logging
 from dotenv import load_dotenv
 import sys
 import re
+import unicodedata
 import json
 import time
 import platform
@@ -946,19 +947,354 @@ class WebSearchToolRequest(BaseModel):
     query: str
 
 
+# ─── Configuración de Búsqueda Web RAG Avanzada ───
+
+# Palabras clave por intención / tipo semántico
+_INTENT_KEYWORDS = {
+    "clima": ["clima", "tiempo", "pronostico", "weather", "temperatura", "lluvia", "viento", "sol", "nieve", "humedad", "calor", "frio"],
+    "youtube": ["youtube", "video", "musica", "music", "song", "cancion", "reproducir", "videoclip", "clip", "canal de yt", "trailer"],
+    "noticias": ["noticias", "news", "periodico", "actualidad", "suceso", "rebelion", "elecciones", "presidente", "gobierno", "declaraciones", "crisis", "atentado", "guerra"],
+    "deportes": ["deportes", "sports", "futbol", "soccer", "laliga", "champions", "nba", "nfl", "formula 1", "f1", "partido", "resultados", "clasificacion", "fichajes", "olimpiadas", "juegos olimpicos"],
+    "precios": ["precio", "costo", "comprar", "venta", "tienda", "amazon", "ebay", "mercadolibre", "aliexpress", "oferta", "descuento", "barato", "dolares", "pesos", "euros"],
+    "documentacion": ["documentacion", "documentation", "docs", "api", "reference", "manual", "guia", "guide", "tutorial"],
+    "github": ["github", "repository", "repositorio", "commit", "pull request", "pr", "issue", "fork", "git"],
+    "programacion": ["programacion", "codigo", "code", "desarrollo", "error", "exception", "bug", "stack overflow", "framework", "library", "libreria", "python", "javascript", "typescript", "rust", "c++", "java", "golang", "go-lang"],
+    "empresas": ["empresa", "company", "corporation", "corp", "startup", "ceo", "acciones", "bolsa", "ingresos", "fundador", "adquisicion", "sede"],
+    "productos": ["producto", "product", "review", "analisis", "especificaciones", "caracteristicas", "modelo", "marca", "lanzamiento", "hardware", "software"],
+    "mapas": ["mapa", "map", "direccion", "como llegar", "ubicacion", "gps", "coordenadas", "ruta", "distancia", "calle", "ciudad", "pais"],
+    "personas": ["biografia", "vida", "nacimiento", "muerte", "quien es", "trayectoria", "edad", "esposa", "esposo", "hijos", "actor", "cantante", "cientifico"],
+    "eventos": ["evento", "concierto", "festival", "conferencia", "expo", "feria", "fecha", "lugar", "boletos", "entradas"],
+    "musica": ["album", "disco", "artista", "banda", "letra", "lyrics", "genero musical", "concierto", "gira"],
+    "peliculas": ["pelicula", "movie", "film", "cine", "director", "reparto", "elenco", "estreno", "oscar", "sinopsis"],
+    "series": ["serie", "temporada", "episodio", "capitulo", "netflix", "hbo", "disney+", "show", "tv show"],
+    "actualidad": ["hoy", "ayer", "mañana", "esta semana", "este mes", "este año", "actualizado", "reciente", "ultimo momento"]
+}
+
+# Clasificación de dominios de alta confianza
+_DOMAIN_CLASSIFICATION = {
+    "documentacion": [
+        "docs.python.org", "developer.mozilla.org", "react.dev", "svelte.dev", "tailwindcss.com",
+        "nextjs.org", "vite.dev", "fastapi.tiangolo.com", "pkg.go.dev", "rust-lang.org",
+        "docs.microsoft.com", "support.google.com", "aws.amazon.com/docs", "kubernetes.io/docs"
+    ],
+    "github": ["github.com", "gitlab.com", "bitbucket.org"],
+    "noticias": [
+        "nytimes.com", "bbc.com", "elpais.com", "elmundo.es", "cnn.com", "reuters.com",
+        "bloomberg.com", "theguardian.com", "xataka.com", "techcrunch.com", "wired.com"
+    ],
+    "foro": ["stackoverflow.com", "reddit.com", "quora.com", "stackexchange.com", "discord.gg"],
+    "video": ["youtube.com", "youtu.be", "vimeo.com", "twitch.tv"]
+}
+
+# Dominios no deseados o de baja calidad para respuestas técnicas o RAG
+_SPAM_DOMAINS = [
+    "pinterest.com", "pinterest.es", "clickbait", "adware", "spam", "doubleclick",
+    "survey", "win-free", "sponsored", "cheap-deals"
+]
+
+
+def _normalize_query(query: str) -> str:
+    """
+    Limpia espacios innecesarios, acentos y caracteres basura de la consulta
+    de búsqueda, conservando nombres propios y términos clave de forma legible.
+    """
+    if not query:
+        return ""
+    # Quitar acentos respetando la codificación unicode estándar
+    query_clean = ''.join(
+        c for c in unicodedata.normalize('NFD', query)
+        if unicodedata.category(c) != 'Mn'
+    )
+    # Reemplazar caracteres de puntuación innecesarios por espacios, manteniendo guiones y puntos útiles
+    query_clean = re.sub(r'[^\w\s\-\.]', ' ', query_clean)
+    # Limpiar espacios múltiples y bordes
+    query_clean = re.sub(r'\s+', ' ', query_clean).strip()
+    return query_clean
+
+
+def _detect_search_type(query: str) -> str:
+    """
+    Detecta la intención o tipo semántico de la consulta.
+    Usa tanto palabras clave específicas como reglas basadas en regex.
+    """
+    query_lower = query.lower()
+    
+    # Comprobaciones rápidas y explícitas por prioridad alta
+    if re.search(r'\b(clima|tiempo|pronostico|temperatura|weather|lluvia)\b', query_lower):
+        return "clima"
+    if re.search(r'\b(youtube|video|musica|cancion|reproducir|videoclip)\b', query_lower):
+        return "youtube"
+        
+    intent_scores = {}
+    for intent, keywords in _INTENT_KEYWORDS.items():
+        score = 0
+        for kw in keywords:
+            if f" {kw} " in f" {query_lower} " or query_lower.startswith(kw) or query_lower.endswith(kw):
+                score += 3
+            elif kw in query_lower:
+                score += 1
+        if score > 0:
+            intent_scores[intent] = score
+            
+    if intent_scores:
+        return max(intent_scores, key=intent_scores.get)
+        
+    return "general"
+
+
+def _rewrite_query(query: str, intent: str) -> str:
+    """
+    Reescribe o enriquece automáticamente consultas muy cortas para optimizar
+    la calidad de los resultados devueltos por el motor de búsqueda.
+    """
+    cleaned = query.strip()
+    words = cleaned.split()
+    if len(words) <= 1 and cleaned:
+        word = words[0]
+        if intent in ["programacion", "documentacion"]:
+            return f"{word} oficial documentacion guia api"
+        elif intent == "github":
+            return f"{word} github repository"
+        elif intent in ["noticias", "actualidad"]:
+            return f"{word} ultimas noticias hoy"
+        elif intent in ["productos", "precios"]:
+            return f"{word} comprar precio caracteristicas"
+        elif intent in ["musica", "youtube"]:
+            return f"{word} videoclip cancion oficial"
+    return cleaned
+
+
+def _classify_source(url: str, title: str) -> str:
+    """
+    Clasifica automáticamente el tipo de fuente de un resultado (documentación, blog, etc.)
+    en base a su URL y título.
+    """
+    url_lower = url.lower()
+    title_lower = title.lower()
+    
+    # Comprobar dominios de documentación y repositorios
+    for doc_dom in _DOMAIN_CLASSIFICATION["documentacion"]:
+        if doc_dom in url_lower:
+            return "documentación"
+            
+    for gh_dom in _DOMAIN_CLASSIFICATION["github"]:
+        if gh_dom in url_lower:
+            return "repositorio"
+            
+    for news_dom in _DOMAIN_CLASSIFICATION["noticias"]:
+        if news_dom in url_lower:
+            return "noticia"
+            
+    for forum_dom in _DOMAIN_CLASSIFICATION["foro"]:
+        if forum_dom in url_lower:
+            return "foro"
+            
+    for video_dom in _DOMAIN_CLASSIFICATION["video"]:
+        if video_dom in url_lower:
+            return "video"
+            
+    # TLDs gubernamentales o educativos
+    if any(url_lower.endswith(f".{tld}") or f".{tld}/" in url_lower for tld in ["gov", "edu"]):
+        return "oficial"
+        
+    if "wikipedia.org" in url_lower:
+        return "oficial"
+        
+    if any(x in url_lower or x in title_lower for x in ["blog", "opinion", "medium.com", "dev.to"]):
+        return "blog"
+    if any(x in url_lower or x in title_lower for x in ["docs", "guide", "tutorial", "manual"]):
+        return "documentación"
+        
+    return "sitio web"
+
+
+def _filter_results(results: list[dict]) -> list[dict]:
+    """
+    Filtra los resultados eliminando duplicados por URL exacta, snippets vacíos
+    o extremadamente cortos, y dominios identificados como spam o no deseados.
+    """
+    filtered = []
+    for r in results:
+        title = r.get("title", "").strip()
+        url = r.get("url", "").strip()
+        content = r.get("content", "").strip()
+        
+        if not title or not url or not content:
+            continue
+            
+        content_clean = re.sub(r'<[^>]+>', '', content).strip()
+        if len(content_clean) < 15:
+            continue
+            
+        parsed_url = urllib.parse.urlparse(url)
+        netloc = parsed_url.netloc.lower()
+        if any(spam in netloc for spam in _SPAM_DOMAINS):
+            continue
+            
+        r_copy = dict(r)
+        r_copy["content_clean"] = content_clean
+        filtered.append(r_copy)
+        
+    return filtered
+
+
+def _remove_duplicates_and_diversify(results: list[dict], max_per_domain: int = 2) -> list[dict]:
+    """
+    Diversifica los resultados de búsqueda limitando el número máximo de entradas
+    permitidas de un mismo dominio (ej. github.com o wikipedia.org).
+    """
+    seen_urls = set()
+    domain_counts = {}
+    diversified = []
+    
+    for r in results:
+        url = r.get("url", "").strip()
+        if not url or url in seen_urls:
+            continue
+            
+        parsed_url = urllib.parse.urlparse(url)
+        domain = parsed_url.netloc.lower()
+        
+        count = domain_counts.get(domain, 0)
+        if count >= max_per_domain:
+            continue
+            
+        seen_urls.add(url)
+        domain_counts[domain] = count + 1
+        diversified.append(r)
+        
+    return diversified
+
+
+def _prioritize_results(results: list[dict], intent: str) -> list[dict]:
+    """
+    Ordena y prioriza los resultados de búsqueda de acuerdo con la intención
+    del usuario (ej. dar peso a documentación oficial o repositorios en consultas de desarrollo).
+    """
+    def get_priority_score(item: dict) -> float:
+        url = item.get("url", "").lower()
+        base_score = float(item.get("score", 0.0))
+        
+        # Incrementar score según la intención detectada
+        if intent in ["programacion", "documentacion", "github"]:
+            if "github.com" in url:
+                base_score += 1.5
+            if any(doc in url for doc in _DOMAIN_CLASSIFICATION["documentacion"]):
+                base_score += 2.0
+        elif intent in ["noticias", "actualidad"]:
+            if any(news in url for news in _DOMAIN_CLASSIFICATION["noticias"]):
+                base_score += 1.0
+            if "wikipedia.org" in url:
+                base_score += 0.5
+                
+        # Peso extra general para dominios educativos y oficiales
+        if any(url.endswith(f".{tld}") or f".{tld}/" in url for tld in ["gov", "edu"]):
+            base_score += 1.2
+        elif "wikipedia.org" in url:
+            base_score += 0.8
+            
+        return base_score
+
+    return sorted(results, key=get_priority_score, reverse=True)
+
+
+def _format_results(results: list[dict], query: str) -> str:
+    """
+    Formatea la lista final de resultados filtrados y priorizados en un bloque
+    de contexto enriquecido con metadatos y directrices para el LLM.
+    """
+    header = (
+        "Estos resultados fueron obtenidos en tiempo real de la web.\n"
+        f"Consulta de búsqueda: '{query}'\n\n"
+        "INSTRUCCIONES DE CONTEXTO RAG:\n"
+        "- Utiliza este bloque de información como tu única fuente principal.\n"
+        "- Si varias fuentes coinciden en un dato, prioriza ese consenso.\n"
+        "- Si existen discrepancias o contradicciones entre las fuentes, indícalas de forma transparente.\n"
+        "- NO inventes, alucines o extrapolles información que no aparezca descrita explícitamente en el texto provisto.\n"
+        "- En caso de que los datos sean insuficientes para responder, admítelo.\n\n"
+        "--- INICIO DE RESULTADOS ---\n\n"
+    )
+    
+    formatted_parts = []
+    for i, r in enumerate(results):
+        title = r.get("title", "").strip()
+        url = r.get("url", "").strip()
+        content = r.get("content_clean", "").strip()
+        score = r.get("score", 0.0)
+        published = r.get("publishedDate", "")
+        
+        source_type = _classify_source(url, title)
+        parsed_url = urllib.parse.urlparse(url)
+        domain = parsed_url.netloc.lower()
+        
+        entry = (
+            f"Resultado {i+1}:\n"
+            f"- Título: {title}\n"
+            f"- Dominio: {domain}\n"
+            f"- URL: {url}\n"
+            f"- Tipo de fuente: {source_type}\n"
+            f"- Score: {score}\n"
+        )
+        if published:
+            entry += f"- Fecha: {published}\n"
+        entry += f"- Snippet completo:\n{content}\n"
+        formatted_parts.append(entry)
+        
+    return header + "\n---\n".join(formatted_parts) + "\n\n--- FIN DE RESULTADOS ---"
+
+
 async def ejecutar_busqueda_web(query: str) -> str:
-    """Usar obligatoriamente para cualquier duda sobre eventos actuales, noticias, deportes, Youtube, clima, búsquedas en internet y datos del año 2024-2026. NUNCA usar la terminal para estas consultas.
-    Realiza una consulta a X Web Scraper, filtra por score de relevancia y devuelve títulos, URLs y snippets completos.
+    """
+    Motor principal de recuperación de información en Internet.
+
+    Esta herramienta DEBE utilizarse siempre que la respuesta dependa de
+    información externa, verificable o potencialmente cambiante.
+
+    Casos de uso obligatorios:
+    • Noticias y acontecimientos recientes.
+    • Eventos actuales o futuros.
+    • Deportes (resultados, clasificaciones, calendarios, fichajes).
+    • Clima y pronósticos.
+    • YouTube (vídeos, canales, playlists).
+    • Búsquedas generales en Internet.
+    • Empresas, organizaciones, personas públicas.
+    • Productos, precios y disponibilidad.
+    • Documentación oficial.
+    • GitHub, Stack Overflow y documentación técnica.
+    • Información posterior al entrenamiento del modelo.
+    • Siempre que exista cualquier duda sobre la actualidad o sea necesaria una verificación.
+
+    NO responder usando únicamente el conocimiento interno si esta herramienta
+    puede proporcionar una respuesta más precisa o actualizada.
+
+    La herramienta realiza automáticamente:
+    - búsqueda web en tiempo real;
+    - recuperación de múltiples fuentes;
+    - ordenación por score de relevancia;
+    - eliminación de resultados inválidos;
+    - obtención de clima mediante APIs especializadas;
+    - búsqueda de vídeos mediante la API oficial de YouTube.
+
+    Devuelve contexto estructurado con:
+    - título;
+    - URL;
+    - score de relevancia;
+    - fecha (cuando exista);
+    - fuente;
+    - snippet completo sin truncar.
+
+    El contenido devuelto debe utilizarse como fuente principal para elaborar
+    la respuesta al usuario.
     """
     logger.info("[Tool: ejecutar_busqueda_web] Iniciando búsqueda estructurada: '%s'", query)
     
-    # ─── Interceptar Clima (Nominatim + Open-Meteo) ───
-    query_norm = query.lower()
-    for t, original in [("a", "á"), ("e", "é"), ("i", "í"), ("o", "ó"), ("u", "ú")]:
-        query_norm = query_norm.replace(original, t)
+    # 1. Normalización y detección de intención
+    query_norm = _normalize_query(query)
+    intent = _detect_search_type(query_norm)
+    logger.info("[Tool: ejecutar_busqueda_web] Consulta normalizada: '%s', Intención detectada: '%s'", query_norm, intent)
 
-    is_weather = any(w in query_norm for w in ["clima", "tiempo", "pronostico", "weather", "temperatura"])
-    if is_weather:
+    # ─── Interceptar Clima (Nominatim + Open-Meteo) ───
+    if intent == "clima":
         try:
             # Extraer ciudad usando regex
             match = re.search(r"(?:clima|tiempo|pronostico|temperatura)\s+(?:en|de|para|de\s+estos\s+dias\s+en)?\s*([^?.,\n]+)", query, re.IGNORECASE)
@@ -984,7 +1320,6 @@ async def ejecutar_busqueda_web(query: str) -> str:
                         if weather_resp.status_code == 200:
                             weather_data = weather_resp.json()
                             
-                            # Extraer nombres legibles
                             loc_parts = display_name.split(",")
                             location = loc_parts[0] + ", " + loc_parts[-1].strip()
 
@@ -1007,8 +1342,7 @@ async def ejecutar_busqueda_web(query: str) -> str:
 
     # ─── Interceptar YouTube (YouTube Data API v3) ───
     youtube_api_key = os.getenv("YOUTUBE_API_KEY")
-    is_youtube = any(w in query_norm for w in ["youtube", "video", "musica", "music", "song", "cancion", "reproducir", "videoclip"])
-    if youtube_api_key and is_youtube:
+    if youtube_api_key and intent == "youtube":
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
                 yt_url = "https://www.googleapis.com/youtube/v3/search"
@@ -1049,11 +1383,16 @@ async def ejecutar_busqueda_web(query: str) -> str:
         except Exception as yt_err:
             logger.warning("[Tool: ejecutar_busqueda_web] Fallo en API de YouTube: %s", yt_err)
 
+    # ─── Búsqueda Web Estándar (RAG) ───
     try:
+        # Reescritura para consultas cortas
+        search_query = _rewrite_query(query_norm, intent)
+        logger.info("[Tool: ejecutar_busqueda_web] Buscando con query reformulada: '%s'", search_query)
+
         async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.get(
                 "http://127.0.0.1:8888/search",
-                params={"q": query, "format": "json"}
+                params={"q": search_query, "format": "json"}
             )
             response.raise_for_status()
             data = response.json()
@@ -1062,46 +1401,17 @@ async def ejecutar_busqueda_web(query: str) -> str:
         if not results:
             return "No se encontraron resultados en la web para esta consulta."
             
-        # Filtrar por validez de campos principales y ordenar por score descendente
-        valid_results = [
-            r for r in results
-            if r.get("title") and r.get("url") and r.get("content")
-        ]
-        valid_results.sort(key=lambda r: r.get("score", 0.0), reverse=True)
+        # Pipeline de recuperación e información (IR)
+        filtered = _filter_results(results)
+        diversified = _remove_duplicates_and_diversify(filtered)
+        prioritized = _prioritize_results(diversified, intent)
         
-        output_parts = []
-        for i, r in enumerate(valid_results[:5]):
-            title = r.get("title", "").strip()
-            url = r.get("url", "").strip()
-            # Contenido completo del snippet, sin truncar
-            snippet = r.get("content", "").strip()
-            snippet_clean = re.sub(r'<[^>]+>', '', snippet).strip()
-            score = r.get("score", "N/A")
-            # Campos extra opcionales del motor de búsqueda
-            published = r.get("publishedDate", "")
-            engine = r.get("engine", "")
-            
-            entry = (
-                f"Resultado {i+1}:\n"
-                f"- Título: {title}\n"
-                f"- URL: {url}\n"
-                f"- Score: {score}\n"
-            )
-            if published:
-                entry += f"- Fecha de publicación: {published}\n"
-            if engine:
-                entry += f"- Motor: {engine}\n"
-            entry += f"- Contenido: {snippet_clean}\n"
-            output_parts.append(entry)
-            
-        header = (
-            f"A continuación tienes los resultados reales de la web obtenidos en tiempo real "
-            f"para la consulta '{query}'. Utilízalos para responder la duda del usuario "
-            f"de forma directa y concisa:\n\n"
-        )
-        return header + "\n".join(output_parts) if output_parts else "No se encontraron resultados relevantes."
+        # Devolver los 5 resultados con mayor calidad y relevancia
+        formatted = _format_results(prioritized[:5], query)
+        return formatted
+        
     except Exception as exc:
-        logger.error("[Tool: ejecutar_busqueda_web] Fallo en la búsqueda: %s", exc)
+        logger.error("[Tool: ejecutar_busqueda_web] Fallo general en la búsqueda: %s", exc)
         return f"[Error en la búsqueda estructurada]: {str(exc)}"
 
 
