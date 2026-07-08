@@ -2230,6 +2230,170 @@ async def proxy_openai_chat(request: Request):
                         except Exception as _weather_exc:
                             logger.warning("[Interceptor Tool] Fallo en API de clima, cayendo a búsqueda web normal: %s", _weather_exc)
                     
+                    # ─── INTERCEPTOR YOUTUBE (YouTube Data API v3) ───
+                    _yt_key = os.getenv("YOUTUBE_API_KEY")
+                    _is_yt = any(w in tq_norm for w in ["youtube","video","musica","music","song","cancion","reproducir","videoclip"])
+                    if _yt_key and _is_yt:
+                        try:
+                            # Emitir estado: Buscando en YouTube
+                            status_chunk = {
+                                "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "searching"}}</web_search_status>'}, "finish_reason": None}]
+                            }
+                            yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                            
+                            async with httpx.AsyncClient(timeout=10.0) as _yc:
+                                _yr = await _yc.get(
+                                    "https://www.googleapis.com/youtube/v3/search",
+                                    params={
+                                        "part": "snippet",
+                                        "q": tool_query,
+                                        "type": "video",
+                                        "maxResults": 4,
+                                        "key": _yt_key
+                                    }
+                                )
+                                if _yr.status_code == 200:
+                                    _yd = _yr.json()
+                                    _items = _yd.get("items", [])
+                                    if _items:
+                                        _yt_parts = []
+                                        _yt_parsed = []
+                                        for i, item in enumerate(_items):
+                                            vid = item.get("id", {}).get("videoId", "")
+                                            vurl = f"https://www.youtube.com/watch?v={vid}" if vid else ""
+                                            snip = item.get("snippet", {})
+                                            title = snip.get("title", "")
+                                            desc = snip.get("description", "[No description]")
+                                            thumb = snip.get("thumbnails", {}).get("medium", {}).get("url", "")
+                                            
+                                            _yt_parts.append(
+                                                f"Resultado {i+1}:\n"
+                                                f"- Título: {title}\n"
+                                                f"- URL: {vurl}\n"
+                                                f"- Contenido: {desc}\n"
+                                            )
+                                            _yt_parsed.append({
+                                                "title": title,
+                                                "url": vurl,
+                                                "icon": thumb,
+                                                "content": desc
+                                            })
+                                        
+                                        search_result = (
+                                            f"Resultados de YouTube obtenidos en tiempo real para '{tool_query}':\n\n"
+                                        ) + "\n".join(_yt_parts)
+                                        logger.info("[Interceptor Tool] YouTube interceptado con éxito (%d resultados)", len(_items))
+                                        
+                                        # Emitir tag done
+                                        status_chunk = {
+                                            "choices": [{"index": 0, "delta": {"content": f'<web_search_status>{{"query": "{tool_query}", "status": "done"}}</web_search_status>'}, "finish_reason": None}]
+                                        }
+                                        yield f"data: {json.dumps(status_chunk)}\n\n".encode("utf-8")
+                                        
+                                        # Cerrar reasoning del primer turno
+                                        close_reasoning_chunk = {
+                                            "choices": [{"index": 0, "delta": {"content": ""}, "finish_reason": "stop"}]
+                                        }
+                                        yield f"data: {json.dumps(close_reasoning_chunk)}\n\n".encode("utf-8")
+                                        
+                                        # Emitir resultados de búsqueda como tag SSE
+                                        web_search_payload = {"query": tool_query, "results": _yt_parsed}
+                                        ws_tag_content = f"<web_search_results>{json.dumps(web_search_payload, ensure_ascii=False)}</web_search_results>"
+                                        ws_chunk = {
+                                            "choices": [{"index": 0, "delta": {"content": ws_tag_content}, "finish_reason": None}]
+                                        }
+                                        yield f"data: {json.dumps(ws_chunk)}\n\n".encode("utf-8")
+                                        
+                                        # Guardar nodo en DB
+                                        web_node_content = f"[BÚSQUEDA YOUTUBE]\n\n{search_result}"
+                                        web_embedding = None
+                                        try:
+                                            web_embedding = await embeddings_client.get_embedding(web_node_content)
+                                        except Exception:
+                                            pass
+                                        web_node = await db.insert_node(
+                                            content=web_node_content,
+                                            session_id=session_id,
+                                            parent_id=question_node_id,
+                                            node_type="CONOCIMIENTO",
+                                            embedding=web_embedding
+                                        )
+                                        await ws_broadcast({"event": "node_created", "node": web_node})
+                                        edge = await db.insert_edge(question_node_id, web_node["id"], 1.0)
+                                        await ws_broadcast({"event": "edge_created", "edge": edge})
+                                        current_parent = web_node["id"]
+                                        
+                                        # Segundo turno con datos de YouTube
+                                        local_messages = list(messages)
+                                        local_messages.append({"role": "assistant", "content": first_reply})
+                                        local_messages.append({
+                                            "role": "system",
+                                            "content": (
+                                                f"[SYSTEM: RESULTADO DE BÚSQUEDA EN YOUTUBE]\n"
+                                                f"Se obtuvieron resultados de YouTube para '{tool_query}' en tiempo real.\n"
+                                                f"Los datos son REALES y VERIFICADOS.\n\n"
+                                                f"{search_result}\n\n"
+                                                f"INSTRUCCIÓN OBLIGATORIA:\n"
+                                                f"1. Usa EXCLUSIVAMENTE los datos anteriores para responder al usuario.\n"
+                                                f"2. Presenta los resultados con los títulos y URLs completas de YouTube.\n"
+                                                f"3. NO repitas la llamada a la herramienta ejecutar_busqueda_web.\n"
+                                                f"4. Responde de forma directa en español.\n"
+                                                f"5. NUNCA menciones tags internos como <web_search_status> o <web_search_results> en tu respuesta."
+                                            )
+                                        })
+                                        
+                                        second_body = dict(body)
+                                        second_body["messages"] = local_messages
+                                        second_body["stream"] = True
+                                        
+                                        logger.info("[Interceptor Tool] Lanzando segundo turno con datos de YouTube...")
+                                        
+                                        second_llm_chunks = []
+                                        async with httpx.AsyncClient(timeout=60.0) as second_client:
+                                            async with second_client.stream("POST", f"{LLM_URL_BASE}/v1/chat/completions", json=second_body) as r2:
+                                                buffer2 = ""
+                                                async for chunk in r2.aiter_bytes():
+                                                    buffer2 += chunk.decode("utf-8", errors="ignore")
+                                                    while "\n" in buffer2:
+                                                        line, buffer2 = buffer2.split("\n", 1)
+                                                        line = line.strip()
+                                                        if line.startswith("data:"):
+                                                            payload = line[5:].strip()
+                                                            if payload == "[DONE]":
+                                                                yield b"data: [DONE]\n\n"
+                                                            else:
+                                                                yield f"data: {payload}\n\n".encode("utf-8")
+                                                                try:
+                                                                    d = json.loads(payload)
+                                                                    delta = d.get("choices", [{}])[0].get("delta", {})
+                                                                    if "content" in delta and delta["content"]:
+                                                                        second_llm_chunks.append(delta["content"])
+                                                                except Exception:
+                                                                    pass
+                                        
+                                        # Guardar respuesta del segundo turno
+                                        second_full = "".join(second_llm_chunks)
+                                        if second_full.strip():
+                                            resp_embedding = None
+                                            try:
+                                                resp_embedding = await embeddings_client.get_embedding(second_full)
+                                            except Exception:
+                                                pass
+                                            resp_node = await db.insert_node(
+                                                content=second_full,
+                                                session_id=session_id,
+                                                parent_id=current_parent,
+                                                node_type="CONOCIMIENTO",
+                                                embedding=resp_embedding
+                                            )
+                                            await ws_broadcast({"event": "node_created", "node": resp_node})
+                                            edge2 = await db.insert_edge(current_parent, resp_node["id"], 1.0)
+                                            await ws_broadcast({"event": "edge_created", "edge": edge2})
+                                        
+                                        return  # Fin del flujo de YouTube
+                        except Exception as _yt_exc:
+                            logger.warning("[Interceptor Tool] Fallo en API de YouTube, cayendo a búsqueda web normal: %s", _yt_exc)
+                    
                     # 2a. Ejecutar la búsqueda real con micro-estados SSE y raspado en paralelo
                     # Emitir estado: Analizando consulta
                     status_chunk = {
