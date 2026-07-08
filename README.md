@@ -2,11 +2,11 @@
 
 > **Bridges the gap between Large Language Models and persistent, multi-source knowledge retrieval.**
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-v0.100%2B-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Svelte 5](https://img.shields.io/badge/Svelte-v5.0-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
-[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![SQLite](https://img.shields.io/badge/SQLite-sqlite--vec-003B57?logo=sqlite&logoColor=white)](https://sqlite.org)
+[![Python](https://img.shields.io/badge/Python-v3.14.6-blue?logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-v0.139.0-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Svelte 5](https://img.shields.io/badge/Svelte-v5.56.1-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.3.0-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![SQLite](https://img.shields.io/badge/SQLite-v3.53.3-003B57?logo=sqlite&logoColor=white)](https://sqlite.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 🌎 **Languages / Idiomas:** [English](README.md) | [Español](README.es.md)
