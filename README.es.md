@@ -247,6 +247,24 @@ systemctl --user enable --now cerebro-llama-embeddings.service
 systemctl --user enable --now cerebro-brain-core.service
 ```
 
+Alternativamente, puedes usar el script de control `cerebro.sh` en la raíz del repositorio:
+```bash
+# Encender todos los servicios
+./cerebro.sh start
+
+# Apagar todos los servicios temporalmente
+./cerebro.sh stop
+
+# Reiniciar todos los servicios
+./cerebro.sh restart
+
+# Apagar y desactivar permanentemente (evita el inicio automático al arrancar)
+./cerebro.sh disable
+
+# Ver el estado de todos los servicios
+./cerebro.sh status
+```
+
 ---
 
 ### 7. Despliegue del Frontend
