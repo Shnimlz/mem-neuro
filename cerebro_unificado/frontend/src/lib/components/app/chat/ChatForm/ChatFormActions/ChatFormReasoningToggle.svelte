@@ -63,7 +63,6 @@
 		}
 		return thinkingEnabled && currentEffort === item.value;
 	}
-
 	function handleSelection(item: ReasoningEffortLevel) {
 		if (item.isOff) {
 			conversationsStore.setThinkingEnabled(false);
@@ -73,6 +72,155 @@
 		}
 		subOpen = false;
 	}
+
+	import { animate } from 'animejs';
+
+	interface FlamePoint {
+		x: number;
+		y: number;
+		angle: number;
+	}
+
+	// Geometría del borde del badge (rounded rect de 80x24px con rx=12px)
+	const BADGE_WIDTH = 80;
+	const BADGE_HEIGHT = 24;
+	const BADGE_RX = 12;
+
+	function calculateFlamePoints(w: number, h: number, r: number, spacing: number = 13): FlamePoint[] {
+		const points: FlamePoint[] = [];
+		const L_top = w - 2 * r;
+		const L_right = h - 2 * r;
+		const L_bottom = w - 2 * r;
+		const L_left = h - 2 * r;
+		const L_arc = (Math.PI * r) / 2;
+
+		const segments = [
+			{ type: 'line', len: L_top, x1: r, y1: 0, x2: w - r, y2: 0, angle: -90 },
+			{ type: 'arc', len: L_arc, cx: w - r, cy: r, aStart: -Math.PI / 2, aEnd: 0 },
+			{ type: 'line', len: L_right, x1: w, y1: r, x2: w, y2: h - r, angle: 0 },
+			{ type: 'arc', len: L_arc, cx: w - r, cy: h - r, aStart: 0, aEnd: Math.PI / 2 },
+			{ type: 'line', len: L_bottom, x1: w - r, y1: h, x2: r, y2: h, angle: 90 },
+			{ type: 'arc', len: L_arc, cx: r, cy: h - r, aStart: Math.PI / 2, aEnd: Math.PI },
+			{ type: 'line', len: L_left, x1: 0, y1: h - r, x2: 0, y2: r, angle: 180 },
+			{ type: 'arc', len: L_arc, cx: r, cy: r, aStart: Math.PI, aEnd: (3 * Math.PI) / 2 }
+		];
+
+		const perimeter = segments.reduce((sum, seg) => sum + seg.len, 0);
+		const numPoints = Math.max(8, Math.round(perimeter / spacing));
+		const step = perimeter / numPoints;
+
+		for (let i = 0; i < numPoints; i++) {
+			const t = i * step;
+			let accumulated = 0;
+			for (const seg of segments) {
+				if (t >= accumulated && t < accumulated + seg.len + 0.001) {
+					const local_t = t - accumulated;
+					const ratio = seg.len > 0 ? local_t / seg.len : 0;
+					if (seg.type === 'line') {
+						const x = seg.x1 + ratio * (seg.x2 - seg.x1);
+						const y = seg.y1 + ratio * (seg.y2 - seg.y1);
+						points.push({ x, y, angle: seg.angle });
+					} else {
+						const angle_rad = seg.aStart + ratio * (seg.aEnd - seg.aStart);
+						const x = seg.cx + r * Math.cos(angle_rad);
+						const y = seg.cy + r * Math.sin(angle_rad);
+						points.push({ x, y, angle: (angle_rad * 180) / Math.PI });
+					}
+					break;
+				}
+				accumulated += seg.len;
+			}
+		}
+		return points;
+	}
+
+	const flamePoints = $derived(
+		thinkingEnabled && currentEffort === 'max'
+			? calculateFlamePoints(BADGE_WIDTH, BADGE_HEIGHT, BADGE_RX, 13)
+			: []
+	);
+
+	// Referencias de elementos DOM para animar
+	let triggerEl: HTMLElement | undefined = $state();
+	let unlimitedTextEl: HTMLElement | undefined = $state();
+	let flameElements = $state<SVGElement[]>([]);
+
+	// Control del ciclo de vida de animaciones de anime.js
+	$effect(() => {
+		const isMaxActive = thinkingEnabled && currentEffort === 'max';
+		if (!isMaxActive) {
+			flameElements = [];
+			return;
+		}
+
+		const activeAnimations: any[] = [];
+
+		// 1. Animar cada llama individualmente de forma asíncrona/desfasada
+		const elements = flameElements.filter(Boolean);
+		elements.forEach((el) => {
+			const anim = animate(el, {
+				scaleY: [
+					{ value: 0.75, duration: 200 + Math.random() * 100, easing: 'easeOutSine' },
+					{ value: 1.25, duration: 250 + Math.random() * 150, easing: 'easeInOutQuad' },
+					{ value: 0.85, duration: 200 + Math.random() * 100, easing: 'easeInSine' },
+					{ value: 1.15, duration: 250 + Math.random() * 100, easing: 'easeInOutQuad' },
+					{ value: 0.8, duration: 200 + Math.random() * 100, easing: 'easeOutSine' }
+				],
+				scaleX: [
+					{ value: 0.85, duration: 250 + Math.random() * 100, easing: 'easeInOutSine' },
+					{ value: 1.15, duration: 300 + Math.random() * 100, easing: 'easeInOutQuad' },
+					{ value: 0.9, duration: 250 + Math.random() * 100, easing: 'easeInOutSine' },
+					{ value: 1.1, duration: 250 + Math.random() * 100, easing: 'easeInOutQuad' },
+					{ value: 0.85, duration: 200 + Math.random() * 100, easing: 'easeInOutSine' }
+				],
+				rotate: [
+					{ value: '-=6', duration: 300 + Math.random() * 200, easing: 'easeInOutSine' },
+					{ value: '+=12', duration: 350 + Math.random() * 200, easing: 'easeInOutSine' },
+					{ value: '-=6', duration: 300 + Math.random() * 200, easing: 'easeInOutSine' }
+				],
+				duration: 900 + Math.random() * 600,
+				delay: Math.random() * 500,
+				direction: 'alternate',
+				loop: true,
+				easing: 'easeInOutQuad'
+			});
+			activeAnimations.push(anim);
+		});
+
+		// 2. Animar el glow pulsante del contenedor del badge
+		if (triggerEl) {
+			const glow = animate(triggerEl, {
+				boxShadow: [
+					{ value: '0 0 8px 1px rgba(255, 106, 26, 0.2), inset 0 0 2px rgba(255, 106, 26, 0.1)', duration: 600, easing: 'easeInOutSine' },
+					{ value: '0 0 16px 4px rgba(255, 106, 26, 0.55), inset 0 0 4px rgba(255, 106, 26, 0.2)', duration: 700, easing: 'easeInOutSine' }
+				],
+				borderColor: [
+					{ value: 'rgba(255, 106, 26, 0.3)', duration: 650, easing: 'easeInOutSine' },
+					{ value: 'rgba(255, 106, 26, 0.65)', duration: 650, easing: 'easeInOutSine' }
+				],
+				loop: true,
+				direction: 'alternate'
+			});
+			activeAnimations.push(glow);
+		}
+
+		// 3. Animar color del texto "Unlimited"
+		if (unlimitedTextEl) {
+			const textAnim = animate(unlimitedTextEl, {
+				color: [
+					{ value: '#ff6a1a', duration: 800, easing: 'easeInOutSine' },
+					{ value: '#ffd24c', duration: 800, easing: 'easeInOutSine' }
+				],
+				loop: true,
+				direction: 'alternate'
+			});
+			activeAnimations.push(textAnim);
+		}
+
+		return () => {
+			activeAnimations.forEach((a) => a?.pause());
+		};
+	});
 </script>
 
 {#if modelSupportsThinking}
