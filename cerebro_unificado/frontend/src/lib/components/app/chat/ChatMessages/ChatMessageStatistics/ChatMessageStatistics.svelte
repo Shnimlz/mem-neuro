@@ -199,6 +199,7 @@
 				icon={WholeWord}
 				value="{predictedTokens?.toLocaleString()} tokens"
 				tooltipLabel="Generated tokens"
+				useRgbEffect={true}
 			/>
 
 			<ChatMessageStatisticsBadge
@@ -213,6 +214,7 @@
 				icon={Gauge}
 				value="{tokensPerSecond.toFixed(2)} t/s"
 				tooltipLabel="Generation speed"
+				useRgbEffect={true}
 			/>
 		{:else if activeView === ChatMessageStatsView.TOOLS && hasAgenticStats}
 			<ChatMessageStatisticsBadge

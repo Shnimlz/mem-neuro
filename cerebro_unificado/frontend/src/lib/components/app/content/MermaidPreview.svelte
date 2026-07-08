@@ -2,6 +2,7 @@
 	import MermaidPreviewControls from './MermaidPreviewControls.svelte';
 	import { mountSvgShadow } from '$lib/utils/svg-shadow';
 	import { SVG_DIALOG_SHADOW_STYLE } from '$lib/constants';
+	import { animate, stagger } from 'animejs';
 
 	interface Props {
 		svgHtml: string;
@@ -13,7 +14,31 @@
 
 	// Re-mount on every svgHtml change so a live streaming svg keeps rendering while zoomed
 	$effect(() => {
-		if (svgHost) mountSvgShadow(svgHost, svgHtml, SVG_DIALOG_SHADOW_STYLE);
+		if (svgHost) {
+			mountSvgShadow(svgHost, svgHtml, SVG_DIALOG_SHADOW_STYLE);
+
+			// Esperar un frame a que se monte en el shadow root y animar sus nodos
+			requestAnimationFrame(() => {
+				const shadowRoot = svgHost?.shadowRoot;
+				if (shadowRoot) {
+					const nodes = shadowRoot.querySelectorAll('g.node, g.cluster');
+					if (nodes.length > 0) {
+						nodes.forEach((node) => {
+							(node as HTMLElement).style.opacity = '0';
+							(node as HTMLElement).style.transformOrigin = 'center';
+						});
+
+						animate(nodes, {
+							opacity: [0, 1],
+							scale: [0.7, 1],
+							ease: 'easeOutElastic(1, 0.6)',
+							duration: 800,
+							delay: stagger(40)
+						});
+					}
+				}
+			});
+		}
 	});
 
 	// Zoom and pan state

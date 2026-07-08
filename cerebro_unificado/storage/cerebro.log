@@ -7925,3 +7925,168 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-07 18:39:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
 2026-07-07 18:44:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
 2026-07-07 18:44:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:12:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:12:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:12:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:12:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:12:33 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:12:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:12:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:12:39 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:12:39 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:12:39 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:09 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:15:09 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:09 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:15:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:15:10 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:15:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:15:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:15:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:17 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:15:17 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:17 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:15:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:15:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:20 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:15:20 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:20 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:15:20 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:15:20 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:15:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:15:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:15:57 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Cuando sale GTA VI?...'
+2026-07-07 19:15:57 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:15:57 | DEBUG    | cerebro.database | Embedding guardado para nodo 449fd577 (rowid=18)
+2026-07-07 19:15:57 | INFO     | cerebro.database | Nodo creado: 449fd577 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 19:15:57 | INFO     | cerebro.database | Arista creada: c00c285e → 449fd577 (peso=1.0)
+2026-07-07 19:15:57 | INFO     | cerebro.database | Búsqueda vectorial completada: 10 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 19:16:13 | INFO     | cerebro.main | [Interceptor Tool] Detectada tool_call emulada para: '¿Cuándo sale GTA VI?'
+2026-07-07 19:16:14 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: '¿Cuándo sale GTA VI?'
+2026-07-07 19:16:15 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.rockstargames.com/es/newswire/article/ak3ak31a49a221/grand-theft-auto-vi-is-now-set-to-launch-november-19-2026
+2026-07-07 19:16:15 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://www.rockstargames.com/newswire/article/ak3ak31a49a221/grand-theft-auto-vi-is-now-set-to-launch-november-19-2026
+2026-07-07 19:16:15 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://vandal.elespanol.com/fecha-lanzamiento/ps5/grand-theft-auto-vi/104222
+2026-07-07 19:16:15 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://as.com/meristation/noticias/cuando-sale-gta-6-fecha-de-salida-de-grand-theft-auto-vi-y-hora-de-lanzamiento-f202606-n/
+2026-07-07 19:16:17 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 19:16:17 | INFO     | cerebro.main | [Interceptor Tool] Resultados y raspado completo (3259 chars)
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | ERROR    | cerebro.embeddings | No se pudo obtener embedding de http://127.0.0.1:8081 tras probar todos los endpoints
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | ERROR    | cerebro.embeddings | No se pudo obtener embedding de http://127.0.0.1:8081 tras probar todos los endpoints
+2026-07-07 19:16:17 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:16:17 | DEBUG    | cerebro.database | Embedding guardado para nodo 07843f33 (rowid=19)
+2026-07-07 19:16:17 | INFO     | cerebro.database | Nodo creado: 07843f33 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 19:16:17 | INFO     | cerebro.database | Arista creada: 449fd577 → 07843f33 (peso=1.0)
+2026-07-07 19:16:17 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
+2026-07-07 19:16:44 | INFO     | cerebro.database | Nodo creado: e4dd70e8 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 19:16:44 | INFO     | cerebro.database | Arista creada: 07843f33 → e4dd70e8 (peso=1.0)
+2026-07-07 19:22:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:22:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:22:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:22:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:22:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:22:36 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:23:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:23:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:23:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:23:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:23:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:23:42 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:24:09 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:24:09 | INFO     | cerebro.main | [Proxy] Interceptada petición /v1/chat/completions: 'Que juegos saldran en 2027 y si puedes hazmelo una lista y f...'
+2026-07-07 19:24:09 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:09 | DEBUG    | cerebro.database | Embedding guardado para nodo f6a816ee (rowid=21)
+2026-07-07 19:24:09 | INFO     | cerebro.database | Nodo creado: f6a816ee [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 19:24:09 | INFO     | cerebro.database | Arista creada: e4dd70e8 → f6a816ee (peso=1.0)
+2026-07-07 19:24:09 | INFO     | cerebro.database | Búsqueda vectorial completada: 12 resultados bajo threshold 0.4 (distancia max: 1.200)
+2026-07-07 19:24:24 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 19:24:30 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 19:24:46 | INFO     | cerebro.main | [Interceptor Tool] Detectada tool_call emulada para: 'Juegos 2027 lanzamiento listado fechas estreno'
+2026-07-07 19:24:47 | INFO     | cerebro.web_scraper | [Web Search] Consultando SearXNG para: 'Juegos 2027 lanzamiento listado fechas estreno'
+2026-07-07 19:24:48 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://vandal.elespanol.com/lanzamientos/13/pc/13/2027
+2026-07-07 19:24:48 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://vandal.elespanol.com/lanzamientos/0/videojuegos/13/2027
+2026-07-07 19:24:48 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://as.com/meristation/juegos/lanzamientos/2027/
+2026-07-07 19:24:48 | INFO     | cerebro.web_scraper | [Web Scraper] Raspando URL: https://culturageek.com.ar/mejores-lanzamientos-confirmados-2026-2027/
+2026-07-07 19:24:50 | INFO     | cerebro.embeddings | [Reranker] Ejecutando reordenamiento semántico por embeddings...
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:50 | INFO     | cerebro.embeddings | [Reranker] Reordenamiento por embeddings completado.
+2026-07-07 19:24:50 | INFO     | cerebro.main | [Interceptor Tool] Resultados y raspado completo (3872 chars)
+2026-07-07 19:24:50 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:51 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:51 | DEBUG    | cerebro.embeddings | Llamando a embeddings: http://127.0.0.1:8081/v1/embeddings con modelo all-miniLM
+2026-07-07 19:24:51 | DEBUG    | cerebro.database | Embedding guardado para nodo 5e47e8d3 (rowid=22)
+2026-07-07 19:24:51 | INFO     | cerebro.database | Nodo creado: 5e47e8d3 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 19:24:51 | INFO     | cerebro.database | Arista creada: f6a816ee → 5e47e8d3 (peso=1.0)
+2026-07-07 19:24:51 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
+2026-07-07 19:25:51 | INFO     | cerebro.database | Nodo creado: 6de14c32 [CONOCIMIENTO] sesión=proxy-chat-session
+2026-07-07 19:25:51 | INFO     | cerebro.database | Arista creada: 5e47e8d3 → 6de14c32 (peso=1.0)
+2026-07-07 19:26:05 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:26:05 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:26:06 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:26:06 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:26:06 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:26:06 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:26:51 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 19:32:55 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 19:32:56 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:32:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:32:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:32:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:32:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:33:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:33:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:33:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:33:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:33:02 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:33:34 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:33:34 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:33:34 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:33:34 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:33:34 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:33:38 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:33:57 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:34:04 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 19:34:24 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 19:34:24 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-07 19:34:29 | INFO     | cerebro.main | WebSocket desconectado — total: 0
+2026-07-07 19:34:29 | INFO     | cerebro.main | [Terminal WS] Cliente conectado
+2026-07-07 19:34:31 | INFO     | cerebro.main | [Terminal WS] Cliente desconectado
+2026-07-07 19:35:13 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:15 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:17 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:17 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:18 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:19 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:20 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:21 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:21 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:35:59 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:36:44 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:39:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET tools
+2026-07-07 19:39:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:39:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET v1/models
+2026-07-07 19:39:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:39:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup
+2026-07-07 19:39:41 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: GET props
+2026-07-07 19:39:58 | DEBUG    | cerebro.main | [Router Comodín] Haciendo proxy reverso a :8080 para: POST v1/streams/lookup

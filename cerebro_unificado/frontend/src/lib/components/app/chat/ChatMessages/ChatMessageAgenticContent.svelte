@@ -9,6 +9,7 @@
 		ChatMessageActionCardContinueRequest
 	} from '$lib/components/app';
 	import WebSearchStatus from './WebSearchStatus.svelte';
+	import { animate, stagger } from 'animejs';
 
 	import {
 		AgenticSectionType,
@@ -255,7 +256,9 @@
 				if (parsed && parsed.query) {
 					const existing = searches.find(s => s.query === parsed.query);
 					if (existing) {
-						existing.status = parsed.status;
+						if (existing.status !== 'done') {
+							existing.status = parsed.status;
+						}
 					} else {
 						searches.push({
 							query: parsed.query,
@@ -283,6 +286,63 @@
 		}
 		return sentence;
 	}
+
+	// ─── Extractor de fuentes de búsqueda Markdown a Widgets premium ───
+	function extractSourcesFromText(text: string): { cleanText: string; sources: { title: string; url: string; domain: string }[] } {
+		if (!text) return { cleanText: '', sources: [] };
+		const lines = text.split('\n');
+		const sources: { title: string; url: string; domain: string }[] = [];
+		const remainingLines: string[] = [];
+		let collectingSources = true;
+
+		// Procesar de abajo hacia arriba para capturar las fuentes al final del mensaje
+		for (let i = lines.length - 1; i >= 0; i--) {
+			const line = lines[i].trim();
+			if (!line) {
+				if (sources.length > 0) continue;
+				remainingLines.unshift(lines[i]);
+				continue;
+			}
+
+			// Detectar líneas que siguen el formato "* Fuente X: [Título](URL)" o variantes
+			const match = line.match(/^(?:[-*+•]|\d+\.)?\s*(?:\*\*?)?Fuente\s*\d+\s*:?\s*(?:\*\*?)?\s*\[([^\]]+)\]\(([^)]+)\)/i);
+			if (match && collectingSources) {
+				const title = match[1].trim();
+				const url = match[2].trim();
+				let domain = '';
+				try {
+					domain = new URL(url).hostname.replace('www.', '');
+				} catch {
+					domain = 'link';
+				}
+				sources.unshift({ title, url, domain });
+			} else {
+				collectingSources = false;
+				remainingLines.unshift(lines[i]);
+			}
+		}
+
+		return {
+			cleanText: remainingLines.join('\n').trim(),
+			sources
+		};
+	}
+
+	function animateSources(node: HTMLElement) {
+		requestAnimationFrame(() => {
+			const cards = node.querySelectorAll('.source-card');
+			if (cards.length > 0) {
+				animate(cards, {
+					opacity: [0, 1],
+					scale: [0.93, 1],
+					translateY: [12, 0],
+					ease: 'easeOutElastic(1, 0.7)',
+					duration: 800,
+					delay: stagger(60)
+				});
+			}
+		});
+	}
 </script>
 
 {#snippet renderSection(section: (typeof sectionsParsed)[number], index: number)}
@@ -296,13 +356,49 @@
 				status={ws.status}
 			/>
 		{/each}
+		{@const sourceData = extractSourcesFromText(parsed.cleanText)}
 		<div class="agentic-text">
 			<MarkdownContent
-				content={parsed.cleanText}
+				content={sourceData.cleanText}
 				attachments={message?.extra}
 				onMaximizeCode={(code, lang) => chatStore.showCodePreview(code, lang)}
 			/>
 		</div>
+
+		{#if sourceData.sources.length > 0}
+			<div
+				use:animateSources
+				class="sources-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 mt-4 pt-3 border-t border-border/10 w-full max-w-3xl"
+			>
+				{#each sourceData.sources as source, i (i)}
+					{@const favicon = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=32`}
+					<a
+						href={source.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="source-card group flex items-start gap-2.5 rounded-lg border border-border/10 hover:border-primary/30 bg-muted/20 hover:bg-primary/5 p-2.5 transition-all duration-300 shadow-sm opacity-0 hover:shadow-md"
+					>
+						<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-background shadow-sm border border-border/10 group-hover:border-primary/20 transition-colors">
+							<img
+								src={favicon}
+								class="h-3.5 w-3.5"
+								alt=""
+								loading="lazy"
+								onerror={(e) => { e.currentTarget.style.display = 'none'; }}
+							/>
+						</div>
+						<div class="flex flex-col min-w-0 leading-tight">
+							<span class="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider group-hover:text-primary transition-colors">
+								{source.domain}
+							</span>
+							<span class="text-xs text-foreground/80 line-clamp-1 font-medium mt-0.5 group-hover:text-foreground transition-colors">
+								{source.title}
+							</span>
+						</div>
+					</a>
+				{/each}
+			</div>
+		{/if}
 	{:else if section.type === AgenticSectionType.TOOL_CALL_STREAMING}
 		{@const streamingIcon = isStreaming ? Loader2 : Loader2}
 		{@const streamingIconClass = isStreaming ? 'h-4 w-4 animate-spin' : 'h-4 w-4'}

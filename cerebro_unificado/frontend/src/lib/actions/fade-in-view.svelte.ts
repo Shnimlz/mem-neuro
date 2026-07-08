@@ -12,7 +12,7 @@ export function fadeInView(
 	node: HTMLElement,
 	options: { duration?: number; y?: number; delay?: number; skipIfVisible?: boolean } = {}
 ) {
-	const { duration = 300, y = 0, delay = 0, skipIfVisible = false } = options;
+	const { duration = 350, y = 12, delay = 0, skipIfVisible = false } = options;
 
 	if (skipIfVisible && isElementInViewport(node)) {
 		return;
@@ -20,7 +20,7 @@ export function fadeInView(
 
 	node.style.opacity = '0';
 	node.style.transform = `translateY(${y}px)`;
-	node.style.transition = `opacity ${duration}ms ease-out, transform ${duration}ms ease-out`;
+	node.style.transition = `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
 
 	$effect(() => {
 		const observer = new IntersectionObserver(

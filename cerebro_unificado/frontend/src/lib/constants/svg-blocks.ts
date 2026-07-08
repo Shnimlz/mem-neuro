@@ -39,11 +39,11 @@ export const SVG_SANITIZE_CONFIG = {
  * sizing the light dom used before the svg moved behind a shadow boundary.
  */
 export const SVG_INLINE_SHADOW_STYLE =
-	':host{display:block;width:100%;text-align:center}svg{display:block;margin:0 auto;width:auto;height:auto;max-width:100%;max-height:70vh;min-height:8rem;padding:3rem 1rem}';
+	':host{display:block;width:100%;text-align:center}svg{display:block;margin:0 auto;width:auto;height:auto;max-width:100%;max-height:70vh;min-height:8rem;padding:3rem 1rem}g.node{transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),filter 0.2s ease}g.node:hover{transform:scale(1.05);filter:drop-shadow(0 0 6px rgba(180,190,254,0.4));cursor:pointer}g.node rect,g.node circle,g.node polygon{fill-opacity:0.9;stroke-width:1.5px!important;transition:fill 0.2s,stroke 0.2s}g.node:hover rect,g.node:hover circle,g.node:hover polygon{stroke:var(--primary,#b4befe)!important;fill:rgba(180,190,254,0.15)!important}';
 
 /**
  * Shadow root style for the zoom dialog svg. Lets the svg grow past its
  * intrinsic size so pan and zoom have room to work.
  */
 export const SVG_DIALOG_SHADOW_STYLE =
-	':host{display:inline-block}svg{min-height:min(50vh,12rem);min-width:min(80vw,20rem);max-width:none;max-height:none;height:auto;width:auto;display:block}';
+	':host{display:inline-block}svg{min-height:min(50vh,12rem);min-width:min(80vw,20rem);max-width:none;max-height:none;height:auto;width:auto;display:block}g.node{transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),filter 0.2s ease}g.node:hover{transform:scale(1.05);filter:drop-shadow(0 0 6px rgba(180,190,254,0.4));cursor:pointer}g.node rect,g.node circle,g.node polygon{fill-opacity:0.9;stroke-width:1.5px!important;transition:fill 0.2s,stroke 0.2s}g.node:hover rect,g.node:hover circle,g.node:hover polygon{stroke:var(--primary,#b4befe)!important;fill:rgba(180,190,254,0.15)!important}';

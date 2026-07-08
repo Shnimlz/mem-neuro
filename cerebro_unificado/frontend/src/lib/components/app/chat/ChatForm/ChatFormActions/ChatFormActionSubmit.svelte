@@ -20,14 +20,14 @@
 		type="submit"
 		disabled={isDisabled}
 		class={[
-			'md:h-8 md:w-8 h-9 w-9 rounded-full p-0',
+			'md:h-8 md:w-8 h-9 w-9 rounded-full p-0 group hover:scale-105 active:scale-95 transition-all duration-300 ease-out',
 			showErrorState &&
 				'bg-red-400/10 text-red-400 hover:bg-red-400/20 hover:text-red-400 disabled:opacity-100'
 		]}
 		{...props}
 	>
 		<span class="sr-only">Send</span>
-		<ArrowUp class="h-12 w-12" />
+		<ArrowUp class="h-4 w-4 transition-transform duration-300 ease-out group-hover:-translate-y-0.75" />
 	</Button>
 {/snippet}
 

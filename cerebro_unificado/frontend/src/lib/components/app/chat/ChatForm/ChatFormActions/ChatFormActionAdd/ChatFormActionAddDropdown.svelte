@@ -76,13 +76,13 @@
 						{...props}
 						class={cn(
 							buttonVariants({ variant: 'secondary' }),
-							'file-upload-button h-8 w-8 cursor-pointer rounded-full p-0'
+							'file-upload-button h-8 w-8 cursor-pointer rounded-full p-0 group hover:scale-105 active:scale-95 transition-all duration-300 ease-out'
 						)}
 						{disabled}
 					>
 						<span class="sr-only">{ATTACHMENT_TOOLTIP_TEXT}</span>
 
-						<Plus class="h-4 w-4" />
+						<Plus class="h-4 w-4 transition-transform duration-300 ease-out group-hover:rotate-90" />
 					</DropdownMenu.Trigger>
 				{/snippet}
 			</Tooltip.Trigger>

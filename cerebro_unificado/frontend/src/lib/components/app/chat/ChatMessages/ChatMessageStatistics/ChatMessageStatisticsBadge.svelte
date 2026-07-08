@@ -9,9 +9,10 @@
 		icon: Component;
 		value: string | number;
 		tooltipLabel?: string;
+		useRgbEffect?: boolean;
 	}
 
-	let { class: className = '', icon: IconComponent, value, tooltipLabel }: Props = $props();
+	let { class: className = '', icon: IconComponent, value, tooltipLabel, useRgbEffect = false }: Props = $props();
 
 	function handleClick() {
 		void copyToClipboard(String(value));
@@ -28,7 +29,7 @@
 						<IconComponent class="h-3 w-3" />
 					{/snippet}
 
-					{value}
+					<span class={useRgbEffect ? 'animate-gradient-rgb font-semibold' : ''}>{value}</span>
 				</BadgeInfo>
 			{/snippet}
 		</Tooltip.Trigger>
@@ -42,6 +43,6 @@
 			<IconComponent class="h-3 w-3" />
 		{/snippet}
 
-		{value}
+		<span class={useRgbEffect ? 'animate-gradient-rgb font-semibold' : ''}>{value}</span>
 	</BadgeInfo>
 {/if}

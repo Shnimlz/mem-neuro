@@ -1,10 +1,13 @@
 export const BOX_BORDER =
-	'border border-border/30 focus-within:border-border  dark:border-border/20 dark:focus-within:border-border';
+	'border border-border/30 focus-within:border-primary/40 dark:border-border/20 dark:focus-within:border-primary/40';
 
 export const INPUT_CLASSES = `
-    bg-muted/60 dark:bg-muted/75
+    bg-card/75 dark:bg-card/45
+    backdrop-blur-md
     ${BOX_BORDER}
-    shadow-sm
+    shadow-sm focus-within:shadow-md
+    focus-within:ring-2 focus-within:ring-primary/10
+    transition-all duration-300 ease-out
     outline-none
     text-foreground
 `;

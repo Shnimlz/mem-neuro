@@ -268,14 +268,20 @@
 	aria-label="Assistant message with actions"
 >
 	{#if showProcessingInfoTop}
-		<div class="mt-6 w-full max-w-3xl" in:fade>
+		<div class="mt-6 w-full max-w-3xl space-y-3" in:fade>
 			<div class="processing-container">
-				<span class="processing-text">
+				<span class="processing-text text-sm font-medium">
 					{modelLoadingText ??
 						processingState.getPromptProgressText() ??
 						processingState.getProcessingMessage() ??
-						'Processing...'}
+						'Thinking...'}
 				</span>
+			</div>
+			<!-- Skeleton Loader Premium -->
+			<div class="flex flex-col gap-2.5 max-w-[85%] animate-pulse mt-4">
+				<div class="h-4 bg-muted/40 rounded-full w-full"></div>
+				<div class="h-4 bg-muted/40 rounded-full w-[90%]"></div>
+				<div class="h-4 bg-muted/40 rounded-full w-[65%]"></div>
 			</div>
 		</div>
 	{/if}

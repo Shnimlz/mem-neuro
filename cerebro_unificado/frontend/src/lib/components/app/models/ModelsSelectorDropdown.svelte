@@ -137,7 +137,7 @@
 							<DropdownMenu.Trigger
 								{...props}
 								class={[
-									`relative inline-grid cursor-pointer grid-cols-[1fr_auto_1fr] items-center gap-1.5 rounded-sm bg-background px-1.5 py-1 text-xs shadow-sm transition hover:bg-muted-foreground/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-muted-foreground/15 dark:text-secondary-foreground`,
+									`relative inline-grid cursor-pointer grid-cols-[1fr_auto_1fr] items-center gap-1.5 rounded-sm bg-background px-1.5 py-1 text-xs shadow-sm transition hover:bg-muted-foreground/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-muted-foreground/15 dark:text-secondary-foreground group hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out`,
 									!ms.isCurrentModelInCache
 										? 'bg-red-400/10 !text-red-400 hover:bg-red-400/20 hover:text-red-400'
 										: forceForegroundText
@@ -166,7 +166,7 @@
 								{#if ms.updating || ms.isLoadingModel}
 									<Loader2 class="h-3 w-3.5 shrink-0 animate-spin" />
 								{:else}
-									<ChevronDown class="h-3 w-3.5 shrink-0" />
+									<ChevronDown class="h-3 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-y-0.5" />
 								{/if}
 
 								{#if triggerLoading}
@@ -261,7 +261,7 @@
 						<button
 							{...props}
 							class={[
-								`inline-flex cursor-pointer items-center gap-1.5 rounded-sm bg-background px-1.5 py-1 text-xs shadow-sm transition hover:bg-muted-foreground/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-muted-foreground/15 dark:text-secondary-foreground`,
+								`inline-flex cursor-pointer items-center gap-1.5 rounded-sm bg-background px-1.5 py-1 text-xs shadow-sm transition hover:bg-muted-foreground/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-muted-foreground/15 dark:text-secondary-foreground group hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out`,
 								!ms.isCurrentModelInCache
 									? 'bg-red-400/10 !text-red-400 hover:bg-red-400/20 hover:text-red-400'
 									: forceForegroundText
