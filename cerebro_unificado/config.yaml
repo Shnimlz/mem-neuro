@@ -29,7 +29,7 @@ search:
 core:
   host: "127.0.0.1"
   port: 8000
-  user_name: "Antonio"
+  user_name: ""
 
 frontend:
   refresh_interval: 2000

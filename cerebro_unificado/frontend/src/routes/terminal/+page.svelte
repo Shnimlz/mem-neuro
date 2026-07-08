@@ -140,10 +140,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div
-	class="terminal-container"
-	onclick={handleContainerClick}
->
+<div class="terminal-container" onclick={handleContainerClick}>
 	<!-- Header -->
 	<div class="terminal-header">
 		<div class="terminal-dots">
@@ -151,9 +148,13 @@
 			<span class="dot dot-yellow"></span>
 			<span class="dot dot-green"></span>
 		</div>
-		<span class="terminal-title">antonio@cerebro:~</span>
+		<span class="terminal-title">terminal@cerebro:~</span>
 		<div class="terminal-status">
-			<span class="status-dot" class:status-connected={connected} class:status-disconnected={!connected}></span>
+			<span
+				class="status-dot"
+				class:status-connected={connected}
+				class:status-disconnected={!connected}
+			></span>
 			<span class="status-text">{connected ? 'Conectado' : 'Desconectado'}</span>
 		</div>
 	</div>
@@ -163,7 +164,8 @@
 		{#each lines as line}
 			<div class="terminal-line {line.type}">
 				{#if line.type === 'prompt'}
-					<span class="prompt-prefix">antonio@cerebro:~</span><span class="prompt-dollar">$</span> <span class="prompt-cmd">{line.text.replace(/^\$ /, '')}</span>
+					<span class="prompt-prefix">terminal@cerebro:~</span><span class="prompt-dollar">$</span>
+					<span class="prompt-cmd">{line.text.replace(/^\$ /, '')}</span>
 				{:else if line.type === 'output'}
 					<pre class="output-text">{line.text}</pre>
 				{:else if line.type === 'error'}
@@ -183,7 +185,7 @@
 
 	<!-- Input -->
 	<div class="terminal-input-row">
-		<span class="prompt-prefix">antonio@cerebro:~</span><span class="prompt-dollar">$</span>
+		<span class="prompt-prefix">terminal@cerebro:~</span><span class="prompt-dollar">$</span>
 		<input
 			bind:this={inputRef}
 			bind:value={inputValue}
@@ -204,7 +206,8 @@
 		flex-direction: column;
 		height: 100dvh;
 		background-color: #0c0a09;
-		font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'Menlo', 'Consolas', monospace;
+		font-family:
+			'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'Menlo', 'Consolas', monospace;
 		font-size: 13px;
 		color: #e0e0e0;
 		cursor: text;
@@ -232,9 +235,15 @@
 		height: 12px;
 		border-radius: 50%;
 	}
-	.dot-red { background: #ff5f57; }
-	.dot-yellow { background: #febc2e; }
-	.dot-green { background: #28c840; }
+	.dot-red {
+		background: #ff5f57;
+	}
+	.dot-yellow {
+		background: #febc2e;
+	}
+	.dot-green {
+		background: #28c840;
+	}
 
 	.terminal-title {
 		flex: 1;
@@ -256,8 +265,14 @@
 		border-radius: 50%;
 		transition: background 0.3s;
 	}
-	.status-connected { background: #28c840; box-shadow: 0 0 6px #28c84080; }
-	.status-disconnected { background: #ff5f57; box-shadow: 0 0 6px #ff5f5780; }
+	.status-connected {
+		background: #28c840;
+		box-shadow: 0 0 6px #28c84080;
+	}
+	.status-disconnected {
+		background: #ff5f57;
+		box-shadow: 0 0 6px #ff5f5780;
+	}
 
 	.status-text {
 		font-size: 11px;
@@ -339,9 +354,15 @@
 	}
 
 	@keyframes blink {
-		0% { opacity: 0; }
-		50% { opacity: 1; }
-		100% { opacity: 0; }
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
 	}
 
 	.terminal-input-row {

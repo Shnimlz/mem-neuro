@@ -4,7 +4,7 @@ use_default_settings: true
 server:
   port: 8080
   bind_address: "0.0.0.0"
-  secret_key: "antonio-super-secret-key-searxng"
+  secret_key: "your_pass_key"
 
 search:
   safe_search: 0
