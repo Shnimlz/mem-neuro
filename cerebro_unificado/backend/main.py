@@ -94,7 +94,9 @@ SYSTEM_PROMPT_TEMPLATE = (
 
 
 def render_system_prompt(target_lang: str = "Spanish (Español)", user: str = "Antonio") -> str:
-    """Resuelve los tags dinámicos de SYSTEM_PROMPT_TEMPLATE en tiempo de ejecución."""
+    """Resuelve los tags dinámicos de SYSTEM_PROMPT_TEMPLATE en tiempo de ejecución.
+    Carga user_instructions.md (si existe) y lo anexa como preferencias del usuario.
+    """
     now = datetime.now()
     _DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
     _MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
@@ -105,13 +107,27 @@ def render_system_prompt(target_lang: str = "Spanish (Español)", user: str = "A
         f"{_DIAS[now.weekday()]}, {now.day} de {_MESES[now.month - 1]} "
         f"de {now.year} a las {hora_12}:{now.minute:02d} {ampm}"
     )
-    return (
+    base = (
         SYSTEM_PROMPT_TEMPLATE
         .replace("{{user}}", user)
         .replace("{{current_time}}", timestamp_es)
         .replace("{{os_version}}", _OS_VERSION_CACHED)
         .replace("{{target_lang}}", target_lang)
     )
+    # Cargar instrucciones personalizadas del usuario (si existen)
+    _instructions_path = Path(__file__).parent / "user_instructions.md"
+    try:
+        if _instructions_path.exists():
+            _user_text = _instructions_path.read_text(encoding="utf-8").strip()
+            if _user_text:
+                base += (
+                    f"\n\n[USER PREFERENCES — PERSONAL INSTRUCTIONS FROM {user.upper()}]\n"
+                    f"The following are {user}'s personal preferences. Follow them when applicable:\n\n"
+                    f"{_user_text}"
+                )
+    except Exception:
+        pass  # Si falla la lectura, no romper el sistema
+    return base
 
 def extract_commands(text: str) -> list[str]:
     """Extrae comandos localizados en la respuesta de forma ultra robusta y a prueba de markdown.
