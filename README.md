@@ -203,7 +203,7 @@ Description=Cerebro llama.cpp Chat Server
 After=network.target
 
 [Service]
-ExecStart=/home/antonio/Github/llama.cpp/build/bin/llama-server -m /home/antonio/Documentos/models/DeepSeek-R1-Distill-Llama-8B-Q4_K_M.gguf -c 4096 --port 8080 --host 127.0.0.1
+ExecStart=/home/YourUsername/Github/llama.cpp/build/bin/llama-server -m /home/YourName/Path/to/models/YourModel.gguf -c 4096 --port 8080 --host 127.0.0.1
 Restart=on-failure
 
 [Install]
@@ -217,7 +217,7 @@ Description=Cerebro llama.cpp Embeddings Server
 After=network.target
 
 [Service]
-ExecStart=/home/antonio/Github/llama.cpp/build/bin/llama-server -m /home/antonio/Documentos/models/all-MiniLM-L6-v2-ggml-model-f16.gguf --port 8081 --host 127.0.0.1 --embeddings --pooling mean
+ExecStart=/home/YourUsername/Github/llama.cpp/build/bin/llama-server -m /home/YourName/Path/to/models/YourModel.gguf --port 8081 --host 127.0.0.1 --embeddings --pooling mean
 Restart=on-failure
 
 [Install]
@@ -231,8 +231,8 @@ Description=Cerebro Autonomous Core Backend
 After=network.target
 
 [Service]
-WorkingDirectory=/home/antonio/Github/mem-neuro/cerebro_unificado/backend
-ExecStart=/home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/bin/python3 main.py
+WorkingDirectory=/home/YourName/Github/mem-neuro/cerebro_unificado/backend
+ExecStart=/home/YourName/Github/mem-neuro/cerebro_unificado/backend/.venv/bin/python3 main.py
 Restart=on-failure
 
 [Install]

@@ -8763,3 +8763,21 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-07-08 12:54:14 | INFO     | cerebro.main | [Interceptor Tool] Lanzando segundo turno de streaming con datos reales...
 2026-07-08 12:54:47 | INFO     | cerebro.database | Nodo creado: 022e3606 [CONOCIMIENTO] sesión=proxy-chat-session
 2026-07-08 12:54:47 | INFO     | cerebro.database | Arista creada: 8698119a → 022e3606 (peso=1.0)
+2026-07-08 13:22:43 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Iniciando ═══
+2026-07-08 13:22:43 | INFO     | cerebro.database | Extensión sqlite-vec cargada correctamente desde /home/antonio/Github/mem-neuro/cerebro_unificado/backend/.venv/lib/python3.14/site-packages/sqlite_vec/vec0
+2026-07-08 13:22:43 | INFO     | cerebro.database | Tabla vec_embeddings (dimensión=384) inicializada
+2026-07-08 13:22:43 | INFO     | cerebro.database | Base de datos inicializada: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/brain.db (WAL mode)
+2026-07-08 13:22:43 | INFO     | cerebro.main | Base de datos: 53 nodos, 52 aristas
+2026-07-08 13:22:43 | INFO     | cerebro.main | Clasificador inicializado: LLM en http://127.0.0.1:8080 (timeout: 5.0s)
+2026-07-08 13:22:43 | INFO     | cerebro.main | Cliente de embeddings inicializado: Servidor en http://127.0.0.1:8081 (dimensión=384, normalización=True)
+2026-07-08 13:22:43 | INFO     | cerebro.web_scraper | Cargadas 3 reglas de extracción específicas desde sources.json
+2026-07-08 13:22:43 | INFO     | cerebro.main | Módulo de Scraping inicializado: Enabled=True (TTL=604800s, maxLength=2000)
+2026-07-08 13:22:43 | INFO     | cerebro.main | Orquestador de Búsqueda (SearchOrchestrator) inicializado: Provider=bing, Browserless=http://127.0.0.1:3000
+2026-07-08 13:22:43 | INFO     | cerebro.database | Iniciando copia de seguridad en caliente de la base de datos a: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260708_132243.db
+2026-07-08 13:22:43 | INFO     | cerebro.database | Copia de seguridad completada con éxito.
+2026-07-08 13:22:43 | INFO     | cerebro.database | Copia de seguridad antigua eliminada por rotación: /home/antonio/Github/mem-neuro/cerebro_unificado/storage/backups/brain-20260707_210934.db
+2026-07-08 13:22:43 | INFO     | cerebro.main | Agente Cron Autónomo deshabilitado por política de seguridad del terminal.
+2026-07-08 13:22:43 | INFO     | cerebro.main | ═══ Cerebro Autónomo Unificado — Listo en 127.0.0.1:8000 ═══
+2026-07-08 13:22:44 | INFO     | cerebro.main | WebSocket conectado — total: 1
+2026-07-08 13:22:45 | INFO     | cerebro.database | Iniciando tarea de poda y consolidación de recuerdos de CONOCIMIENTO antiguos (creados antes de 2026-07-01 13:22:45)
+2026-07-08 13:22:45 | INFO     | cerebro.database | No se encontraron recuerdos de CONOCIMIENTO antiguos para podar.
